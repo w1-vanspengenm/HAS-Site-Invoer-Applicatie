@@ -1,3 +1,4 @@
+var l;
 var j;
 function handleFile(e) {
   var files = e.target.files;
@@ -58,28 +59,29 @@ function handleDrop(e) {
     else
     
     {
-      reader.onload = function(e) {
-      var data = e.target.result;
-      var workbook = XLSX.read(data, {type: 'binary'});
-        /*achterhaal de naam van het eerste werkblad*/
-        var first_sheet_name = workbook.SheetNames[0];
-        /*sla dat werkbland op in var*/
-        var worksheet = workbook.Sheets[first_sheet_name];
-        j= XLSX.utils.sheet_to_json(worksheet);
-        console.log(j);
-    };
+        reader.onload = function (e)
+        {
+            var data = e.target.result;
+            var workbook = XLSX.read(data, { type: 'binary' });
+            /*achterhaal de naam van het eerste werkblad*/
+            var first_sheet_name = workbook.SheetNames[0];
+            /*sla dat werkbland op in var*/
+            var worksheet = workbook.Sheets[first_sheet_name];
+            j = XLSX.utils.sheet_to_json(worksheet);
+            l = j.length;
+            outputJSON(j,l);
+        };
     reader.readAsBinaryString(f);
     }
   }
 }
-outputJSON(j);
 
-function outputJSON(data)
+
+function outputJSON(j,l)
 
 {
-    for(i=0; i<data.length; i++ )
-    
+    for(i=0; i<l; i++ )
     {
-      document.write(data.adres1)  
+      $("#output").html("<h1>"+j[i].adres1+"</h1>");  
     }
 }
