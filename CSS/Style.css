@@ -1,0 +1,38 @@
+body
+{
+    background-color: #fff;
+    font-family: Verdana;
+}
+#Header
+{
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-family: Verdana; 
+}
+h1
+{
+    color: #000;
+    font-family: Verdana;
+}
+h3
+{
+    color: #000;
+    font-family: Verdana;
+}
+#Dropzone
+{
+    width: 50%;
+    height: auto;
+    border: 2px solid #0084C9;
+    text-align: center;
+    padding: 30px 30px 30px 30px;
+    font-family: Verdana;
+}
+.selected
+{
+    background-color: #96BF0D;
+    font-weight: bold;
+    font-family: Verdana;
+    color: #0084C9;
+}
