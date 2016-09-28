@@ -11,18 +11,20 @@
         <script src="JS/myScript.js"></script>
     </head>
     <body>
-        <div id="Header">
+        <div id="header">
             <img src="Images/has.png" alt="HAS logo">
             <h1>Invoer applicatie HAS actuele internationale mobiliteit</h1>
         </div>
         <br>
         <label for="fileSelect">
-            Selecteer een Exel sheet:
+            Selecteer een Excel sheet:
         </label>
         <input type="file" id="fileSelect" onChange="handleFile(event)">
         <br>
         <h3>of</h3>
         <br>
-        <div id="Dropzone" ondrop="handleDrop(event)">Sleep het (Exel) bestand hierin.</div>
+        <div id="dropzone" ondrop="handleDrop(event)">Sleep het (Excel) bestand hierin.</div>
+        <br>
+        <div id="output"></div>
     </body>
 </html>

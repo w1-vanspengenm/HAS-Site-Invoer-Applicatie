@@ -3,7 +3,7 @@ body
     background-color: #fff;
     font-family: Verdana;
 }
-#Header
+#header
 {
     width: 100%;
     height: auto;
@@ -20,7 +20,7 @@ h3
     color: #000;
     font-family: Verdana;
 }
-#Dropzone
+#dropzone
 {
     width: 50%;
     height: auto;
@@ -35,4 +35,10 @@ h3
     font-weight: bold;
     font-family: Verdana;
     color: #0084C9;
+}
+#output
+{
+    width: 100%;
+    height: auto;
+    font-family: Verdana;
 }
