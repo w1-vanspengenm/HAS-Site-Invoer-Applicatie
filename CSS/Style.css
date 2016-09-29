@@ -10,12 +10,7 @@ body
     text-align: center;
     font-family: Verdana; 
 }
-h1
-{
-    color: #000;
-    font-family: Verdana;
-}
-h3
+h1, h2, h3, h4, h5
 {
     color: #000;
     font-family: Verdana;
@@ -41,4 +36,8 @@ h3
     width: 100%;
     height: auto;
     font-family: Verdana;
+}
+table tr td
+{
+    border: 1px solid #0084C9;
 }

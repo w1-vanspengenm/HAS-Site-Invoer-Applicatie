@@ -1,5 +1,6 @@
-var l;
 var j;
+var output;
+
 function handleFile(e) {
   var files = e.target.files;
   var i,f;
@@ -16,11 +17,12 @@ function handleFile(e) {
         /*sla dat werkbland op in var*/
         var worksheet = workbook.Sheets[first_sheet_name];
         j = XLSX.utils.sheet_to_json(worksheet);
-        console.log(j);
+        outputJson(j);
     };
     reader.readAsBinaryString(f);
   }
 }
+
 $(document).ready(function ()
 {
     $("#dropzone").on("dragover", function (e)
@@ -68,20 +70,34 @@ function handleDrop(e) {
             /*sla dat werkbland op in var*/
             var worksheet = workbook.Sheets[first_sheet_name];
             j = XLSX.utils.sheet_to_json(worksheet);
-            l = j.length;
-            outputJSON(j,l);
+            outputJson(j);
         };
     reader.readAsBinaryString(f);
     }
   }
 }
 
-
-function outputJSON(j,l)
+function outputJson(j)
 
 {
-    for(i=0; i<l; i++ )
-    {
-      $("#output").html("<h1>"+j[i].adres1+"</h1>");  
-    }
+output = "<table><tr><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstud_richting</th><th>Startdatum</th><th>Einddatum</th><th>Soort</th></tr>";
+    for (i = 0; i != j.length; i++)
+            {
+                output += "<tr>";
+                output += "<td>" + j[i].Bedrijfnaam + "</td>";
+                output += "<td>" + j[i].Adres1 + "</td>";
+                output += "<td>" + j[i].Adres2 + "</td>";
+                output += "<td>" + j[i].Postcode + "</td>";
+                output += "<td>" + j[i].Plaats + "</td>";
+                output += "<td>" + j[i].Land + "</td>";
+                output += "<td>" + j[i].Student + "</td>";
+                output += "<td>" + j[i].Opleiding + "</td>";
+                output += "<td>" + j[i].Afstud_richting + "</td>";
+                output += "<td>" + j[i].Startdatum + "</td>";
+                output += "<td>" + j[i].Einddatum + "</td>";
+                output += "<td>" + j[i].Soort + "</td>";
+                output += "</tr>";
+            }
+output += "</table>";
+  $("#output").html(output);
 }
