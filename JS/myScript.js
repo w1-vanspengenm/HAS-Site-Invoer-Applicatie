@@ -1,9 +1,21 @@
 var j;
 var output;
 
+function checkFileType(files)
+
+{
+  var fileName=files[0].name;
+  if(fileName.indexOf("xls")==-1 && fileName.indexOf("xlsx")==-1)
+  
+  {
+      $("#output").html("<h2>Dit bestandstype wordt niet ondersteund!</h2>");
+  }
+}
+
 function handleFile(e) {
   var files = e.target.files;
   var i,f;
+  checkFileType(files);
  for (i = 0, f = files[i]; i != files.length; ++i) {
     var reader = new FileReader();
     var name = f.name;
@@ -22,7 +34,6 @@ function handleFile(e) {
     reader.readAsBinaryString(f);
   }
 }
-
 $(document).ready(function ()
 {
     $("#dropzone").on("dragover", function (e)
@@ -30,17 +41,18 @@ $(document).ready(function ()
         e.preventDefault();
         $(this).addClass("selected");
         $(this).text("Laat muis los.");
+       
     });
     $("#dropzone").on("dragleave", function (e)
     {
         e.preventDefault();
         $(this).removeClass("selected");
-        $(this).text("Sleep het (Excel) bestand hierin.");
+        $(this).text("Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).");
     });
     $("#dropzone").on("mouseleave", function ()
     {
         $(this).removeClass("selected");
-        $(this).text("Sleep het (Excel) bestand hierin.");
+        $(this).text("Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).");
     });
 });
 
@@ -49,6 +61,7 @@ function handleDrop(e) {
   e.stopPropagation();
   var files = e.dataTransfer.files;
   var i,f;
+  checkFileType(files);
   for (i = 0, f = files[i]; i != files.length; ++i) {
     var reader = new FileReader();
     var name = f.name;
