@@ -5,7 +5,7 @@ function checkFileType(files)
 
 {
   var fileName=files[0].name;
-  if(fileName.indexOf("xls")==-1 && fileName.indexOf("xlsx")==-1)
+  if(fileName.indexOf(".xls")==-1 && fileName.indexOf(".xlsx")==-1)
   
   {
       $("#output").html("<h2>Dit bestandstype wordt niet ondersteund!</h2>");
@@ -41,7 +41,7 @@ $(document).ready(function ()
         e.preventDefault();
         $(this).addClass("selected");
         $(this).text("Laat muis los.");
-       
+
     });
     $("#dropzone").on("dragleave", function (e)
     {

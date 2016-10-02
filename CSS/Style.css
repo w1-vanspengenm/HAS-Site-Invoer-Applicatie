@@ -5,7 +5,7 @@ body
 }
 #header
 {
-    width: 100%;
+    width: 99.4vw;
     height: auto;
     text-align: center;
     font-family: Verdana; 
@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5
 }
 #dropzone
 {
-    width: 50%;
+    width: 50vw;
     height: auto;
     border: 2px solid #0084C9;
     text-align: center;
@@ -33,11 +33,27 @@ h1, h2, h3, h4, h5
 }
 #output
 {
-    width: 100%;
-    height: auto;
+    width: 99.4vw;
+    height: 30vh;
     font-family: Verdana;
+    overflow: auto;
 }
 table tr td
 {
     border: 1px solid #0084C9;
+}
+
+::-webkit-scrollbar
+{
+    background: #96BF0D;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background-color: #0084C9;
+  
+}
+::-webkit-scrollbar-corner
+{
+   background-color:  #0084C9;
 }
