@@ -1,6 +1,13 @@
 var j;
 var output;
 
+function selectedValue()
+{
+    valueSelect = $("#soortBestand").val();
+    console.log(valueSelect);
+    return valueSelect;
+}
+
 function checkFileType(files)
 
 {
@@ -29,7 +36,7 @@ function handleFile(e) {
         /*sla dat werkbland op in var*/
         var worksheet = workbook.Sheets[first_sheet_name];
         j = XLSX.utils.sheet_to_json(worksheet);
-        outputJson(j);
+        outputJsonStage(j);
     };
     reader.readAsBinaryString(f);
   }
@@ -83,34 +90,119 @@ function handleDrop(e) {
             /*sla dat werkbland op in var*/
             var worksheet = workbook.Sheets[first_sheet_name];
             j = XLSX.utils.sheet_to_json(worksheet);
-            outputJson(j);
+            switch (selectedValue())
+            {
+                case "stages":
+                    outputJsonStage(j);
+                    break;
+                default:
+                    $("#output").html("<h2>Maak een keuze!</h2>");
+                    break;
+            }
         };
     reader.readAsBinaryString(f);
     }
   }
 }
 
-function outputJson(j)
+function outputJsonStage(j)
 
 {
-output = "<table><tr><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstud_richting</th><th>Startdatum</th><th>Einddatum</th><th>Soort</th></tr>";
+output = '<table><tr><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstud_richting</th><th>Startdatum</th><th>Einddatum</th></tr>';
     for (i = 0; i != j.length; i++)
             {
-                output += "<tr>";
-                output += "<td>" + j[i].Bedrijfnaam + "</td>";
-                output += "<td>" + j[i].Adres1 + "</td>";
-                output += "<td>" + j[i].Adres2 + "</td>";
-                output += "<td>" + j[i].Postcode + "</td>";
-                output += "<td>" + j[i].Plaats + "</td>";
-                output += "<td>" + j[i].Land + "</td>";
-                output += "<td>" + j[i].Student + "</td>";
-                output += "<td>" + j[i].Opleiding + "</td>";
-                output += "<td>" + j[i].Afstud_richting + "</td>";
-                output += "<td>" + j[i].Startdatum + "</td>";
-                output += "<td>" + j[i].Einddatum + "</td>";
-                output += "<td>" + j[i].Soort + "</td>";
-                output += "</tr>";
+                output += '<tr>';
+                if(j[i].Bedrijfnaam==null)
+                {
+                    output += '<td id="A'+i+'">&nbsp;</td>';
+                }
+                else
+                {
+                   output += '<td id="A'+i+'">' + j[i].Bedrijfnaam + '</td>';
+                }
+                if(j[i].Adres1==null)
+                {
+                    output += '<td id="B'+i+'">&nbsp;</td>';
+                }
+                else
+                {
+                    output += '<td id="B'+i+'">' + j[i].Adres1 + '</td>';
+                }
+                if(j[i].Adres2==null)
+                
+                {
+                    output += '<td id="C'+i+'">&nbsp;</td>';
+                }
+                else
+                {
+                     output += '<td id="C'+i+'">' + j[i].Adres2 + '</td>';
+                }
+               if(j[i].Postcode==null)
+               {
+                   output += '<td id="D'+i+'">&nbsp;</td>';
+               }
+               else
+               {
+                   output += '<td id="D'+i+'">' + j[i].Postcode + '</td>';
+               }
+               if(j[i].Plaats==null)
+               {
+                   output += '<td id="E'+i+'">&nbsp;</td>';
+               }
+               else
+               {
+                   output += '<td id="E'+i+'">' + j[i].Plaats + '</td>';
+               }
+               if(j[i].Land==null)
+               {
+                   output += '<td id="F'+i+'">&nbsp;</td>';
+               }
+               else
+               {
+                   output += '<td id="F'+i+'">' + j[i].Land + '</td>';
+               }
+               if(j[i].Student==null)
+               {
+                   output += '<td id="G'+i+'">&nbsp;</td>';
+               }
+               else
+               {
+                   output += '<td id="G'+i+'">' + j[i].Student + '</td>';
+               }
+               if(j[i].Opleiding==null)
+               {
+                   output += '<td id="H'+i+'">&nbsp;</td>';
+               }
+               else
+               {
+                   output += '<td id="H'+i+'">' + j[i].Opleiding + '</td>';
+               }
+               if(j[i].Afstud_richting==null)
+               {
+                   output += '<td id="I'+i+'">&nbsp;</td>';
+               }
+               else
+               {
+                   output += '<td id="I'+i+'">' + j[i].Afstud_richting + '</td>';
+               }
+               if(j[i].Startdatum==null)
+               {
+                   output += '<td id="J'+i+'">&nbsp;</td>';
+               }
+               else
+               {
+                   output += '<td id="J'+i+'">' + j[i].Startdatum + '</td>';
+               }
+               if(j[i].Einddatum==null)
+               {
+                   output += '<td id="K'+i+'">&nbsp;</td>';
+               }
+               else
+               {
+                   output += '<td id=K'+i+'">' + j[i].Einddatum + '</td>';
+               }
+                output += '</tr>';
             }
 output += "</table>";
-  $("#output").html(output);
+$("#output").html(output);
 }

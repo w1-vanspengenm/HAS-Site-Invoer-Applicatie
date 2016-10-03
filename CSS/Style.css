@@ -57,3 +57,14 @@ table tr td
 {
    background-color:  #0084C9;
 }
+::selection
+{
+    background-color: #96BF0D;
+    color: #0084C9;
+}
+/* firefox selectie*/
+::-moz-selection
+{
+  background: #96BF0D;
+  color: #0084C9;
+}

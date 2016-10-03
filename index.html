@@ -17,6 +17,15 @@
             <img src="Images/has_logo.png" alt="HAS logo">
             <h1>Invoer applicatie HAS actuele internationale mobiliteit</h1>
         </div>
+        <label for="soortBestand">
+            Wat voor soort Bestand is dit:
+        </label>
+        <select id="soortBestand" onchange="selectedValue()">
+            <option value="placeholder" disabled selected hidden>Kies optie...</option>
+            <option value="stages">Stage in het buitenland</option>
+            <option value="medewerkers">Medewerkers in het buitenland</option>
+            <option value="studies">Studies in het buitenland</option>
+        </select>
         <br>
         <label for="fileSelect">
             Selecteer een Excel sheet:
