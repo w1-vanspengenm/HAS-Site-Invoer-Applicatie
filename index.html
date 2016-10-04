@@ -18,14 +18,15 @@
             <h1>Invoer applicatie HAS actuele internationale mobiliteit</h1>
         </div>
         <label for="soortBestand">
-            Wat voor soort Bestand is dit:
+            Wat voor soort bestand is dit:
         </label>
-        <select id="soortBestand" onchange="selectedValue()">
+        <select id="soortBestand" onchange="onSelect()">
             <option value="placeholder" disabled selected hidden>Kies optie...</option>
             <option value="stages">Stage in het buitenland</option>
             <option value="medewerkers">Medewerkers in het buitenland</option>
             <option value="studies">Studies in het buitenland</option>
         </select>
+        <div id="input">
         <br>
         <label for="fileSelect">
             Selecteer een Excel sheet:
@@ -36,6 +37,7 @@
         <br>
         <div id="dropzone" ondrop="handleDrop(event)">Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).</div>
         <br>
+        </div>
         <div id="output"></div>
     </body>
 </html>

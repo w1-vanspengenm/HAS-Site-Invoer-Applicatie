@@ -1,8 +1,9 @@
 var j;
 var output;
 
-function selectedValue()
+function onSelect()
 {
+    $("#input").fadeIn("Slow");
     valueSelect = $("#soortBestand").val();
     console.log(valueSelect);
     return valueSelect;
@@ -36,13 +37,26 @@ function handleFile(e) {
         /*sla dat werkbland op in var*/
         var worksheet = workbook.Sheets[first_sheet_name];
         j = XLSX.utils.sheet_to_json(worksheet);
-        outputJsonStage(j);
+        switch (onSelect())
+            {
+                case "stages":
+                    outputJsonStage(j);
+                    break;
+                case "medewerkers":
+                    outputJsonMedewerkers(j);
+                    break;
+                case "studies":
+                    outputJsonStudies(j);
+                    break;
+            }
     };
     reader.readAsBinaryString(f);
   }
 }
 $(document).ready(function ()
 {
+    $("#input").hide();
+    $("#output").hide();
     $("#dropzone").on("dragover", function (e)
     {
         e.preventDefault();
@@ -90,13 +104,16 @@ function handleDrop(e) {
             /*sla dat werkbland op in var*/
             var worksheet = workbook.Sheets[first_sheet_name];
             j = XLSX.utils.sheet_to_json(worksheet);
-            switch (selectedValue())
+            switch (onSelect())
             {
                 case "stages":
                     outputJsonStage(j);
                     break;
-                default:
-                    $("#output").html("<h2>Maak een keuze!</h2>");
+                case "medewerkers":
+                    outputJsonMedewerkers(j);
+                    break;
+                case "studies":
+                    outputJsonStudies(j);
                     break;
             }
         };
@@ -204,5 +221,152 @@ output = '<table><tr><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postc
                 output += '</tr>';
             }
 output += "</table>";
+$("#output").fadeIn("Slow");
+$("#output").html(output);
+}
+
+function outputJsonMedewerkers(j)
+{
+    output = '<table><tr><th>Naam medewerker</th><th>Datum vertrek</th><th>Datum terugkomst</th><th>Instelling of organisatie</th><th>beschrijving (engels)</th><th>Straat</th><th>Huisnummer</th><th>Plaats</th><th>Land (engels)</th></tr>';
+    for(i=0; i!=j.length; i++)
+    {
+        output += '<tr>';
+        if(j[i].Naam_medewerker==null)
+        {
+            output += '<td id="A'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+             output += '<td id="A'+i+'">' + j[i].Naam_medewerker + '</td>';
+        }
+        if(j[i].Datum_vertrek==null)
+        {
+            output += '<td id="B'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="B'+i+'">' + j[i].Datum_vertrek + '</td>';
+        }
+        if(j[i].Datum_terugkomst==null)
+        {
+            output += '<td id="C'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="C'+i+'">' + j[i].Datum_terugkomst + '</td>';
+        }
+        if(j[i].Instelling_of_organisatie==null)
+        {
+            output += '<td id="D'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="D'+i+'">' + j[i].Instelling_of_organisatie + '</td>';
+        }
+        if(j[i].Beschrijving_En==null)
+        {
+            output += '<td id="E'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="E'+i+'">' + j[i].Beschrijving_En + '</td>';
+        }
+        if(j[i].Straat==null)
+        {
+            output += '<td id="F'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="F'+i+'">' + j[i].Straat + '</td>';
+        }
+        if(j[i].Huisnummer==null)
+        {
+            output += '<td id="G'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="G'+i+'">' + j[i].Huisnummer + '</td>';
+        }
+        if(j[i].Plaats==null)
+        {
+            output += '<td id="H'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="H'+i+'">' + j[i].Plaats + '</td>';
+        }
+        if(j[i].Land_En==null)
+        {
+            output += '<td id="I'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="I'+i+'">' + j[i].Land_En + '</td>';
+        }
+        output += '</tr>';
+    }
+output += "</table>";
+$("#output").fadeIn("Slow");
+$("#output").html(output);
+}
+
+function outputJsonStudies(j)
+{
+    output = '<table><tr><th>Naam student</th><th>Opleiding</th><th>Datum vertrek</th><th>Datum terugkomst</th><th>Instelling</th><th>Land</th></tr>';
+    for(i=0; i!=j.length; i++)
+    {
+        output += '<tr>';
+        if(j[i].Naam_student==null)
+        {
+            output += '<td id="A'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="A'+i+'">' + j[i].Naam_student + '</td>';
+        }
+        if(j[i].Opleiding==null)
+        {
+            output += '<td id="B'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="B'+i+'">' + j[i].Opleiding + '</td>';
+        }
+        if(j[i].Datum_vertrek==null)
+        {
+            output += '<td id="C'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="C'+i+'">' + j[i].Datum_vertrek + '</td>';
+        }
+        if(j[i].Datum_terugkomst==null)
+        {
+            output += '<td id="D'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="D'+i+'">' + j[i].Datum_terugkomst + '</td>';
+        }
+        if(j[i].Instelling==null)
+        {
+            output += '<td id="E'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="E'+i+'">' + j[i].Instelling + '</td>';
+        }
+        if(j[i].Land==null)
+        {
+            output += '<td id="F'+i+'">&nbsp;</td>';
+        }
+        else
+        {
+            output += '<td id="F'+i+'">' + j[i].Land + '</td>';
+        }
+        output += '</tr>';
+    }
+    output += '</table>';
+$("#output").fadeIn("Slow");
 $("#output").html(output);
 }
