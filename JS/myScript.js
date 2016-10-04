@@ -3,24 +3,25 @@ var output;
 
 function onSelect()
 {
+    $("#output").fadeOut("Slow");
     $("#input").fadeIn("Slow");
     valueSelect = $("#soortBestand").val();
-    console.log(valueSelect);
     return valueSelect;
 }
 
 function checkFileType(files)
-
 {
   var fileName=files[0].name;
   if(fileName.indexOf(".xls")==-1 && fileName.indexOf(".xlsx")==-1)
   
   {
+      $("#output").fadeIn("Slow");
       $("#output").html("<h2>Dit bestandstype wordt niet ondersteund!</h2>");
   }
 }
 
 function handleFile(e) {
+  $("#output").fadeOut(100);
   var files = e.target.files;
   var i,f;
   checkFileType(files);
@@ -78,6 +79,7 @@ $(document).ready(function ()
 });
 
 function handleDrop(e) {
+  $("#output").fadeOut(100);
   e.preventDefault();
   e.stopPropagation();
   var files = e.dataTransfer.files;
@@ -88,12 +90,11 @@ function handleDrop(e) {
     var name = f.name;
     // tijdelijke oplossing zodat de functie maar 1 bestand tegelijk verwerkt
     if(files.length!=1)
-    
     {
+        $("#output").fadeIn("Slow");
         $("#output").html("<h2>Gebruik 1 bestand tegelijk!</h2>");
     }
     else
-    
     {
         reader.onload = function (e)
         {
@@ -123,7 +124,6 @@ function handleDrop(e) {
 }
 
 function outputJsonStage(j)
-
 {
 output = '<table><tr><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstud_richting</th><th>Startdatum</th><th>Einddatum</th></tr>';
     for (i = 0; i != j.length; i++)
