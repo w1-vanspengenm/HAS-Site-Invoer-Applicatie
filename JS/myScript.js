@@ -125,98 +125,98 @@ function handleDrop(e) {
 
 function outputJsonStage(j)
 {
-output = '<table><tr><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstud_richting</th><th>Startdatum</th><th>Einddatum</th></tr>';
+output = '<table><tr><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th></tr>';
     for (i = 0; i != j.length; i++)
             {
                 output += '<tr>';
                 if(j[i].Bedrijfnaam==null)
                 {
-                    output += '<td id="A'+i+'">&nbsp;</td>';
+                    output += '<td><input type="text" class="textfield" id="A'+i+'" value=""</td>';
                 }
                 else
                 {
-                   output += '<td id="A'+i+'">' + j[i].Bedrijfnaam + '</td>';
+                   output += '<td><input type="text" class="textfield" id="A'+i+'" value="'+j[i].Bedrijfnaam+'"></td>';
                 }
                 if(j[i].Adres1==null)
                 {
-                    output += '<td id="B'+i+'">&nbsp;</td>';
+                    output += '<td><input type="text" class="textfield" id="B'+i+'" value=""</td>';
                 }
                 else
                 {
-                    output += '<td id="B'+i+'">' + j[i].Adres1 + '</td>';
+                    output += '<td><input type="text" class="textfield" id="B'+i+'" value="'+j[i].Adres1+'"></td>';
                 }
                 if(j[i].Adres2==null)
                 
                 {
-                    output += '<td id="C'+i+'">&nbsp;</td>';
+                    output += '<td><input type="text" class="textfield" id="C'+i+'" value=""</td>';
                 }
                 else
                 {
-                     output += '<td id="C'+i+'">' + j[i].Adres2 + '</td>';
+                     output += '<td><input type="text" class="textfield" id="C'+i+'" value="'+j[i].Adres2+'"></td>';
                 }
                if(j[i].Postcode==null)
                {
-                   output += '<td id="D'+i+'">&nbsp;</td>';
+                   output += '<td><input type="text" class="textfield" id="D'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td id="D'+i+'">' + j[i].Postcode + '</td>';
+                   output += '<td><input type="text" class="textfield" id="D'+i+'" value="'+j[i].Postcode+'"></td>';
                }
                if(j[i].Plaats==null)
                {
-                   output += '<td id="E'+i+'">&nbsp;</td>';
+                   output += '<td><input type="text" class="textfield" id="E'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td id="E'+i+'">' + j[i].Plaats + '</td>';
+                   output += '<td><input type="text" class="textfield" id="E'+i+'" value="'+j[i].Plaats+'"></td>';
                }
                if(j[i].Land==null)
                {
-                   output += '<td id="F'+i+'">&nbsp;</td>';
+                   output += '<td><input type="text" class="textfield" id="F'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td id="F'+i+'">' + j[i].Land + '</td>';
+                   output += '<td><input type="text" class="textfield" id="F'+i+'" value="'+j[i].Land+'"></td>';
                }
                if(j[i].Student==null)
                {
-                   output += '<td id="G'+i+'">&nbsp;</td>';
+                   output += '<td><input type="text" class="textfield" id="G'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td id="G'+i+'">' + j[i].Student + '</td>';
+                   output += '<td><input type="text" class="textfield" id="G'+i+'" value="'+j[i].Student+'"></td>';
                }
                if(j[i].Opleiding==null)
                {
-                   output += '<td id="H'+i+'">&nbsp;</td>';
+                   output += '<td><input type="text" class="textfield" id="H'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td id="H'+i+'">' + j[i].Opleiding + '</td>';
+                   output += '<td><input type="text" class="textfield" id="H'+i+'" value="'+j[i].Opleiding+'"></td>';
                }
                if(j[i].Afstud_richting==null)
                {
-                   output += '<td id="I'+i+'">&nbsp;</td>';
+                   output += '<td><input type="text" class="textfield" id="I'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td id="I'+i+'">' + j[i].Afstud_richting + '</td>';
+                   output += '<td><input type="text" class="textfield" id="I'+i+'" value="'+j[i].Afstud_richting+'"></td>';
                }
                if(j[i].Startdatum==null)
                {
-                   output += '<td id="J'+i+'">&nbsp;</td>';
+                   output += '<td><input type="text" class="textfield" id="J'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td id="J'+i+'">' + j[i].Startdatum + '</td>';
+                   output += '<td><input type="text" class="textfield" id="J'+i+'" value="'+j[i].Startdatum+'"></td>';
                }
                if(j[i].Einddatum==null)
                {
-                   output += '<td id="K'+i+'">&nbsp;</td>';
+                   output += '<td><input type="text" class="textfield" id="K'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td id=K'+i+'">' + j[i].Einddatum + '</td>';
+                   output += '<td><input type="text" class="textfield" id="K'+i+'" value="'+j[i].Einddatum+'"></td>';
                }
                 output += '</tr>';
             }
@@ -233,75 +233,75 @@ function outputJsonMedewerkers(j)
         output += '<tr>';
         if(j[i].Naam_medewerker==null)
         {
-            output += '<td id="A'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="A'+i+'" value=""</td>';
         }
         else
         {
-             output += '<td id="A'+i+'">' + j[i].Naam_medewerker + '</td>';
+             output += '<td><input type="text" class="textfield" id="A'+i+'" value="'+j[i].Naam_medewerker+'"></td>';
         }
         if(j[i].Datum_vertrek==null)
         {
-            output += '<td id="B'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="B'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="B'+i+'">' + j[i].Datum_vertrek + '</td>';
+            output += '<td><input type="text" class="textfield" id="B'+i+'" value="'+j[i].Datum_vertrek+'"></td>';
         }
         if(j[i].Datum_terugkomst==null)
         {
-            output += '<td id="C'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="C'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="C'+i+'">' + j[i].Datum_terugkomst + '</td>';
+            output += '<td><input type="text" class="textfield" id="C'+i+'" value="'+j[i].Datum_terugkomst+'"></td>';
         }
         if(j[i].Instelling_of_organisatie==null)
         {
-            output += '<td id="D'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="D'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="D'+i+'">' + j[i].Instelling_of_organisatie + '</td>';
+            output += '<td><input type="text" class="textfield" id="D'+i+'" value="'+j[i].Instelling_of_organisatie+'"></td>';
         }
         if(j[i].Beschrijving_En==null)
         {
-            output += '<td id="E'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="E'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="E'+i+'">' + j[i].Beschrijving_En + '</td>';
+            output += '<td><input type="text" class="textfield" id="E'+i+'" value="'+j[i].Beschrijving_En+'"></td>';
         }
         if(j[i].Straat==null)
         {
-            output += '<td id="F'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="F'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="F'+i+'">' + j[i].Straat + '</td>';
+            output += '<td><input type="text" class="textfield" id="F'+i+'" value="'+j[i].Straat+'"></td>';
         }
         if(j[i].Huisnummer==null)
         {
-            output += '<td id="G'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="G'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="G'+i+'">' + j[i].Huisnummer + '</td>';
+            output += '<td><input type="text" class="textfield" id="G'+i+'" value="'+j[i].Huisnummer+'"></td>';
         }
         if(j[i].Plaats==null)
         {
-            output += '<td id="H'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="H'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="H'+i+'">' + j[i].Plaats + '</td>';
+            output += '<td><input type="text" class="textfield" id="H'+i+'" value="'+j[i].Plaats+'"></td>';
         }
         if(j[i].Land_En==null)
         {
-            output += '<td id="I'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="I'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="I'+i+'">' + j[i].Land_En + '</td>';
+            output += '<td><input type="text" class="textfield" id="I'+i+'" value="'+j[i].Land_En+'"></td>';
         }
         output += '</tr>';
     }
@@ -318,51 +318,51 @@ function outputJsonStudies(j)
         output += '<tr>';
         if(j[i].Naam_student==null)
         {
-            output += '<td id="A'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="A'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="A'+i+'">' + j[i].Naam_student + '</td>';
+            output += '<td><input type="text" class="textfield" id="A'+i+'" value="'+j[i].Naam_student+'"></td>';
         }
         if(j[i].Opleiding==null)
         {
-            output += '<td id="B'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="B'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="B'+i+'">' + j[i].Opleiding + '</td>';
+            output += '<td><input type="text" class="textfield" id="B'+i+'" value="'+j[i].Opleiding+'"></td>';
         }
         if(j[i].Datum_vertrek==null)
         {
-            output += '<td id="C'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="C'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="C'+i+'">' + j[i].Datum_vertrek + '</td>';
+            output += '<td><input type="text" class="textfield" id="C'+i+'" value="'+j[i].Datum_vertrek+'"></td>';
         }
         if(j[i].Datum_terugkomst==null)
         {
-            output += '<td id="D'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="D'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="D'+i+'">' + j[i].Datum_terugkomst + '</td>';
+            output += '<td><input type="text" class="textfield" id="D'+i+'" value="'+j[i].Datum_terugkomst+'"></td>';
         }
         if(j[i].Instelling==null)
         {
-            output += '<td id="E'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="E'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="E'+i+'">' + j[i].Instelling + '</td>';
+            output += '<td><input type="text" class="textfield" id="E'+i+'" value="'+j[i].Instelling+'"></td>';
         }
         if(j[i].Land==null)
         {
-            output += '<td id="F'+i+'">&nbsp;</td>';
+            output += '<td><input type="text" class="textfield" id="F'+i+'" value=""</td>';
         }
         else
         {
-            output += '<td id="F'+i+'">' + j[i].Land + '</td>';
+            output += '<td><input type="text" class="textfield" id="F'+i+'" value="'+j[i].Land+'"></td>';
         }
         output += '</tr>';
     }

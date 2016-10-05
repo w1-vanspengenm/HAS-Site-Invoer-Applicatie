@@ -26,10 +26,10 @@ h1, h2, h3, h4, h5
 }
 .selected
 {
-    background-color: #96BF0D;
+    background-color: #0084C9;
     font-weight: bold;
     font-family: Verdana;
-    color: #0084C9;
+    color: #8CD600;
 }
 #output
 {
@@ -45,26 +45,39 @@ table tr td
 
 ::-webkit-scrollbar
 {
-    background: #96BF0D;
+    background: #0084C9;
 }
 
 ::-webkit-scrollbar-thumb
 {
-    background-color: #0084C9;
+    background-color: #8CD600;
   
 }
 ::-webkit-scrollbar-corner
 {
-   background-color:  #0084C9;
+   background-color:  #8CD600;
 }
 ::selection
 {
-    background-color: #96BF0D;
-    color: #0084C9;
+    background-color: #0084C9;
+    color: #8CD600;
 }
 /* firefox selectie*/
 ::-moz-selection
 {
   background: #96BF0D;
-  color: #0084C9;
+  color: #8CD600;
+}
+.textfield:focus
+{
+    background-color: #0084C9;
+    font-family: Verdana;
+    font-size: large;
+    color: #8CD600;
+    border: none;
+}
+.textfield
+{
+    font-family: Verdana;
+    border: none;
 }
