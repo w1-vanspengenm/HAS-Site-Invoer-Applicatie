@@ -4,12 +4,17 @@
     <head>
         <meta charset="utf-8" />
         <title>Invoer applicatie HAS actuele internationale mobiliteit</title>
+        <!--Linken stylesheet-->
         <link rel="stylesheet" type="text/css" href="CSS/Style.css">
+        <!--Linken has favicon-->
         <link rel="shortcut icon" type="image/x-icon" href="Images/has_favicon.ico">
         <link rel="icon" href="Images/has_favicon.ico" type="image/x-icon">
+        <!--Linken jquery bestand-->
         <script src="JS/jquery-3.1.1.min.js"></script>
+        <!--Linken js-XLSX bestanden-->
         <script src="JS/shim.js"></script>
         <script src="JS/xlsx.core.min.js"></script>
+        <!--Linken eigen javascript-->
         <script src="JS/myScript.js"></script>
     </head>
     <body>
@@ -20,6 +25,7 @@
         <label for="soortBestand">
             Wat voor soort bestand is dit:
         </label>
+        <!--keuze om welk bestand soort bestand het gaat (aan de hand hiervan wordt de juiste uitvoerfunctie bepaald-->
         <select id="soortBestand" onchange="onSelect()">
             <option value="placeholder" disabled selected hidden>Kies optie...</option>
             <option value="stages">Stage in het buitenland</option>
@@ -38,6 +44,7 @@
         <div id="dropzone" ondrop="handleDrop(event)">Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).</div>
         <br>
         </div>
+        <!--Div waarin de output (ook foutmeldingen) wordt weergegeven-->
         <div id="output"></div>
     </body>
 </html>

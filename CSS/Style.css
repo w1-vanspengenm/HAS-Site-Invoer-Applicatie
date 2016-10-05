@@ -15,7 +15,7 @@ h1, h2, h3, h4, h5
     color: #000;
     font-family: Verdana;
 }
-#dropzone
+#dropzone /*Stijl voor het gebied waar je het bestand in sleept*/
 {
     width: 50vw;
     height: auto;
@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5
     padding: 30px 30px 30px 30px;
     font-family: Verdana;
 }
-.selected
+.selected /*actief als de gebruiker een bestand over dropzone sleept*/
 {
     background-color: #0084C9;
     font-weight: bold;
@@ -36,39 +36,38 @@ h1, h2, h3, h4, h5
     width: 99.4vw;
     height: 30vh;
     font-family: Verdana;
-    overflow: auto;
+    overflow: auto; /*Scrollen is door deze optie mogelijk*/
 }
-table tr td
+table tr td /*Opmaak tabel cel*/
 {
     border: 1px solid #0084C9;
 }
 
 ::-webkit-scrollbar
 {
-    background: #0084C9;
+    background: #0084C9; /*Achtergrond scrollbar*/
 }
 
-::-webkit-scrollbar-thumb
+::-webkit-scrollbar-thumb /*Kleur van het deel van de scrollbar wat de gebruiker beweegt*/
 {
     background-color: #8CD600;
   
 }
-::-webkit-scrollbar-corner
+::-webkit-scrollbar-corner /*Kleur hoek scrollbar*/
 {
    background-color:  #8CD600;
 }
-::selection
+::selection /*Aangepaste selectie kleur Webkit*/
 {
     background-color: #0084C9;
     color: #8CD600;
 }
-/* firefox selectie*/
-::-moz-selection
+::-moz-selection /*Firefox aangepaste selectie kleur*/
 {
   background: #96BF0D;
   color: #8CD600;
 }
-.textfield:focus
+.textfield:focus /*Opmaak van actief tekstveld (in output)*/
 {
     background-color: #0084C9;
     font-family: Verdana;
@@ -76,7 +75,7 @@ table tr td
     color: #8CD600;
     border: none;
 }
-.textfield
+.textfield /*Opmaak Alle tekstvelden*/
 {
     font-family: Verdana;
     border: none;

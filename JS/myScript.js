@@ -1,7 +1,7 @@
-var j;
-var output;
+var j; // Var voor opslaan json object
+var output; // Var voor opslaan htmlcode weer te geven in output
 
-function onSelect()
+function onSelect() //Haalt geselecteerde waarde dropdownlist op en laat eerdere uitvoer verdwijnen en invoermogelijkheden verschijnen
 {
     $("#output").fadeOut("Slow");
     $("#input").fadeIn("Slow");
@@ -9,7 +9,7 @@ function onSelect()
     return valueSelect;
 }
 
-function checkFileType(files)
+function checkFileType(files) //Controleert of bestand ondersteund wordt en geeft zonodig foutmelding
 {
   var fileName=files[0].name;
   if(fileName.indexOf(".xls")==-1 && fileName.indexOf(".xlsx")==-1)
@@ -19,7 +19,7 @@ function checkFileType(files)
       $("#output").html("<h2>Dit bestandstype wordt niet ondersteund!</h2>");
   }
 }
-
+// Converteert sheet naar binary en kiest juist outputfunctie
 function handleFile(e) {
   $("#output").fadeOut(100);
   var files = e.target.files;
@@ -77,7 +77,7 @@ $(document).ready(function ()
         $(this).text("Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).");
     });
 });
-
+// Converteert sheet naar binary en kiest juist outputfunctie
 function handleDrop(e) {
   $("#output").fadeOut(100);
   e.preventDefault();
