@@ -4,9 +4,21 @@ var output; // Var voor opslaan htmlcode weer te geven in output
 function onSelect() //Haalt geselecteerde waarde dropdownlist op en laat eerdere uitvoer verdwijnen en invoermogelijkheden verschijnen
 {
     $("#output").fadeOut("Slow");
-    $("#input").fadeIn("Slow");
     valueSelect = $("#soortBestand").val();
-    return valueSelect;
+            switch (valueSelect)
+            {
+                case "stages":
+                    $("#formMedewerkers").fadeOut("Slow");
+                     $("#inputStage").fadeIn("Slow");
+                    break;
+                case "medewerkers":
+                    $("#inputStage").fadeOut("Slow");
+                    $("#formMedewerkers").fadeIn("Slow");
+                    break;
+                case "studies":
+                    outputJsonStudies(j);
+                    break;
+            }
 }
 
 function checkFileType(files) //Controleert of bestand ondersteund wordt en geeft zonodig foutmelding
@@ -38,25 +50,15 @@ function handleFile(e) {
         /*sla dat werkbland op in var*/
         var worksheet = workbook.Sheets[first_sheet_name];
         j = XLSX.utils.sheet_to_json(worksheet);
-        switch (onSelect())
-            {
-                case "stages":
-                    outputJsonStage(j);
-                    break;
-                case "medewerkers":
-                    outputJsonMedewerkers(j);
-                    break;
-                case "studies":
-                    outputJsonStudies(j);
-                    break;
-            }
+        outputJsonStage(j);
     };
     reader.readAsBinaryString(f);
   }
 }
 $(document).ready(function ()
 {
-    $("#input").hide();
+    $("#formMedewerkers").hide();
+    $("#inputStage").hide();
     $("#output").hide();
     $("#dropzone").on("dragover", function (e)
     {
@@ -105,18 +107,7 @@ function handleDrop(e) {
             /*sla dat werkbland op in var*/
             var worksheet = workbook.Sheets[first_sheet_name];
             j = XLSX.utils.sheet_to_json(worksheet);
-            switch (onSelect())
-            {
-                case "stages":
-                    outputJsonStage(j);
-                    break;
-                case "medewerkers":
-                    outputJsonMedewerkers(j);
-                    break;
-                case "studies":
-                    outputJsonStudies(j);
-                    break;
-            }
+            outputJsonStage(j);
         };
     reader.readAsBinaryString(f);
     }
@@ -221,152 +212,6 @@ output = '<table><tr><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postc
                 output += '</tr>';
             }
 output += "</table>";
-$("#output").fadeIn("Slow");
-$("#output").html(output);
-}
-
-function outputJsonMedewerkers(j)
-{
-    output = '<table><tr><th>Naam medewerker</th><th>Datum vertrek</th><th>Datum terugkomst</th><th>Instelling of organisatie</th><th>beschrijving (engels)</th><th>Straat</th><th>Huisnummer</th><th>Plaats</th><th>Land (engels)</th></tr>';
-    for(i=0; i!=j.length; i++)
-    {
-        output += '<tr>';
-        if(j[i].Naam_medewerker==null)
-        {
-            output += '<td><input type="text" class="textfield" id="A'+i+'" value=""</td>';
-        }
-        else
-        {
-             output += '<td><input type="text" class="textfield" id="A'+i+'" value="'+j[i].Naam_medewerker+'"></td>';
-        }
-        if(j[i].Datum_vertrek==null)
-        {
-            output += '<td><input type="text" class="textfield" id="B'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="B'+i+'" value="'+j[i].Datum_vertrek+'"></td>';
-        }
-        if(j[i].Datum_terugkomst==null)
-        {
-            output += '<td><input type="text" class="textfield" id="C'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="C'+i+'" value="'+j[i].Datum_terugkomst+'"></td>';
-        }
-        if(j[i].Instelling_of_organisatie==null)
-        {
-            output += '<td><input type="text" class="textfield" id="D'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="D'+i+'" value="'+j[i].Instelling_of_organisatie+'"></td>';
-        }
-        if(j[i].Beschrijving_En==null)
-        {
-            output += '<td><input type="text" class="textfield" id="E'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="E'+i+'" value="'+j[i].Beschrijving_En+'"></td>';
-        }
-        if(j[i].Straat==null)
-        {
-            output += '<td><input type="text" class="textfield" id="F'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="F'+i+'" value="'+j[i].Straat+'"></td>';
-        }
-        if(j[i].Huisnummer==null)
-        {
-            output += '<td><input type="text" class="textfield" id="G'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="G'+i+'" value="'+j[i].Huisnummer+'"></td>';
-        }
-        if(j[i].Plaats==null)
-        {
-            output += '<td><input type="text" class="textfield" id="H'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="H'+i+'" value="'+j[i].Plaats+'"></td>';
-        }
-        if(j[i].Land_En==null)
-        {
-            output += '<td><input type="text" class="textfield" id="I'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="I'+i+'" value="'+j[i].Land_En+'"></td>';
-        }
-        output += '</tr>';
-    }
-output += "</table>";
-$("#output").fadeIn("Slow");
-$("#output").html(output);
-}
-
-function outputJsonStudies(j)
-{
-    output = '<table><tr><th>Naam student</th><th>Opleiding</th><th>Datum vertrek</th><th>Datum terugkomst</th><th>Instelling</th><th>Land</th></tr>';
-    for(i=0; i!=j.length; i++)
-    {
-        output += '<tr>';
-        if(j[i].Naam_student==null)
-        {
-            output += '<td><input type="text" class="textfield" id="A'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="A'+i+'" value="'+j[i].Naam_student+'"></td>';
-        }
-        if(j[i].Opleiding==null)
-        {
-            output += '<td><input type="text" class="textfield" id="B'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="B'+i+'" value="'+j[i].Opleiding+'"></td>';
-        }
-        if(j[i].Datum_vertrek==null)
-        {
-            output += '<td><input type="text" class="textfield" id="C'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="C'+i+'" value="'+j[i].Datum_vertrek+'"></td>';
-        }
-        if(j[i].Datum_terugkomst==null)
-        {
-            output += '<td><input type="text" class="textfield" id="D'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="D'+i+'" value="'+j[i].Datum_terugkomst+'"></td>';
-        }
-        if(j[i].Instelling==null)
-        {
-            output += '<td><input type="text" class="textfield" id="E'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="E'+i+'" value="'+j[i].Instelling+'"></td>';
-        }
-        if(j[i].Land==null)
-        {
-            output += '<td><input type="text" class="textfield" id="F'+i+'" value=""</td>';
-        }
-        else
-        {
-            output += '<td><input type="text" class="textfield" id="F'+i+'" value="'+j[i].Land+'"></td>';
-        }
-        output += '</tr>';
-    }
-    output += '</table>';
 $("#output").fadeIn("Slow");
 $("#output").html(output);
 }

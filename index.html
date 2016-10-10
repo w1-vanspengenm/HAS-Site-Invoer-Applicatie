@@ -23,7 +23,7 @@
             <h1>Invoer applicatie HAS actuele internationale mobiliteit</h1>
         </div>
         <label for="soortBestand">
-            Wat voor soort bestand is dit:
+            Wat wilt u invoeren:
         </label>
         <!--keuze om welk bestand soort bestand het gaat (aan de hand hiervan wordt de juiste uitvoerfunctie bepaald-->
         <select id="soortBestand" onchange="onSelect()">
@@ -32,7 +32,7 @@
             <option value="medewerkers">Medewerkers in het buitenland</option>
             <option value="studies">Studies in het buitenland</option>
         </select>
-        <div id="input">
+        <div id="inputStage">
         <br>
         <label for="fileSelect">
             Selecteer een Excel sheet:
@@ -44,6 +44,32 @@
         <div id="dropzone" ondrop="handleDrop(event)">Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).</div>
         <br>
         </div>
+            <div id="formMedewerkers">
+                <h1>Invul form medewerkers</h1>
+                <br>
+                <label for="voornaam">Vul uw voonaam in:</label>
+                <input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="voornaam">
+                <br>
+                <label for="achternaam">Vul uw achternaam in:</label>
+                <input type="text" class="textfield" maxlength="20" placeholder="Achternaam" id="achternaam">
+                <br>
+                <label for="pers_nr">Vul uw personeelsnummer in:</label>
+                <input type="text" class="textfield" placeholder="Personeelsnummer" id="pers_nr">
+                <br>
+                <label for="omschrijving">Vul een omschijving van uw activiteit in:</label>
+                <textarea id="omschrijving" placeholder="omschijving"></textarea>
+                <br>
+                <label for="plaats">Vul een plaats in:</label>
+                <input type="text" class="textfield" placeholder="Plaats" id="plaats" maxlength="30">
+                <br>
+                <label for="adres1">Vul een adres in:</label>
+                <input type="text" class="textfield" placeholder="Adres" id="adres1" maxlength="100">
+                <br>
+                <label for="adres2">Vul een tweede adres in (optioneel):</label>
+                <input type="text" class="textfield" placeholder="Adres" id="adres2" maxlength="100">
+                <br>
+                <label for=""
+            </div>
         <!--Div waarin de output (ook foutmeldingen) wordt weergegeven-->
         <div id="output"></div>
     </body>

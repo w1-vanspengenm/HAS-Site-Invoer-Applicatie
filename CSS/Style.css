@@ -2,17 +2,19 @@ body
 {
     background-color: #fff;
     font-family: Verdana;
+    padding: 0px;
+    margin: 0px;
 }
 #header
 {
-    width: 99.4vw;
+    width: 100vw;
     height: auto;
     text-align: center;
     font-family: Verdana; 
 }
 h1, h2, h3, h4, h5
 {
-    color: #000;
+    color: #0084C9;
     font-family: Verdana;
 }
 #dropzone /*Stijl voor het gebied waar je het bestand in sleept*/
@@ -33,7 +35,7 @@ h1, h2, h3, h4, h5
 }
 #output
 {
-    width: 99.4vw;
+    width: 100vw;
     height: 30vh;
     font-family: Verdana;
     overflow: auto; /*Scrollen is door deze optie mogelijk*/
@@ -64,7 +66,7 @@ table tr td /*Opmaak tabel cel*/
 }
 ::-moz-selection /*Firefox aangepaste selectie kleur*/
 {
-  background: #96BF0D;
+  background: #0084C9;
   color: #8CD600;
 }
 .textfield:focus /*Opmaak van actief tekstveld (in output)*/
@@ -79,4 +81,31 @@ table tr td /*Opmaak tabel cel*/
 {
     font-family: Verdana;
     border: none;
+}
+
+#formMedewerkers
+{
+    margin-top: 3vh;
+}
+label
+{
+    color:#0084C9;
+    font-family: Verdana;
+}
+#inputStage
+{
+    margin-top: 3vh;
+}
+textarea
+{
+    font-family: Verdana;
+    color: #000;
+    border: 1px solid #0084C9;
+}
+textarea:focus
+{
+    background-color: #0084C9;
+    border-color: #8CD600;
+    color: #8CD600;
+    font-size: larger;
 }
