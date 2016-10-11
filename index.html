@@ -32,7 +32,8 @@
             <option value="medewerkers">Medewerkers in het buitenland</option>
             <option value="studies">Studies in het buitenland</option>
         </select>
-        <div id="inputStage">
+        <form method="post" action="invoeren.php">
+        <div id="formStages">
         <br>
         <label for="fileSelect">
             Selecteer een Excel sheet:
@@ -44,32 +45,94 @@
         <div id="dropzone" ondrop="handleDrop(event)">Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).</div>
         <br>
         </div>
+            </form>
             <div id="formMedewerkers">
-                <h1>Invul form medewerkers</h1>
-                <br>
-                <label for="voornaam">Vul uw voonaam in:</label>
-                <input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="voornaam">
-                <br>
-                <label for="achternaam">Vul uw achternaam in:</label>
-                <input type="text" class="textfield" maxlength="20" placeholder="Achternaam" id="achternaam">
-                <br>
-                <label for="pers_nr">Vul uw personeelsnummer in:</label>
-                <input type="text" class="textfield" placeholder="Personeelsnummer" id="pers_nr">
-                <br>
-                <label for="omschrijving">Vul een omschijving van uw activiteit in:</label>
-                <textarea id="omschrijving" placeholder="omschijving"></textarea>
-                <br>
-                <label for="plaats">Vul een plaats in:</label>
-                <input type="text" class="textfield" placeholder="Plaats" id="plaats" maxlength="30">
-                <br>
-                <label for="adres1">Vul een adres in:</label>
-                <input type="text" class="textfield" placeholder="Adres" id="adres1" maxlength="100">
-                <br>
-                <label for="adres2">Vul een tweede adres in (optioneel):</label>
-                <input type="text" class="textfield" placeholder="Adres" id="adres2" maxlength="100">
-                <br>
-                <label for=""
+                <form action="invoer.php" method="post">
+                    <h1>Invul form medewerkers</h1>
+                    <br>
+                    <label for="M_voornaam">Vul voonaam van het personeelslid in:</label>
+                    <input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="M_voornaam">
+                    <br>
+                    <label for="M_achternaam">Vul achternaam van het personeelslid in:</label>
+                    <input type="text" class="textfield" maxlength="20" placeholder="Achternaam" id="M_achternaam">
+                    <br>
+                    <label for="M_pers_nr">Vul personeelsnummer van het personeelslid in:</label>
+                    <input type="text" class="textfield" placeholder="Personeelsnummer" id="M_pers_nr">
+                    <br>
+                    <label for="M_omschrijving">Vul een omschijving van de activiteit in:</label>
+                    <textarea id="M_omschrijving" placeholder="omschijving"></textarea>
+                    <br>
+                    <label for="M_land">Vul landcode in:</label>
+                    <input type="text" id="M_land" placeholder="Landcode" class="textfield" maxlength="2">
+                    <br>
+                    <label for="M_plaats">Vul een plaats in:</label>
+                    <input type="text" class="textfield" placeholder="Plaats" id="M_plaats" maxlength="30">
+                    <br>
+                    <label for="M_adres1">Vul een adres in:</label>
+                    <input type="text" class="textfield" placeholder="Adres" id="M_adres1" maxlength="100">
+                    <br>
+                    <label for="M_adres2">Vul een tweede adres in (optioneel):</label>
+                    <input type="text" class="textfield" placeholder="Adres" id="M_adres2" maxlength="100">
+                    <br>
+                    <label for="M_startDatum">Vul een begindatum van de activiteit in:</label>
+                    <input type="text" class="textfield" placeholder="jjjj/mm/dd" id="M_startDatum">
+                    <br>
+                    <label for="M_eindDatum">Vul een einddatum van de activiteit in:</label>
+                    <input type="text" class="textfield" placeholder="jjjj/mm/dd" id="M_eindDatum">
+                    <br>
+                    <label for="M_lat">Latitude:</label>
+                    <input type="text" class="textfield" placeholder="Druk op adres controleren" id="M_lat" disabled="disabled">
+                    <br>
+                    <label for="M_lon">Longitude:</label>
+                    <input type="text" class="textfield" placeholder="Druk op adres controleren" id="M_lon" disabled="disabled">
+                    <br>
+                    <input type="button" value="Adres controleren">
+                </form>
             </div>
+        <div id="formStudies">
+            <form action="invoer.php" method="post">
+                    <h1>Invul form studies in het buitenland</h1>
+                    <br>
+                    <label for="S_voornaam">Vul voonaam van de student in:</label>
+                    <input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="S_voornaam">
+                    <br>
+                    <label for="S_achternaam">Vul achternaam van de student in:</label>
+                    <input type="text" class="textfield" maxlength="20" placeholder="Achternaam" id="S_achternaam">
+                    <br>
+                    <label for="S_stud_nr">Vul studentnummer van de student in:</label>
+                    <input type="text" class="textfield" placeholder="Studentnummer" id="S_stud_nr">
+                    <br>
+                    <label for="S_instelling">Vul de naam van de instelling in:</label>
+                    <input type="text" class="textfield" id="S_instelling" placeholder="instelling naam">
+                    <br>
+                    <label for="S_land">Vul landcode in:</label>
+                    <input type="text" id="S_land" placeholder="Landcode" class="textfield" maxlength="2">
+                    <br>
+                    <label for="S_plaats">Vul een plaats in:</label>
+                    <input type="text" class="textfield" placeholder="Plaats" id="S_plaats" maxlength="30">
+                    <br>
+                    <label for="S_adres1">Vul een adres in:</label>
+                    <input type="text" class="textfield" placeholder="Adres" id="S_adres1" maxlength="100">
+                    <br>
+                    <label for="S_adres2">Vul een tweede adres in (optioneel):</label>
+                    <input type="text" class="textfield" placeholder="Adres" id="S_adres2" maxlength="100">
+                    <br>
+                    <label for="S_startDatum">Vul een begindatum van de studie in:</label>
+                    <input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_startDatum">
+                    <br>
+                    <label for="S_eindDatum">Vul een einddatum van de studie in:</label>
+                    <input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_eindDatum">
+                    <br>
+                    <label for="S_lat">Latitude:</label>
+                    <input type="text" class="textfield" placeholder="Druk op adres controleren" id="S_lat" disabled="disabled">
+                    <br>
+                    <label for="S_lon">Longitude:</label>
+                    <input type="text" class="textfield" placeholder="Druk op adres controleren" id="S_lon" disabled="disabled">
+                    <br>
+                    <input type="button" value="Adres controleren">
+                </form>
+            </form>
+        </div>
         <!--Div waarin de output (ook foutmeldingen) wordt weergegeven-->
         <div id="output"></div>
     </body>

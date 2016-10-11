@@ -1,6 +1,81 @@
 var j; // Var voor opslaan json object
 var output; // Var voor opslaan htmlcode weer te geven in output
 
+function GetGoogleGeocoder(address, callback)
+{
+    try
+    {
+        $.ajax(
+        {
+            type : "GET",
+            async : false,
+            url : "https://maps.googleapis.com/maps/api/geocode/json?address=" + address,
+            timeout : 5000
+        }).done(function(data)
+        {
+            if (data.status == "ZERO_RESULTS")
+            {
+                callback(undefined);
+                return;
+            }
+
+            var obj =
+            {
+                provider : "Google",
+                lat : data.results[0].geometry.location.lat,
+                lng : data.results[0].geometry.location.lng
+            };
+
+            callback(obj);
+        }).fail(function(jqXHR, textStatus)
+        {
+            callback(undefined);
+        });
+    } catch(ex)
+    {
+        console.log("Google: " + ex);
+        callback(undefined);
+    }
+}
+
+function GetNominatimGeocoder(address, callback)
+{
+    try
+    {
+        $.ajax(
+        {
+            type : "GET",
+            async : false,
+            url : "http://nominatim.openstreetmap.org/search?format=json&q=" + address,
+            timeout : 5000
+        }).done(function(data)
+        {
+
+            if (!data || data.length < 1)
+            {
+                callback(undefined);
+                return;
+            }
+
+            var obj =
+            {
+                provider : "Nominatim",
+                lat : data[0].lat,
+                lng : data[0].lon
+            };
+
+            callback(obj);
+        }).fail(function(jqXHR, textStatus)
+        {
+            callback(undefined);
+        });
+    } catch(ex)
+    {
+        console.log("Nominatim: " + ex);
+        callback(undefined);
+    }
+}
+
 function onSelect() //Haalt geselecteerde waarde dropdownlist op en laat eerdere uitvoer verdwijnen en invoermogelijkheden verschijnen
 {
     $("#output").fadeOut("Slow");
@@ -8,17 +83,22 @@ function onSelect() //Haalt geselecteerde waarde dropdownlist op en laat eerdere
             switch (valueSelect)
             {
                 case "stages":
+                     $("#formStudies").fadeOut("Slow");
                     $("#formMedewerkers").fadeOut("Slow");
-                     $("#inputStage").fadeIn("Slow");
+                    $("#formStages").fadeIn("Slow");
                     break;
                 case "medewerkers":
-                    $("#inputStage").fadeOut("Slow");
+                    $("#formStudies").fadeOut("Slow");
+                    $("#formStages").fadeOut("Slow");
                     $("#formMedewerkers").fadeIn("Slow");
                     break;
                 case "studies":
-                    outputJsonStudies(j);
+                    $("#formStages").fadeOut("Slow");
+                    $("#formMedewerkers").fadeOut("Slow");
+                    $("#formStudies").fadeIn("Slow");
                     break;
             }
+            return valueSelect;
 }
 
 function checkFileType(files) //Controleert of bestand ondersteund wordt en geeft zonodig foutmelding
@@ -57,8 +137,9 @@ function handleFile(e) {
 }
 $(document).ready(function ()
 {
+    $("#formStudies").hide();
     $("#formMedewerkers").hide();
-    $("#inputStage").hide();
+    $("#formStages").hide();
     $("#output").hide();
     $("#dropzone").on("dragover", function (e)
     {
@@ -212,6 +293,6 @@ output = '<table><tr><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postc
                 output += '</tr>';
             }
 output += "</table>";
-$("#output").fadeIn("Slow");
 $("#output").html(output);
+$("#output").fadeIn("Slow");
 }

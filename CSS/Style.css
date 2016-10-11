@@ -25,6 +25,7 @@ h1, h2, h3, h4, h5
     text-align: center;
     padding: 30px 30px 30px 30px;
     font-family: Verdana;
+    color: #0084C9;
 }
 .selected /*actief als de gebruiker een bestand over dropzone sleept*/
 {
@@ -108,4 +109,17 @@ textarea:focus
     border-color: #8CD600;
     color: #8CD600;
     font-size: larger;
+}
+input[type=button]
+{
+    background-color: #0084C9;
+    color: #8CD600;
+    box-shadow: 3px 3px 10px #808080;
+    width: auto;
+    margin: 5px;
+}
+input[type=button]:hover
+{
+    background-color: #8CD600;
+    color: #0084C9;
 }
