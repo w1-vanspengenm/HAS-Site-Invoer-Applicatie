@@ -44,6 +44,8 @@
         <br>
         <div id="dropzone" ondrop="handleDrop(event)">Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).</div>
         <br>
+        <input type="button" class="hiddenButtons" value="Adres controleren" onclick="getLatLon(j);">
+        <input type="button" class="hiddenButtons" value="Gegevens opslaan in database" onclick="makeArray()">
         </div>
             </form>
             <div id="formMedewerkers">
@@ -62,8 +64,8 @@
                     <label for="M_omschrijving">Vul een omschijving van de activiteit in:</label>
                     <textarea id="M_omschrijving" placeholder="omschijving"></textarea>
                     <br>
-                    <label for="M_land">Vul landcode in:</label>
-                    <input type="text" id="M_land" placeholder="Landcode" class="textfield" maxlength="2">
+                    <label for="M_land">Vul land in:</label>
+                    <input type="text" id="M_land" placeholder="Land" class="textfield">
                     <br>
                     <label for="M_plaats">Vul een plaats in:</label>
                     <input type="text" class="textfield" placeholder="Plaats" id="M_plaats" maxlength="30">
@@ -86,7 +88,7 @@
                     <label for="M_lon">Longitude:</label>
                     <input type="text" class="textfield" placeholder="Druk op adres controleren" id="M_lon" disabled="disabled">
                     <br>
-                    <input type="button" value="Adres controleren">
+                    <input type="button" value="Adres controleren" onclick="getLatLon()">
                 </form>
             </div>
         <div id="formStudies">
@@ -105,8 +107,8 @@
                     <label for="S_instelling">Vul de naam van de instelling in:</label>
                     <input type="text" class="textfield" id="S_instelling" placeholder="instelling naam">
                     <br>
-                    <label for="S_land">Vul landcode in:</label>
-                    <input type="text" id="S_land" placeholder="Landcode" class="textfield" maxlength="2">
+                    <label for="S_land">Vul land in:</label>
+                    <input type="text" id="S_land" placeholder="Land" class="textfield">
                     <br>
                     <label for="S_plaats">Vul een plaats in:</label>
                     <input type="text" class="textfield" placeholder="Plaats" id="S_plaats" maxlength="30">
@@ -129,7 +131,7 @@
                     <label for="S_lon">Longitude:</label>
                     <input type="text" class="textfield" placeholder="Druk op adres controleren" id="S_lon" disabled="disabled">
                     <br>
-                    <input type="button" value="Adres controleren">
+                    <input type="button" value="Adres controleren" onclick="getLatLon()">
                 </form>
             </form>
         </div>

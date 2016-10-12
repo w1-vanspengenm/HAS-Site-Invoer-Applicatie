@@ -78,6 +78,8 @@ function GetNominatimGeocoder(address, callback)
 
 function onSelect() //Haalt geselecteerde waarde dropdownlist op en laat eerdere uitvoer verdwijnen en invoermogelijkheden verschijnen
 {
+    $("#fileSelect").val("");
+    $(".hiddenButtons").hide();
     $("#output").fadeOut("Slow");
     valueSelect = $("#soortBestand").val();
             switch (valueSelect)
@@ -189,110 +191,199 @@ function handleDrop(e) {
             var worksheet = workbook.Sheets[first_sheet_name];
             j = XLSX.utils.sheet_to_json(worksheet);
             outputJsonStage(j);
+
         };
     reader.readAsBinaryString(f);
     }
   }
 }
-
 function outputJsonStage(j)
 {
-output = '<table><tr><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th></tr>';
+output = '<table><tr><th>Opmerking</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
     for (i = 0; i != j.length; i++)
             {
                 output += '<tr>';
+                output+='<td><input type="text" class="textfield" placeholder="Niet van toepassing" id="A'+i+'" value="" disabled="disabled"></td>';
                 if(j[i].Bedrijfnaam==null)
-                {
-                    output += '<td><input type="text" class="textfield" id="A'+i+'" value=""</td>';
-                }
-                else
-                {
-                   output += '<td><input type="text" class="textfield" id="A'+i+'" value="'+j[i].Bedrijfnaam+'"></td>';
-                }
-                if(j[i].Adres1==null)
                 {
                     output += '<td><input type="text" class="textfield" id="B'+i+'" value=""</td>';
                 }
                 else
                 {
-                    output += '<td><input type="text" class="textfield" id="B'+i+'" value="'+j[i].Adres1+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="B'+i+'" value="'+j[i].Bedrijfnaam+'"></td>';
                 }
-                if(j[i].Adres2==null)
-                
+                if(j[i].Adres1==null)
                 {
                     output += '<td><input type="text" class="textfield" id="C'+i+'" value=""</td>';
                 }
                 else
                 {
-                     output += '<td><input type="text" class="textfield" id="C'+i+'" value="'+j[i].Adres2+'"></td>';
+                    output += '<td><input type="text" class="textfield" id="C'+i+'" value="'+j[i].Adres1+'"></td>';
+                }
+                if(j[i].Adres2==null)
+                
+                {
+                    output += '<td><input type="text" class="textfield" id="D'+i+'" value=""</td>';
+                }
+                else
+                {
+                     output += '<td><input type="text" class="textfield" id="D'+i+'" value="'+j[i].Adres2+'"></td>';
                 }
                if(j[i].Postcode==null)
-               {
-                   output += '<td><input type="text" class="textfield" id="D'+i+'" value=""</td>';
-               }
-               else
-               {
-                   output += '<td><input type="text" class="textfield" id="D'+i+'" value="'+j[i].Postcode+'"></td>';
-               }
-               if(j[i].Plaats==null)
                {
                    output += '<td><input type="text" class="textfield" id="E'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="E'+i+'" value="'+j[i].Plaats+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="E'+i+'" value="'+j[i].Postcode+'"></td>';
                }
-               if(j[i].Land==null)
+               if(j[i].Plaats==null)
                {
                    output += '<td><input type="text" class="textfield" id="F'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="F'+i+'" value="'+j[i].Land+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="F'+i+'" value="'+j[i].Plaats+'"></td>';
                }
-               if(j[i].Student==null)
+               if(j[i].Land==null)
                {
                    output += '<td><input type="text" class="textfield" id="G'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="G'+i+'" value="'+j[i].Student+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="G'+i+'" value="'+j[i].Land+'"></td>';
                }
-               if(j[i].Opleiding==null)
+               if(j[i].Student==null)
                {
                    output += '<td><input type="text" class="textfield" id="H'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="H'+i+'" value="'+j[i].Opleiding+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="H'+i+'" value="'+j[i].Student+'"></td>';
                }
-               if(j[i].Afstud_richting==null)
+               if(j[i].Opleiding==null)
                {
                    output += '<td><input type="text" class="textfield" id="I'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="I'+i+'" value="'+j[i].Afstud_richting+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="I'+i+'" value="'+j[i].Opleiding+'"></td>';
                }
-               if(j[i].Startdatum==null)
+               if(j[i].Afstud_richting==null)
                {
                    output += '<td><input type="text" class="textfield" id="J'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="J'+i+'" value="'+j[i].Startdatum+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="J'+i+'" value="'+j[i].Afstud_richting+'"></td>';
                }
-               if(j[i].Einddatum==null)
+               if(j[i].Startdatum==null)
                {
                    output += '<td><input type="text" class="textfield" id="K'+i+'" value=""</td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="K'+i+'" value="'+j[i].Einddatum+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="K'+i+'" value="'+j[i].Startdatum+'"></td>';
                }
+               if(j[i].Einddatum==null)
+               {
+                   output += '<td><input type="text" class="textfield" id="L'+i+'" value=""</td>';
+               }
+               else
+               {
+                   output += '<td><input type="text" class="textfield" id="L'+i+'" value="'+j[i].Einddatum+'"></td>';
+               }
+               output+='<td><input type="text" class="textfield" placeholder="Druk op adres controleren" id="M'+i+'" value="" disabled="disabled"></td>';
+               output+='<td><input type="text" class="textfield" placeholder="Druk op adres controleren" id="N'+i+'" value="" disabled="disabled"></td>';
                 output += '</tr>';
             }
 output += "</table>";
 $("#output").html(output);
+$(".hiddenButtons").fadeIn("Slow");
 $("#output").fadeIn("Slow");
+}
+function getLatLon(j)
+{
+    switch(valueSelect)
+    {
+        case "medewerkers":
+            var search = $("#M_land").val() + " " + $("#M_plaats").val() + " " + $("#M_adres1").val();
+            GetNominatimGeocoder(search, function (data)
+            {
+                if (data != undefined)
+                {
+                    console.log(data.provider);
+                    $("#M_lat").val(data.lat);
+                    $("#M_lon").val(data.lng);
+                }
+                else
+                {
+                    GetGoogleGeocoder(search, function (data)
+                    {
+                        if (data != undefined)
+                        {
+                            console.log(data.provider);
+                            $("#M_lat").val(data.lat);
+                            $("#M_lon").val(data.lng);
+                        }
+                    });
+                }
+            });
+            break;
+        case "studies":
+            var search = $("#S_land").val() + " " + $("#S_plaats").val() + " " + $("#S_adres1").val();
+            GetNominatimGeocoder(search, function (data)
+            {
+                if (data != undefined)
+                {
+                    console.log(data.provider);
+                    $("#S_lat").val(data.lat);
+                    $("#S_lon").val(data.lng);
+                }
+                else
+                {
+                    GetGoogleGeocoder(search, function (data)
+                    {
+                        if (data != undefined)
+                        {
+                            console.log(data.provider);
+                            $("#S_lat").val(data.lat);
+                            $("#S_lon").val(data.lng);
+                        }
+                    });
+                }
+            });
+            break;
+        case "stages":
+            for (i = 0; i != j.length; i++)
+            {
+                var search = $('#G' + i).val() + " " + $('#F' + i).val() + " " + $('C' + i).val();
+                GetNominatimGeocoder(search, function (data)
+                {
+                    if (data != undefined)
+                    {
+                        console.log(i + " " + data.provider);
+                        $('#M' + i).val(data.lat);
+                        $('#N' + i).val(data.lng);
+                    }
+                    else
+                    {
+                        GetGoogleGeocoder(search, function (data)
+                        {
+                            if (data != undefined)
+                            {
+                                console.log(i + " " + data.provider);
+                                $('#M' + i).val(data.lat);
+                                $('#N' + i).val(data.lng);
+                            }
+                            else
+                            {
+                                $('#A' + i).val("Adres niet gevonden")
+                                $('#A' + i).parent().parent().children().children().addClass("rood");
+                            }
+                        });
+                    }
+                });
+            }
+    }
 }
