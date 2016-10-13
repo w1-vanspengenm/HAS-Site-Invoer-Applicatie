@@ -1,5 +1,5 @@
 <?php
-// in dit script wordt de invoer in de database (binnenkort afgehandeld.
+
 ?>
 
 <!DOCTYPE html>

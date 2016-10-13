@@ -110,7 +110,7 @@ function checkFileType(files) //Controleert of bestand ondersteund wordt en geef
   
   {
       $("#output").fadeIn("Slow");
-      $("#output").html("<h2>Dit bestandstype wordt niet ondersteund!</h2>");
+      $("#output").html('<h2 class="rood">Dit bestandstype wordt niet ondersteund</h2>');
   }
 }
 // Converteert sheet naar binary en kiest juist outputfunctie
@@ -177,7 +177,7 @@ function handleDrop(e) {
     if(files.length!=1)
     {
         $("#output").fadeIn("Slow");
-        $("#output").html("<h2>Gebruik 1 bestand tegelijk!</h2>");
+        $("#output").html('<h2 class="rood">Gebruik 1 bestand tegelijk</h2>');
     }
     else
     {
@@ -200,7 +200,7 @@ function handleDrop(e) {
 function outputJsonStage(j)
 {
 output = '<table><tr><th>Opmerking</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
-    for (i = 0; i != j.length; i++)
+    for (i = 0; i < j.length; i++)
             {
                 output += '<tr>';
                 output+='<td><input type="text" class="textfield" placeholder="Niet van toepassing" id="A'+i+'" value="" disabled="disabled"></td>';
@@ -304,9 +304,11 @@ $("#output").fadeIn("Slow");
 }
 function getLatLon(j)
 {
+    $('*').removeClass('rood');
     switch(valueSelect)
     {
         case "medewerkers":
+            $("#output").fadeOut("Fast");
             var search = $("#M_land").val() + " " + $("#M_plaats").val() + " " + $("#M_adres1").val();
             GetNominatimGeocoder(search, function (data)
             {
@@ -326,11 +328,19 @@ function getLatLon(j)
                             $("#M_lat").val(data.lat);
                             $("#M_lon").val(data.lng);
                         }
+                        else
+                        {
+                            $("#output").html('<h2 class="rood">Adres niet gevonden</h2>').fadeIn("Slow");
+                            $("#M_lat").addClass("rood");
+                            $("#M_lon").addClass("rood");
+                        }
                     });
                 }
             });
+            $("#submit_Medewerkers").attr('disabled', false);
             break;
         case "studies":
+        $("#output").fadeOut("Fast");
             var search = $("#S_land").val() + " " + $("#S_plaats").val() + " " + $("#S_adres1").val();
             GetNominatimGeocoder(search, function (data)
             {
@@ -350,12 +360,19 @@ function getLatLon(j)
                             $("#S_lat").val(data.lat);
                             $("#S_lon").val(data.lng);
                         }
+                        else
+                        {
+                            $("#output").html('<h2 class="rood">Adres niet gevonden</h2>').fadeIn("Slow");
+                            $("#S_lat").addClass("rood");
+                            $("#S_lon").addClass("rood");
+                        }
                     });
                 }
             });
+            $("#submit_Studies").attr('disabled', false);
             break;
         case "stages":
-            for (i = 0; i != j.length; i++)
+            for (i = 0; i < j.length; i++)
             {
                 var search = $('#G' + i).val() + " " + $('#F' + i).val() + " " + $('C' + i).val();
                 GetNominatimGeocoder(search, function (data)
@@ -385,5 +402,7 @@ function getLatLon(j)
                     }
                 });
             }
+            $("#submit_Stages").attr('disabled', false);
+            break;
     }
 }

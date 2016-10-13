@@ -32,7 +32,7 @@
             <option value="medewerkers">Medewerkers in het buitenland</option>
             <option value="studies">Studies in het buitenland</option>
         </select>
-        <form method="post" action="invoeren.php">
+        <form method="post" action="PHP/invoeren_Stages.php">
         <div id="formStages">
         <br>
         <label for="fileSelect">
@@ -45,11 +45,11 @@
         <div id="dropzone" ondrop="handleDrop(event)">Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).</div>
         <br>
         <input type="button" class="hiddenButtons" value="Adres controleren" onclick="getLatLon(j);">
-        <input type="button" class="hiddenButtons" value="Gegevens opslaan in database" onclick="makeArray()">
+        <input type="submit" id="submit_Stages" class="hiddenButtons" value="Gegevens opslaan in database" disabled="disabled">
         </div>
             </form>
             <div id="formMedewerkers">
-                <form action="invoer.php" method="post">
+                <form action="PHP/invoer_Medewerkers.php" method="post">
                     <h1>Invul form medewerkers</h1>
                     <br>
                     <label for="M_voornaam">Vul voonaam van het personeelslid in:</label>
@@ -89,10 +89,11 @@
                     <input type="text" class="textfield" placeholder="Druk op adres controleren" id="M_lon" disabled="disabled">
                     <br>
                     <input type="button" value="Adres controleren" onclick="getLatLon()">
+                    <input type="submit" id="submit_Medewerkers" value="Gegevens opslaan in database" disabled="disabled">
                 </form>
             </div>
         <div id="formStudies">
-            <form action="invoer.php" method="post">
+            <form action="PHP/invoer_Studies.php" method="post">
                     <h1>Invul form studies in het buitenland</h1>
                     <br>
                     <label for="S_voornaam">Vul voonaam van de student in:</label>
@@ -132,6 +133,7 @@
                     <input type="text" class="textfield" placeholder="Druk op adres controleren" id="S_lon" disabled="disabled">
                     <br>
                     <input type="button" value="Adres controleren" onclick="getLatLon()">
+                    <input type="submit" id="submit_Studies" value="Gegevens opslaan in database" disabled="disabled">
                 </form>
             </form>
         </div>
