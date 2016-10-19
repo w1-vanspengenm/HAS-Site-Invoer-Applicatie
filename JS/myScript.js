@@ -1,6 +1,6 @@
 var j; // Var voor opslaan json object
 var output; // Var voor opslaan htmlcode weer te geven in output
-
+var landen;
 function GetGoogleGeocoder(address, callback)
 {
     try
@@ -85,7 +85,7 @@ function onSelect() //Haalt geselecteerde waarde dropdownlist op en laat eerdere
             switch (valueSelect)
             {
                 case "stages":
-                     $("#formStudies").fadeOut("Slow");
+                    $("#formStudies").fadeOut("Slow");
                     $("#formMedewerkers").fadeOut("Slow");
                     $("#formStages").fadeIn("Slow");
                     break;
@@ -161,7 +161,48 @@ $(document).ready(function ()
         $(this).removeClass("selected");
         $(this).text("Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).");
     });
+    var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:tbl_Landen&outputFormat=application%2Fjson' };
+    $.ajax(
+    {
+        url: 'PHP/geoproxy.php',
+        dataType: 'json',
+        method: 'post',
+        data: serviceName
+    })
+    .done(function (data)
+    {
+        landen = data;
+        fill_List(landen);
+    })
+    .fail(function ()
+    {
+        console.log("fout opgetreden bij ophalen van landen");
+    });
 });
+function fill_List(landen)
+{
+    if(landen != undefined)
+    {
+        $.each(landen.features, function (i, land)
+        {
+            if (i == 0)
+            {
+                output = '<option value="placeholder" disabled selected hidden>Kies een land...</option>';
+                output+='<option value="' + land.id.substring(11, 13) + '">' + land.properties.Landnaam_nl_html + '</option>';
+            }
+            else
+            {
+                output += '<option value="' + land.id.substring(11, 13) + '">' + land.properties.Landnaam_nl_html + '</option>';
+            }
+        });
+        $("#M_land").append(output);
+        $("#S_land").append(output);
+    }
+    else
+    {
+        return;
+    }
+}
 // Converteert sheet naar binary en kiest juist outputfunctie
 function handleDrop(e) {
   $("#output").fadeOut(100);
@@ -309,14 +350,16 @@ function getLatLon(j)
     {
         case "medewerkers":
             $("#output").fadeOut("Fast");
-            var search = $("#M_land").val() + " " + $("#M_plaats").val() + " " + $("#M_adres1").val();
+            var search = $("#M_land option:selected").text() + " " + $("#M_plaats").val() + " " + $("#M_adres1").val() + " " + $('M_postcode');
             GetNominatimGeocoder(search, function (data)
             {
                 if (data != undefined)
                 {
                     console.log(data.provider);
-                    $("#M_lat").val(data.lat);
-                    $("#M_lon").val(data.lng);
+                    $("#M_lat_zichtbaar").val(data.lat);
+                    $("#M_lat_onzichtbaar").val(data.lat);
+                    $("#M_lon_zichtbaar").val(data.lng);
+                    $("#M_lon_onzichtbaar").val(data.lng);
                 }
                 else
                 {
@@ -325,8 +368,10 @@ function getLatLon(j)
                         if (data != undefined)
                         {
                             console.log(data.provider);
-                            $("#M_lat").val(data.lat);
-                            $("#M_lon").val(data.lng);
+                            $("#M_lat_zichtbaar").val(data.lat);
+                            $("#M_lat_onzichtbaar").val(data.lat);
+                            $("#M_lon_zichtbaar").val(data.lng);
+                            $("#M_lon_onzichtbaar").val(data.lng);
                         }
                         else
                         {
@@ -341,7 +386,7 @@ function getLatLon(j)
             break;
         case "studies":
         $("#output").fadeOut("Fast");
-            var search = $("#S_land").val() + " " + $("#S_plaats").val() + " " + $("#S_adres1").val();
+            var search = $("#S_land option:selected").text() + " " + $("#S_plaats").val() + " " + $("#S_adres1").val();
             GetNominatimGeocoder(search, function (data)
             {
                 if (data != undefined)
@@ -374,7 +419,7 @@ function getLatLon(j)
         case "stages":
             for (i = 0; i < j.length; i++)
             {
-                var search = $('#G' + i).val() + " " + $('#F' + i).val() + " " + $('C' + i).val();
+                var search = $('#F' + i).val() + " " + $('#G' + i).val() + " " + $('#C' + i).val() + " " + $('#E' + i).val();
                 GetNominatimGeocoder(search, function (data)
                 {
                     if (data != undefined)
@@ -382,6 +427,7 @@ function getLatLon(j)
                         console.log(i + " " + data.provider);
                         $('#M' + i).val(data.lat);
                         $('#N' + i).val(data.lng);
+                        $('#A' + i).val('');
                     }
                     else
                     {
@@ -392,17 +438,22 @@ function getLatLon(j)
                                 console.log(i + " " + data.provider);
                                 $('#M' + i).val(data.lat);
                                 $('#N' + i).val(data.lng);
+                                $('#A' + i).val('');
                             }
                             else
                             {
                                 $('#A' + i).val("Adres niet gevonden")
                                 $('#A' + i).parent().parent().children().children().addClass("rood");
+                                console.log(i + " Niet gevonden(" + search + ')');
                             }
                         });
+
                     }
                 });
+                $("#adresCheckStages").attr('value', Math.round(i / j.length * 100) + '%');
             }
             $("#submit_Stages").attr('disabled', false);
+            $('#adresCheckStages').attr('value', 'Adres opniew controleren');
             break;
     }
 }
