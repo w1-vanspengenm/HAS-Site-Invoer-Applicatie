@@ -88,16 +88,19 @@ function onSelect() //Haalt geselecteerde waarde dropdownlist op en laat eerdere
                     $("#formStudies").fadeOut("Slow");
                     $("#formMedewerkers").fadeOut("Slow");
                     $("#formStages").fadeIn("Slow");
+                     fill_List_Check();
                     break;
                 case "medewerkers":
                     $("#formStudies").fadeOut("Slow");
                     $("#formStages").fadeOut("Slow");
                     $("#formMedewerkers").fadeIn("Slow");
+                     fill_List_Check();
                     break;
                 case "studies":
                     $("#formStages").fadeOut("Slow");
                     $("#formMedewerkers").fadeOut("Slow");
                     $("#formStudies").fadeIn("Slow");
+                     fill_List_Check();
                     break;
             }
             return valueSelect;
@@ -110,7 +113,7 @@ function checkFileType(files) //Controleert of bestand ondersteund wordt en geef
   
   {
       $("#output").fadeIn("Slow");
-      $("#output").html('<h2 class="rood">Dit bestandstype wordt niet ondersteund</h2>');
+      $("#output").html('<h2 class="rood">Dit bestandstype wordt niet ondersteund.</h2>');
   }
 }
 // Converteert sheet naar binary en kiest juist outputfunctie
@@ -161,7 +164,7 @@ $(document).ready(function ()
         $(this).removeClass("selected");
         $(this).text("Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).");
     });
-    var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:tbl_Landen&outputFormat=application%2Fjson' };
+    var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:landensort&outputFormat=application%2Fjson' };
     $.ajax(
     {
         url: 'PHP/geoproxy.php',
@@ -188,11 +191,11 @@ function fill_List(landen)
             if (i == 0)
             {
                 output = '<option value="placeholder" disabled selected hidden>Kies een land...</option>';
-                output+='<option value="' + land.id.substring(11, 13) + '">' + land.properties.Landnaam_nl_html + '</option>';
+                output+='<option value="' + land.properties.Landcode+'">' + land.properties.Landnaam_nl_html + '</option>';
             }
             else
             {
-                output += '<option value="' + land.id.substring(11, 13) + '">' + land.properties.Landnaam_nl_html + '</option>';
+                output += '<option value="' + land.properties.Landcode+ '">' + land.properties.Landnaam_nl_html + '</option>';
             }
         });
         $("#M_land").append(output);
@@ -201,6 +204,14 @@ function fill_List(landen)
     else
     {
         return;
+    }
+}
+function fill_List_Check()
+{
+    if( $('#M_land').has('option').length == 0 || $('#S_land').has('option').length == 0)
+    {
+        $("#output").html('<h2 class="rood">Database niet beschikbaar, neem contact op met het Geolab.</h2>').fadeIn("Slow");
+        $('.form').hide();
     }
 }
 // Converteert sheet naar binary en kiest juist outputfunctie
@@ -218,7 +229,7 @@ function handleDrop(e) {
     if(files.length!=1)
     {
         $("#output").fadeIn("Slow");
-        $("#output").html('<h2 class="rood">Gebruik 1 bestand tegelijk</h2>');
+        $("#output").html('<h2 class="rood">Gebruik 1 bestand tegelijk.</h2>');
     }
     else
     {
@@ -360,6 +371,7 @@ function getLatLon(j)
                     $("#M_lat_onzichtbaar").val(data.lat);
                     $("#M_lon_zichtbaar").val(data.lng);
                     $("#M_lon_onzichtbaar").val(data.lng);
+                    $("#submit_Medewerkers").attr('disabled', false);
                 }
                 else
                 {
@@ -372,17 +384,17 @@ function getLatLon(j)
                             $("#M_lat_onzichtbaar").val(data.lat);
                             $("#M_lon_zichtbaar").val(data.lng);
                             $("#M_lon_onzichtbaar").val(data.lng);
+                            $("#submit_Medewerkers").attr('disabled', false);
                         }
                         else
                         {
-                            $("#output").html('<h2 class="rood">Adres niet gevonden</h2>').fadeIn("Slow");
+                            $("#output").html('<h2 class="rood">Adres niet gevonden.</h2>').fadeIn("Slow");
                             $("#M_lat").addClass("rood");
                             $("#M_lon").addClass("rood");
                         }
                     });
                 }
             });
-            $("#submit_Medewerkers").attr('disabled', false);
             break;
         case "studies":
         $("#output").fadeOut("Fast");
@@ -394,6 +406,7 @@ function getLatLon(j)
                     console.log(data.provider);
                     $("#S_lat").val(data.lat);
                     $("#S_lon").val(data.lng);
+                    $("#submit_Studies").attr('disabled', false);
                 }
                 else
                 {
@@ -404,6 +417,7 @@ function getLatLon(j)
                             console.log(data.provider);
                             $("#S_lat").val(data.lat);
                             $("#S_lon").val(data.lng);
+                            $("#submit_Studies").attr('disabled', false);
                         }
                         else
                         {
@@ -414,7 +428,6 @@ function getLatLon(j)
                     });
                 }
             });
-            $("#submit_Studies").attr('disabled', false);
             break;
         case "stages":
             for (i = 0; i < j.length; i++)
@@ -442,7 +455,7 @@ function getLatLon(j)
                             }
                             else
                             {
-                                $('#A' + i).val("Adres niet gevonden")
+                                $('#A' + i).val("Adres niet gevonden.")
                                 $('#A' + i).parent().parent().children().children().addClass("rood");
                                 console.log(i + " Niet gevonden(" + search + ')');
                             }
@@ -456,4 +469,114 @@ function getLatLon(j)
             $('#adresCheckStages').attr('value', 'Adres opniew controleren');
             break;
     }
+}
+function formValMedewerkers(form)
+{
+ $('*').removeClass("rood");
+ $("#output").fadeOut("Slow");
+            with (form.M_voornaam)
+            {
+                if (value == "" || value == null)
+                {
+                    $("#output").html('<h2 class="rood">voornaam invullen is verplicht.</h2>').fadeIn("Slow");
+                    $("#M_voornaam").addClass("rood");
+                    return false;
+                }
+            }
+
+            with (form.M_achternaam)
+            {
+                if (value == "" || value == null)
+                {
+                    $("#output").html('<h2 class="rood">Achternaam invullen is verplicht.</h2>').fadeIn("Slow");
+                    $("#M_achternaam").addClass("rood");
+                    return false;
+                }
+            }
+
+            with (form.M_pers_nr)
+            {
+                if (value == "" || value == null)
+                {
+                    $("#output").html('<h2 class="rood">Personeels nummer invullen is verplicht.</h2>').fadeIn("Slow");
+                    $("#M_pers_nr").addClass("rood");
+                    return false;
+                }
+            }
+
+            with (form.M_omschrijving)
+            {
+                if (value == "" || value == null)
+                {
+                    $("#output").html('<h2 class="rood">Omschrijving invullen is verplicht.</h2>').fadeIn("Slow");
+                    $("#M_omschrijving").addClass("rood");
+                    return false;
+                }
+            }
+
+            with (form.M_land)
+            {
+                if (value == "" || value == null || value=='placeholder')
+                {
+                    $("#output").html('<h2 class="rood">Land kiezen is verplicht.</h2>').fadeIn("Slow");
+                    $("#M_land").addClass("rood");
+                    return false;
+                }
+            }
+
+            with (form.M_plaats)
+            {
+                if (value == "" || value == null)
+                {
+                    $("#output").html('<h2 class="rood">Plaats invullen is verplicht.</h2>').fadeIn("Slow");
+                    $("#M_plaats").addClass("rood");
+                    return false;
+                }
+            }
+
+            with (form.M_adres1)
+            {
+                if (value == "" || value == null)
+                {
+                    $("#output").html('<h2 class="rood">Adres invullen is verplicht.</h2>').fadeIn("Slow");
+                    $("#M_adres1").addClass("rood");
+                    return false;
+                }
+            }
+
+            with (form.M_adres2)
+            {
+                if (value == "" || value == null)
+                {
+                    $("#M_adres2").val("Onbekend");
+                }
+            }
+
+            with (form.M_postcode)
+            {
+                if (value == "" || value == null)
+                {
+                    $("#M_postcode").val("Onbekend");
+                }
+            }
+
+            with (form.M_startDatum)
+            {
+                if (value == "" || value == null)
+                {
+                    $("#output").html('<h2 class="rood">Start datum activiteit invullen is verplicht.</h2>').fadeIn("Slow");
+                    $("#M_startDatum").addClass("rood");
+                    return false;
+                }
+            }
+
+            with (form.M_eindDatum)
+            {
+                if (value == "" || value == null)
+                {
+                    $("#output").html('<h2 class="rood">Eind datum activiteit invullen is verplicht.</h2>').fadeIn("Slow");
+                    $("#M_eindDatum").addClass("rood");
+                    return false;
+                }
+            }
 }

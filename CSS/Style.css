@@ -4,6 +4,7 @@ body
     font-family: Verdana;
     padding: 0px;
     margin: 0px;
+    color: #0084C9;
 }
 #header
 {
@@ -45,7 +46,10 @@ table tr td /*Opmaak tabel cel*/
 {
     border: 1px solid #0084C9;
 }
-
+.formTable tr td
+{
+    border: none;
+}
 ::-webkit-scrollbar
 {
     background: #0084C9; /*Achtergrond scrollbar*/
@@ -103,6 +107,7 @@ textarea
     color: #000;
     border: 1px solid #0084C9;
     overflow: auto;
+    width: 95%;
 }
 textarea:focus
 {
@@ -117,7 +122,6 @@ input[type=button]
     color: #8CD600;
     box-shadow: 3px 3px 10px #808080;
     width: auto;
-    margin: 5px;
 }
 input[type=submit]
 {
@@ -125,7 +129,6 @@ input[type=submit]
     color: #8CD600;
     box-shadow: 3px 3px 10px #808080;
     width: auto;
-    margin: 5px;
 }
 input[type=submit]:hover
 {

@@ -33,7 +33,7 @@
             <option value="studies">Studies in het buitenland</option>
         </select>
         <form method="post" action="PHP/invoeren_Stages.php">
-        <div id="formStages">
+        <div id="formStages" class="form">
         <br>
         <label for="fileSelect">
             Selecteer een Excel sheet:
@@ -48,57 +48,76 @@
         <input type="submit" id="submit_Stages" class="hiddenButtons" value="Gegevens opslaan in database" disabled="disabled">
         </div>
             </form>
-            <div id="formMedewerkers">
-                <form action="PHP/invoer_Medewerkers.php" method="post">
-                    <h1>Invul form medewerkers</h1>
+            <div id="formMedewerkers" class="form">
+                <form action="PHP/invoer_Medewerkers.php" method="post" onsubmit="return formValMedewerkers(this);">
+                    <table class="formTable">
+                    <tr>
+                    <td colspan="2"><h1>Invul form medewerkers</h1></td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_voornaam">Vul voonaam van het personeelslid in:</label></td>
+                    <td><input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="M_voornaam" name="M_voornaam">*</td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_achternaam">Vul achternaam van het personeelslid in:</label></td>
+                    <td><input type="text" class="textfield" maxlength="20" placeholder="Achternaam" id="M_achternaam" name="M_achternaam">*</td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_pers_nr">Vul personeelsnummer van het personeelslid in:</label></td>
+                    <td><input type="text" class="textfield" placeholder="Personeelsnummer" id="M_pers_nr" name="M_pers_nr">*</td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_omschrijving">Vul een omschijving van de activiteit in:</label></td>
+                    <td><textarea id="M_omschrijving" placeholder="omschijving" name="M_omschrijving"></textarea>*</td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_land">Vul land in:</label></td>
+                    <td><select id="M_land" name="M_land"></select>*</td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_plaats">Vul een plaats in:</label></td>
+                    <td><input type="text" class="textfield" placeholder="Plaats" id="M_plaats" maxlength="30" name="M_plaats">*</td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_adres1">Vul een adres in:</label></td>
+                    <td><input type="text" class="textfield" placeholder="Adres" id="M_adres1" maxlength="100" name="M_adres1">*</td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_adres2">Vul een tweede adres in:</label></td>
+                    <td><input type="text" class="textfield" placeholder="Adres" id="M_adres2" maxlength="100" name="M_adres2"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_postcode">Vul postcode in:</label></td>
+                    <td><input type="text" id="M_postcode" placeholder="Postcode" class="textfield" name="M_postcode"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_startDatum">Vul een begindatum van de activiteit in:</label></td>
+                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="M_startDatum" name="M_startDatum">*</td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_eindDatum">Vul een einddatum van de activiteit in:</label></td>
+                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="M_eindDatum" name="M_eindDatum">*</td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_lat_zichtbaar">Latitude:</label></td>
+                    <td><input type="text" class="textfield" placeholder="Druk op adres controleren" id="M_lat_zichtbaar" disabled="disabled" name="M_lat_zichtbaar">
+                    <input type="text" id="M_lat_onzichtbaar" hidden="hidden" name="M_lat_onzichtbaar">*</td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_lon_zichtbaar">Longitude:</label></td>
+                    <td><input type="text" class="textfield" placeholder="Druk op adres controleren" id="M_lon_zichtbaar" disabled="disabled" name="M_lon_zichtbaar">
+                    <input type="text" id="M_lon_onzichtbaar" hidden="hidden" name="M_lon_onzichtbaar">*</td>
+                    </tr>
+                    <tr>
+                    <td><input type="button" value="Adres controleren" onclick="getLatLon()"></td>
+                    <td><input type="submit" id="submit_Medewerkers" value="Gegevens opslaan in database" disabled="disabled"></td>
+                    </tr>
+                    </table>
                     <br>
-                    <label for="M_voornaam">Vul voonaam van het personeelslid in:</label>
-                    <input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="M_voornaam" name="M_voornaam">
-                    <br>
-                    <label for="M_achternaam">Vul achternaam van het personeelslid in:</label>
-                    <input type="text" class="textfield" maxlength="20" placeholder="Achternaam" id="M_achternaam" name="M_achternaam">
-                    <br>
-                    <label for="M_pers_nr">Vul personeelsnummer van het personeelslid in:</label>
-                    <input type="text" class="textfield" placeholder="Personeelsnummer" id="M_pers_nr" name="M_pers_nr">
-                    <br>
-                    <label for="M_omschrijving">Vul een omschijving van de activiteit in:</label>
-                    <textarea id="M_omschrijving" placeholder="omschijving" name="M_omschrijving"></textarea>
-                    <br>
-                    <label for="M_land">Vul land in:</label>
-                    <select id="M_land" name="M_land">
-                    </select>
-                    <br>
-                    <label for="M_plaats">Vul een plaats in:</label>
-                    <input type="text" class="textfield" placeholder="Plaats" id="M_plaats" maxlength="30" name="M_plaats">
-                    <br>
-                    <label for="M_adres1">Vul een adres in:</label>
-                    <input type="text" class="textfield" placeholder="Adres" id="M_adres1" maxlength="100" name="M_adres1">
-                    <br>
-                    <label for="M_adres2">Vul een tweede adres in (optioneel):</label>
-                    <input type="text" class="textfield" placeholder="Adres" id="M_adres2" maxlength="100" name="M_adres2">
-                    <br>
-                    <label for="M_postcode">Vul postcode in:</label>
-                    <input type="text" id="M_postcode" placeholder="Postcode" class="textfield" name="M_postcode">
-                    <br>
-                    <label for="M_startDatum">Vul een begindatum van de activiteit in:</label>
-                    <input type="text" class="textfield" placeholder="jjjj/mm/dd" id="M_startDatum" name="M_startDatum">
-                    <br>
-                    <label for="M_eindDatum">Vul een einddatum van de activiteit in:</label>
-                    <input type="text" class="textfield" placeholder="jjjj/mm/dd" id="M_eindDatum" name="M_eindDatum">
-                    <br>
-                    <label for="M_lat_zichtbaar">Latitude:</label>
-                    <input type="text" class="textfield" placeholder="Druk op adres controleren" id="M_lat_zichtbaar" disabled="disabled" name="M_lat_zichtbaar">
-                    <input type="text" id="M_lat_onzichtbaar" hidden="hidden" name="M_lat_onzichtbaar">
-                    <br>
-                    <label for="M_lon_zichtbaar">Longitude:</label>
-                    <input type="text" class="textfield" placeholder="Druk op adres controleren" id="M_lon_zichtbaar" disabled="disabled" name="M_lon_zichtbaar">
-                    <input type="text" id="M_lon_onzichtbaar" hidden="hidden" name="M_lon_onzichtbaar">
-                    <br>
-                    <input type="button" value="Adres controleren" onclick="getLatLon()">
-                    <input type="submit" id="submit_Medewerkers" value="Gegevens opslaan in database" disabled="disabled">
+                    * = Verplicht veld
                 </form>
             </div>
-        <div id="formStudies">
+        <div id="formStudies" class="form">
             <form action="PHP/invoer_Studies.php" method="post">
                     <h1>Invul form studies in het buitenland</h1>
                     <br>
