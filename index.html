@@ -55,7 +55,7 @@
                     <td colspan="2"><h1>Invul form medewerkers</h1></td>
                     </tr>
                     <tr>
-                    <td><label for="M_voornaam">Vul voonaam van het personeelslid in:</label></td>
+                    <td><label for="M_voornaam">Vul voornaam van het personeelslid in:</label></td>
                     <td><input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="M_voornaam" name="M_voornaam">*</td>
                     </tr>
                     <tr>
@@ -71,7 +71,7 @@
                     <td><textarea id="M_omschrijving" placeholder="omschijving" name="M_omschrijving"></textarea>*</td>
                     </tr>
                     <tr>
-                    <td><label for="M_land">Vul land in:</label></td>
+                    <td><label for="M_land">Kies een land:</label></td>
                     <td><select id="M_land" name="M_land"></select>*</td>
                     </tr>
                     <tr>
@@ -121,6 +121,10 @@
             <form action="PHP/invoer_Studies.php" method="post">
                     <h1>Invul form studies in het buitenland</h1>
                     <br>
+                    <label for="S_Instelling">Kies de instelling (school) naam:</label>
+                    <select id="S_Instelling" name="S_Instelling" onchange="fillInDataInstelling()">
+                    </select>
+                    <br>
                     <label for="S_voornaam">Vul voonaam van de student in:</label>
                     <input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="S_voornaam">
                     <br>
@@ -130,21 +134,21 @@
                     <label for="S_stud_nr">Vul studentnummer van de student in:</label>
                     <input type="text" class="textfield" placeholder="Studentnummer" id="S_stud_nr">
                     <br>
-                    <label for="S_instelling">Vul de naam van de instelling in:</label>
-                    <input type="text" class="textfield" id="S_instelling" placeholder="instelling naam">
-                    <br>
-                    <label for="S_land">Vul land in:</label>
+                    <label for="S_land">Land:</label>
                     <select id="S_land" name="S_land">
                     </select>
                     <br>
-                    <label for="S_plaats">Vul een plaats in:</label>
+                    <label for="S_plaats">Plaats:</label>
                     <input type="text" class="textfield" placeholder="Plaats" id="S_plaats" maxlength="30">
                     <br>
-                    <label for="S_adres1">Vul een adres in:</label>
+                    <label for="S_adres1">Adres:</label>
                     <input type="text" class="textfield" placeholder="Adres" id="S_adres1" maxlength="100">
                     <br>
-                    <label for="S_adres2">Vul een tweede adres in (optioneel):</label>
+                    <label for="S_adres2">Tweede adres (optioneel):</label>
                     <input type="text" class="textfield" placeholder="Adres" id="S_adres2" maxlength="100">
+                    <br>
+                    <label for="S_postcode">Postcode:</label>
+                    <input type="text" id="S_postcode" placeholder="Postcode" class="textfield" name="S_postcode"></td>
                     <br>
                     <label for="S_startDatum">Vul een begindatum van de studie in:</label>
                     <input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_startDatum">
@@ -153,12 +157,13 @@
                     <input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_eindDatum">
                     <br>
                     <label for="S_lat">Latitude:</label>
-                    <input type="text" class="textfield" placeholder="Druk op adres controleren" id="S_lat" disabled="disabled">
+                    <input type="text" class="textfield" placeholder="Selecteer instelling" id="S_lat_zichtbaar" disabled="disabled">
+                    <input type="text" id="S_lat_onzichtbaar" hidden="hidden" name="S_lat_onzichtbaar">
                     <br>
                     <label for="S_lon">Longitude:</label>
-                    <input type="text" class="textfield" placeholder="Druk op adres controleren" id="S_lon" disabled="disabled">
+                    <input type="text" class="textfield" placeholder="Selecteer instelling" id="S_lon_zichtbaar" disabled="disabled">
+                    <input type="text" id="S_lon_onzichtbaar" hidden="hidden" name="S_lon_onzichtbaar">
                     <br>
-                    <input type="button" value="Adres controleren" onclick="getLatLon()">
                     <input type="submit" id="submit_Studies" value="Gegevens opslaan in database" disabled="disabled">
                 </form>
             </form>

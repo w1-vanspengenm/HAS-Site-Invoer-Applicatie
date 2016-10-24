@@ -1,6 +1,8 @@
 var j; // Var voor opslaan json object
 var output; // Var voor opslaan htmlcode weer te geven in output
 var landen;
+var scholen;
+
 function GetGoogleGeocoder(address, callback)
 {
     try
@@ -175,14 +177,30 @@ $(document).ready(function ()
     .done(function (data)
     {
         landen = data;
-        fill_List(landen);
+            var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:universiteiten%20en%20hogescholen&outputFormat=application%2Fjson' };
+    $.ajax(
+    {
+        url: 'PHP/geoproxy.php',
+        dataType: 'json',
+        method: 'post',
+        data: serviceName
+    })
+    .done(function (data)
+    {
+        scholen = data;
+        fill_List(landen, scholen);
+    })
+    .fail(function ()
+    {
+        console.log("fout opgetreden bij ophalen van universiteiten en hogescholen");
+    });
     })
     .fail(function ()
     {
         console.log("fout opgetreden bij ophalen van landen");
     });
 });
-function fill_List(landen)
+function fill_List(landen, scholen)
 {
     if(landen != undefined)
     {
@@ -200,6 +218,27 @@ function fill_List(landen)
         });
         $("#M_land").append(output);
         $("#S_land").append(output);
+    }
+    else
+    {
+        return;
+    }
+
+    if (scholen != undefined)
+    {
+        $.each(scholen.features, function (i, school)
+        {
+            if (i == 0)
+            {
+                output = '<option value="placeholder" disabled selected hidden>Kies een instelling...</option>';
+                output+='<option value="' + school.properties.Instelling_ID+'">' + school.properties.Instelling_naam + '</option>';
+            }
+            else
+            {
+                output += '<option value=' + school.properties.Instelling_ID+ '>' + school.properties.Instelling_naam + '</option>';
+            }
+        });
+        $("#S_Instelling").append(output);
     }
     else
     {
@@ -404,8 +443,10 @@ function getLatLon(j)
                 if (data != undefined)
                 {
                     console.log(data.provider);
-                    $("#S_lat").val(data.lat);
-                    $("#S_lon").val(data.lng);
+                    $("#S_lat_zichtbaar").val(data.lat);
+                    $("#S_lat_onzichtbaar").val(data.lat);
+                    $("#S_lon_zichtbaar").val(data.lng);
+                    $("#S_lon_onzichtbaar").val(data.lng);
                     $("#submit_Studies").attr('disabled', false);
                 }
                 else
@@ -415,8 +456,10 @@ function getLatLon(j)
                         if (data != undefined)
                         {
                             console.log(data.provider);
-                            $("#S_lat").val(data.lat);
-                            $("#S_lon").val(data.lng);
+                        $("#S_lat_zichtbaar").val(data.lat);
+                        $("#S_lat_onzichtbaar").val(data.lat);
+                        $("#S_lon_zichtbaar").val(data.lng);
+                        $("#S_lon_onzichtbaar").val(data.lng);
                             $("#submit_Studies").attr('disabled', false);
                         }
                         else
@@ -579,4 +622,25 @@ function formValMedewerkers(form)
                     return false;
                 }
             }
+}
+function fillInDataInstelling()
+{
+    var instellingID = $("#S_Instelling").val();
+    $.each(scholen.features, function (i, school)
+    {
+        if (school.properties.Instelling_ID == instellingID)
+        {
+            $("#S_land").val(school.properties.Landcode);
+            $("#S_plaats").val(school.properties.Plaats);
+            $("#S_adres1").val(school.properties.Adres_1);
+            $("#S_adres2").val(school.properties.Adres_2);
+            $("#S_postcode").val(school.properties.Postcode);
+            $("#S_lat_zichtbaar").val(school.properties.Latitude);
+            $("#S_lat_onzichtbaar").val(school.properties.Latitude);
+            $("#S_lon_zichtbaar").val(school.properties.Longitude);
+            $("#S_lon_onzichtbaar").val(school.properties.Longitude);
+            $("#submit_Studies").attr('disabled', false);
+            return false; // stop each
+        }
+    })
 }
