@@ -166,6 +166,17 @@
                     <br>
                     <input type="submit" id="submit_Studies" value="Gegevens opslaan in database" disabled="disabled">
                 </form>
+        </div>
+        <div id="formScholen" class="form">
+            <form action="PHP/invoer_Scholen.php" method="post">
+                <label for="I_naam">Vul naam van de instelling in:</label>
+                <input type="text" name="I_naam" id="I_naam" class="textfield" placeholder="Naam instelling" maxlength="50">
+                <br>
+                <label for="I_adres1">Vul adres in:</label>
+                <input type="text" class="textfield" name="I_adres1" id="I_adres1" placeholder="adres" maxlength="100">
+                <br>
+                <label for="I_adres2"></label>
+                <input type="text" class="textfield" name="I_adres2" id="I_adres2" placeholder="adres" maxlength="100">
             </form>
         </div>
         <!--Div waarin de output (ook foutmeldingen) wordt weergegeven-->

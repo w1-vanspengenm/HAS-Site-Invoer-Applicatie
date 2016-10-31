@@ -87,20 +87,17 @@ function onSelect() //Haalt geselecteerde waarde dropdownlist op en laat eerdere
             switch (valueSelect)
             {
                 case "stages":
-                    $("#formStudies").fadeOut("Slow");
-                    $("#formMedewerkers").fadeOut("Slow");
+                    $('.form').fadeOut("Slow");
                     $("#formStages").fadeIn("Slow");
                      fill_List_Check();
                     break;
                 case "medewerkers":
-                    $("#formStudies").fadeOut("Slow");
-                    $("#formStages").fadeOut("Slow");
+                    $('.form').fadeOut("Slow");
                     $("#formMedewerkers").fadeIn("Slow");
                      fill_List_Check();
                     break;
                 case "studies":
-                    $("#formStages").fadeOut("Slow");
-                    $("#formMedewerkers").fadeOut("Slow");
+                    $('.form').fadeOut("Slow");
                     $("#formStudies").fadeIn("Slow");
                      fill_List_Check();
                     break;
@@ -144,9 +141,7 @@ function handleFile(e) {
 }
 $(document).ready(function ()
 {
-    $("#formStudies").hide();
-    $("#formMedewerkers").hide();
-    $("#formStages").hide();
+    $('.form').hide();
     $("#output").hide();
     $("#dropzone").on("dragover", function (e)
     {
@@ -177,8 +172,8 @@ $(document).ready(function ()
     .done(function (data)
     {
         landen = data;
-            var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:universiteiten%20en%20hogescholen&outputFormat=application%2Fjson' };
-    $.ajax(
+        var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:universiteiten%20en%20hogescholen&outputFormat=application%2Fjson' };
+        $.ajax(
     {
         url: 'PHP/geoproxy.php',
         dataType: 'json',
@@ -430,43 +425,6 @@ function getLatLon(j)
                             $("#output").html('<h2 class="rood">Adres niet gevonden.</h2>').fadeIn("Slow");
                             $("#M_lat").addClass("rood");
                             $("#M_lon").addClass("rood");
-                        }
-                    });
-                }
-            });
-            break;
-        case "studies":
-        $("#output").fadeOut("Fast");
-            var search = $("#S_land option:selected").text() + " " + $("#S_plaats").val() + " " + $("#S_adres1").val();
-            GetNominatimGeocoder(search, function (data)
-            {
-                if (data != undefined)
-                {
-                    console.log(data.provider);
-                    $("#S_lat_zichtbaar").val(data.lat);
-                    $("#S_lat_onzichtbaar").val(data.lat);
-                    $("#S_lon_zichtbaar").val(data.lng);
-                    $("#S_lon_onzichtbaar").val(data.lng);
-                    $("#submit_Studies").attr('disabled', false);
-                }
-                else
-                {
-                    GetGoogleGeocoder(search, function (data)
-                    {
-                        if (data != undefined)
-                        {
-                            console.log(data.provider);
-                        $("#S_lat_zichtbaar").val(data.lat);
-                        $("#S_lat_onzichtbaar").val(data.lat);
-                        $("#S_lon_zichtbaar").val(data.lng);
-                        $("#S_lon_onzichtbaar").val(data.lng);
-                            $("#submit_Studies").attr('disabled', false);
-                        }
-                        else
-                        {
-                            $("#output").html('<h2 class="rood">Adres niet gevonden</h2>').fadeIn("Slow");
-                            $("#S_lat").addClass("rood");
-                            $("#S_lon").addClass("rood");
                         }
                     });
                 }
