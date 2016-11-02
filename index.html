@@ -119,64 +119,118 @@
             </div>
         <div id="formStudies" class="form">
             <form action="PHP/invoer_Studies.php" method="post">
-                    <h1>Invul form studies in het buitenland</h1>
-                    <br>
-                    <label for="S_Instelling">Kies de instelling (school) naam:</label>
-                    <select id="S_Instelling" name="S_Instelling" onchange="fillInDataInstelling()">
-                    </select>
-                    <br>
-                    <label for="S_voornaam">Vul voonaam van de student in:</label>
-                    <input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="S_voornaam">
-                    <br>
-                    <label for="S_achternaam">Vul achternaam van de student in:</label>
-                    <input type="text" class="textfield" maxlength="20" placeholder="Achternaam" id="S_achternaam">
-                    <br>
-                    <label for="S_stud_nr">Vul studentnummer van de student in:</label>
-                    <input type="text" class="textfield" placeholder="Studentnummer" id="S_stud_nr">
-                    <br>
-                    <label for="S_land">Land:</label>
-                    <select id="S_land" name="S_land">
-                    </select>
-                    <br>
-                    <label for="S_plaats">Plaats:</label>
-                    <input type="text" class="textfield" placeholder="Plaats" id="S_plaats" maxlength="30">
-                    <br>
-                    <label for="S_adres1">Adres:</label>
-                    <input type="text" class="textfield" placeholder="Adres" id="S_adres1" maxlength="100">
-                    <br>
-                    <label for="S_adres2">Tweede adres (optioneel):</label>
-                    <input type="text" class="textfield" placeholder="Adres" id="S_adres2" maxlength="100">
-                    <br>
-                    <label for="S_postcode">Postcode:</label>
-                    <input type="text" id="S_postcode" placeholder="Postcode" class="textfield" name="S_postcode"></td>
-                    <br>
-                    <label for="S_startDatum">Vul een begindatum van de studie in:</label>
-                    <input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_startDatum">
-                    <br>
-                    <label for="S_eindDatum">Vul een einddatum van de studie in:</label>
-                    <input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_eindDatum">
-                    <br>
-                    <label for="S_lat">Latitude:</label>
-                    <input type="text" class="textfield" placeholder="Selecteer instelling" id="S_lat_zichtbaar" disabled="disabled">
-                    <input type="text" id="S_lat_onzichtbaar" hidden="hidden" name="S_lat_onzichtbaar">
-                    <br>
-                    <label for="S_lon">Longitude:</label>
-                    <input type="text" class="textfield" placeholder="Selecteer instelling" id="S_lon_zichtbaar" disabled="disabled">
-                    <input type="text" id="S_lon_onzichtbaar" hidden="hidden" name="S_lon_onzichtbaar">
-                    <br>
-                    <input type="submit" id="submit_Studies" value="Gegevens opslaan in database" disabled="disabled">
+                <table class="formTable">
+                    <tr>
+                    <td colspan="2"><h1>Invul form studies in het buitenland</h1></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_Instelling">Kies de instelling (school) naam:</label></td>
+                    <td><select id="S_Instelling" name="S_Instelling" onchange="fillInDataInstelling()">
+                    </select>Of
+                    <input type="button" value="Voeg nieuwe instelling toe" onclick="$('.form').fadeOut('Slow'); $('#formScholen').fadeIn('Slow')"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_voornaam">Vul voonaam van de student in:</label></td>
+                    <td><input type="text" class="textfield" maxlength="20" placeholder="Voornaam" name="S_voornaam" id="S_voornaam"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_achternaam">Vul achternaam van de student in:</label></td>
+                    <td><input type="text" class="textfield" maxlength="20" placeholder="Achternaam" name="S_achternaam" id="S_achternaam"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_stud_nr">Vul studentnummer van de student in:</label></td>
+                    <td><input type="text" class="textfield" placeholder="Studentnummer" id="S_stud_nr" name="S_stud_nr"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_land">Land:</label></td>
+                    <td><select id="S_land" name="S_land">
+                    </select></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_plaats">Plaats:</label></td>
+                    <td><input type="text" class="textfield" placeholder="Plaats" id="S_plaats" maxlength="30" name="S_plaats"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_adres1">Adres:</label></td>
+                    <td><input type="text" class="textfield" placeholder="Adres" id="S_adres1" maxlength="100" name="S_adres1"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_adres2">Tweede adres (optioneel):</label></td>
+                    <td><input type="text" class="textfield" placeholder="Adres" id="S_adres2" maxlength="100" name="S_adres2"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_postcode">Postcode:</label></td>
+                    <td><input type="text" id="S_postcode" placeholder="Postcode" class="textfield" name="S_postcode"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_startDatum">Vul een begindatum van de studie in:</label></td>
+                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_startDatum" name="S_startDatum"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_eindDatum">Vul een einddatum van de studie in:</label></td>
+                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_eindDatum" name="S_eindDatum"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_lat_zichtbaar">Latitude:</label></td>
+                    <td><input type="text" class="textfield" placeholder="Selecteer instelling" id="S_lat_zichtbaar" disabled="disabled">
+                    <input type="text" id="S_lat_onzichtbaar" hidden="hidden" name="S_lat_onzichtbaar"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_lon_zichtbaar">Longitude:</label></td>
+                    <td><input type="text" class="textfield" placeholder="Selecteer instelling" id="S_lon_zichtbaar" disabled="disabled">
+                    <input type="text" id="S_lon_onzichtbaar" hidden="hidden" name="S_lon_onzichtbaar"></td>
+                    </tr>
+                    <tr>
+                    <td colspan="2"><input type="submit" id="submit_Studies" value="Gegevens opslaan in database" disabled="disabled"></td>
+                    </tr>
+                    </table>
                 </form>
         </div>
         <div id="formScholen" class="form">
             <form action="PHP/invoer_Scholen.php" method="post">
-                <label for="I_naam">Vul naam van de instelling in:</label>
-                <input type="text" name="I_naam" id="I_naam" class="textfield" placeholder="Naam instelling" maxlength="50">
-                <br>
-                <label for="I_adres1">Vul adres in:</label>
-                <input type="text" class="textfield" name="I_adres1" id="I_adres1" placeholder="adres" maxlength="100">
-                <br>
-                <label for="I_adres2"></label>
-                <input type="text" class="textfield" name="I_adres2" id="I_adres2" placeholder="adres" maxlength="100">
+                <table class="formTable">
+                <tr>
+                <td colspan="2"><h1>Invul form niewe instelling</h1></td>
+                </tr>
+                <tr>
+                <td><label for="I_naam">Vul naam van de instelling in:</label></td>
+                <td><input type="text" name="I_naam" id="I_naam" class="textfield" placeholder="Naam instelling" maxlength="50"></td>
+                </tr>
+                <tr>
+                <td><label for="I_land">Kies een land:</label></td>
+                <td><select id="I_land" name="I_land"></select></td>
+                </tr>
+                <tr>
+                <td><label for="I_plaats">Vul plaats van de instelling in:</label></td>
+                <td><input type="text" name="I_plaats" id="I_plaats" class="textfield" placeholder="Plaats" maxlength="30"></td>
+                </tr>
+                <tr>
+                <td><label for="I_adres1">Vul een adres van de instelling in:</label></td>
+                <td><input type="text" class="textfield" name="I_adres1" id="I_adres1" placeholder="adres" maxlength="100"></td>
+                </tr>
+                <tr>
+                <td><label for="I_adres2">Vul een adres tweede van de instelling in (Optioneel):</label></td>
+                <td><input type="text" class="textfield" name="I_adres2" id="I_adres2" placeholder="adres" maxlength="100"></td>
+                </tr>
+                <tr>
+                <td><label form="I_postcode">Vul postcode van instelling in:</label></td>
+                <td><input type="text" class="textfield" name="I_postcode" id="I_postcode" placeholder="Postcode" maxlength="8"></td>
+                </tr>
+                <tr>
+                <td><label for="I_lat_zichtbaar">Latitude:</label></td>
+                <td><input type="text" class="textfield" placeholder="Adres controleren" id="I_lat_zichtbaar" disabled="disabled">
+                <input type="text" id="I_lat_onzichtbaar" hidden="hidden" name="I_lat_onzichtbaar"></td>
+                </tr>
+                <tr>
+                <td><label for="I_lon_zichtbaar">Longitude:</label></td>
+                <td><input type="text" class="textfield" placeholder="Adres controleren" id="I_lon_zichtbaar" disabled="disabled">
+                <input type="text" id="I_lon_onzichtbaar" hidden="hidden" name="I_lon_onzichtbaar"></td>
+                </tr>
+                <tr>
+                <td><input type="button" value="Adres controleren" onclick="getLatLon()"></td>
+                <td><input type="submit" id="submit_Instelling" value="Gegevens opslaan in database" disabled="disabled"></td>
+                </tr>
+                </table>
             </form>
         </div>
         <!--Div waarin de output (ook foutmeldingen) wordt weergegeven-->

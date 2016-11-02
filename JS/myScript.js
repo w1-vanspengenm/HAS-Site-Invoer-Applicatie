@@ -213,6 +213,7 @@ function fill_List(landen, scholen)
         });
         $("#M_land").append(output);
         $("#S_land").append(output);
+        $("#I_land").append(output);
     }
     else
     {
@@ -242,7 +243,7 @@ function fill_List(landen, scholen)
 }
 function fill_List_Check()
 {
-    if( $('#M_land').has('option').length == 0 || $('#S_land').has('option').length == 0)
+    if( $('#M_land').has('option').length == 0 || $('#S_land').has('option').length == 0 || $('#I_land').has('option').length == 0)
     {
         $("#output").html('<h2 class="rood">Database niet beschikbaar, neem contact op met het Geolab.</h2>').fadeIn("Slow");
         $('.form').hide();
@@ -423,8 +424,45 @@ function getLatLon(j)
                         else
                         {
                             $("#output").html('<h2 class="rood">Adres niet gevonden.</h2>').fadeIn("Slow");
-                            $("#M_lat").addClass("rood");
-                            $("#M_lon").addClass("rood");
+                            $("#M_lat_zichtbaar").addClass("rood");
+                            $("#M_lon_zichtbaar").addClass("rood");
+                        }
+                    });
+                }
+            });
+            break;
+        case "studies":
+            $("#output").fadeOut("Fast");
+            var search = $("#I_land option:selected").text() + " " + $("#I_plaats").val() + " " + $("#I_adres1").val() + " " + $('I_postcode');
+            GetNominatimGeocoder(search, function (data)
+            {
+                if (data != undefined)
+                {
+                    console.log(data.provider);
+                    $("#I_lat_zichtbaar").val(data.lat);
+                    $("#I_lat_onzichtbaar").val(data.lat);
+                    $("#I_lon_zichtbaar").val(data.lng);
+                    $("#I_lon_onzichtbaar").val(data.lng);
+                    $("#submit_Instelling").attr('disabled', false);
+                }
+                else
+                {
+                    GetGoogleGeocoder(search, function (data)
+                    {
+                        if (data != undefined)
+                        {
+                            console.log(data.provider);
+                            $("#I_lat_zichtbaar").val(data.lat);
+                            $("#I_lat_onzichtbaar").val(data.lat);
+                            $("#I_lon_zichtbaar").val(data.lng);
+                            $("#I_lon_onzichtbaar").val(data.lng);
+                            $("#submit_Instelling").attr('disabled', false);
+                        }
+                        else
+                        {
+                            $("#output").html('<h2 class="rood">Adres niet gevonden.</h2>').fadeIn("Slow");
+                            $("#I_lat_zichtbaar").addClass("rood");
+                            $("#I_lon_zichtbaar").addClass("rood");
                         }
                     });
                 }

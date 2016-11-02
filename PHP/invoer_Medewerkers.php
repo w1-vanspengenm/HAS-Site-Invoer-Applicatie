@@ -57,5 +57,6 @@ $postcode=$_POST['M_postcode'];
            }
            pg_close($con);
         ?>
+        <input type="button" value="Ga terug naar home" onclick="window.location.href = '../index.html'; ">
     </body>
 </html>

@@ -88,18 +88,10 @@ table tr td /*Opmaak tabel cel*/
     border: none;
 }
 
-#formMedewerkers
-{
-    margin-top: 3vh;
-}
 label
 {
     color:#0084C9;
     font-family: Verdana;
-}
-#inputStage
-{
-    margin-top: 3vh;
 }
 textarea
 {
