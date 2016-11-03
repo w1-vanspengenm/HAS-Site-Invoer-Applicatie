@@ -124,10 +124,14 @@
                     <td colspan="2"><h1>Invul form studies in het buitenland</h1></td>
                     </tr>
                     <tr>
-                    <td><label for="S_Instelling">Kies de instelling (school) naam:</label></td>
-                    <td><select id="S_Instelling" name="S_Instelling" onchange="fillInDataInstelling()">
+                    <td><label for="S_instelling">Kies de instelling (school) naam:</label></td>
+                    <td><select id="S_instelling" name="S_instelling" onchange="fillInDataInstelling()">
                     </select>Of
                     <input type="button" value="Voeg nieuwe instelling toe" onclick="$('.form').fadeOut('Slow'); $('#formScholen').fadeIn('Slow')"></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_opleiding">Kies de opleiding van de student:</label></td>
+                    <td><select id="S_opleiding" name="S_opleiding"></select></td>
                     </tr>
                     <tr>
                     <td><label for="S_voornaam">Vul voonaam van de student in:</label></td>
@@ -190,7 +194,7 @@
             <form action="PHP/invoer_Scholen.php" method="post">
                 <table class="formTable">
                 <tr>
-                <td colspan="2"><h1>Invul form niewe instelling</h1></td>
+                <td colspan="2"><h1>Invul form nieuwe instelling</h1></td>
                 </tr>
                 <tr>
                 <td><label for="I_naam">Vul naam van de instelling in:</label></td>

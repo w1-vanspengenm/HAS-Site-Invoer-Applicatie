@@ -11,7 +11,7 @@ $lon=$_POST['I_lon_onzichtbaar'];
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Invoer instelling</title>
+        <title>Invoer nieuwe instelling</title>
         <!--Linken stylesheet-->
         <link rel="stylesheet" type="text/css" href="../CSS/Style.css">
         <!--Linken has favicon-->
@@ -27,7 +27,6 @@ $lon=$_POST['I_lon_onzichtbaar'];
            $con = pg_connect("host=localhost dbname=HAS user=postgres password=postgres")
            or die('<h2 class="rood">Kan niet verbinden met database, neem contact op met het Geolab</h2>');
            $select="select * from \"tbl_Bedrijven/Onderwijsinstellingen\" where \"Latitude\"=".$lat." and \"Longitude\"=".$lon;
-           echo $select;
            $result=pg_query($select);
            $numRows=pg_num_rows($result);
            if($numRows==0)
@@ -35,11 +34,11 @@ $lon=$_POST['I_lon_onzichtbaar'];
                $insert="INSERT INTO \"tbl_Bedrijven/Onderwijsinstellingen\" (\"Instelling_naam\", \"Adres_1\", \"Adres_2\", \"Plaats\", \"Landcode\", \"Latitude\", \"Longitude\", \"Studie_mogelijkheid\", \"Postcode\")";
                $insert.="VALUES ('".$instellingNaam."', '".$adres1."', '".$adres2."', '".$plaats."', '".$land."', ".$lat.", ".$lon.", "."'t'".", '".$postcode."')";
                $result=pg_query($insert) or die ('<h2 class="rood">Query mislukt, neem contact op met het Geolab</h2>');
-               echo '<h2>Instelling ingevoerd</h2>';
+               echo '<h2>Instelling ingevoerd.</h2>';
            }
            else
            {
-               echo '<h2 class="rood">Instelling bestaat al</h2>';
+               echo '<h2 class="rood">Instelling bestaat al.</h2>';
            }
            pg_close($con);
         ?>

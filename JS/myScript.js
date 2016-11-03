@@ -2,6 +2,7 @@ var j; // Var voor opslaan json object
 var output; // Var voor opslaan htmlcode weer te geven in output
 var landen;
 var scholen;
+var opleidingen;
 
 function GetGoogleGeocoder(address, callback)
 {
@@ -183,7 +184,23 @@ $(document).ready(function ()
     .done(function (data)
     {
         scholen = data;
-        fill_List(landen, scholen);
+        var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:tbl_Opleidingen&outputFormat=application%2Fjson' };
+        $.ajax(
+    {
+        url: 'PHP/geoproxy.php',
+        dataType: 'json',
+        method: 'post',
+        data: serviceName
+    })
+    .done(function (data)
+    {
+        opleidingen = data;
+        fill_List(landen, scholen, opleidingen);
+    })
+    .fail(function ()
+    {
+        console.log("fout opgetreden bij ophalen van opledingen");
+    });
     })
     .fail(function ()
     {
@@ -195,7 +212,7 @@ $(document).ready(function ()
         console.log("fout opgetreden bij ophalen van landen");
     });
 });
-function fill_List(landen, scholen)
+function fill_List(landen, scholen, opleidingen)
 {
     if(landen != undefined)
     {
@@ -234,7 +251,27 @@ function fill_List(landen, scholen)
                 output += '<option value=' + school.properties.Instelling_ID+ '>' + school.properties.Instelling_naam + '</option>';
             }
         });
-        $("#S_Instelling").append(output);
+        $("#S_instelling").append(output);
+    }
+    else
+    {
+        return;
+    }
+        if (opleidingen != undefined)
+        {
+        $.each(opleidingen.features, function (i, opleiding)
+        {
+            if (i == 0)
+            {
+                output = '<option value="placeholder" disabled selected hidden>Kies een opleiding...</option>';
+                output+='<option value="' + opleiding.id.substring(16, 19)+'">' + opleiding.properties.Opleidingsnaam_nl + '</option>';
+            }
+            else
+            {
+                output += '<option value=' + opleiding.id.substring(16, 19)+ '>' + opleiding.properties.Opleidingsnaam_nl + '</option>';
+            }
+        });
+        $("#S_opleiding").append(output);
     }
     else
     {
@@ -621,7 +658,7 @@ function formValMedewerkers(form)
 }
 function fillInDataInstelling()
 {
-    var instellingID = $("#S_Instelling").val();
+    var instellingID = $("#S_instelling").val();
     $.each(scholen.features, function (i, school)
     {
         if (school.properties.Instelling_ID == instellingID)
