@@ -323,103 +323,110 @@ function handleDrop(e) {
 }
 function outputJsonStage(j)
 {
-output = '<table><tr><th>Opmerking</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
+output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
     for (i = 0; i < j.length; i++)
             {
                 output += '<tr>';
-                output+='<td><input type="text" class="textfield" placeholder="Niet van toepassing" id="A'+i+'" value="" disabled="disabled"></td>';
-                if(j[i].Bedrijfnaam==null)
+                output+='<td><input type="text" class="textfield" placeholder="Niet van toepassing" id="STA_opmerking'+i+'" value="" disabled="disabled"></td>';
+                if(j[i].Referentie==null)
                 {
-                    output += '<td><input type="text" class="textfield" id="B'+i+'" value=""</td>';
+                    output += '<td><input type="text" class="textfield" id="STA_referentie'+i+'" value=""></td>';
                 }
                 else
                 {
-                   output += '<td><input type="text" class="textfield" id="B'+i+'" value="'+j[i].Bedrijfnaam+'"></td>';
+                    output += '<td><input type="text" class="textfield" id="STA_referentie'+i+'" value="'+j[i].Referentie+'"></td>';
+                }
+                if(j[i].Bedrijf==null)
+                {
+                    output += '<td><input type="text" class="textfield" id="STA_bedrijfsnaam'+i+'" value=""></td>';
+                }
+                else
+                {
+                   output += '<td><input type="text" class="textfield" id="STA_bedrijfsnaam'+i+'" value="'+j[i].Bedrijf+'"></td>';
                 }
                 if(j[i].Adres1==null)
                 {
-                    output += '<td><input type="text" class="textfield" id="C'+i+'" value=""</td>';
+                    output += '<td><input type="text" class="textfield" id="STA_adres1'+i+'" value=""></td>';
                 }
                 else
                 {
-                    output += '<td><input type="text" class="textfield" id="C'+i+'" value="'+j[i].Adres1+'"></td>';
+                    output += '<td><input type="text" class="textfield" id="STA_adres1'+i+'" value="'+j[i].Adres1+'"></td>';
                 }
                 if(j[i].Adres2==null)
-                
                 {
-                    output += '<td><input type="text" class="textfield" id="D'+i+'" value=""</td>';
+                    output += '<td><input type="text" class="textfield" id="STA_adres2'+i+'" value=""></td>';
                 }
                 else
                 {
-                     output += '<td><input type="text" class="textfield" id="D'+i+'" value="'+j[i].Adres2+'"></td>';
+                     output += '<td><input type="text" class="textfield" id="STA_adres2'+i+'" value="'+j[i].Adres2+'"></td>';
                 }
                if(j[i].Postcode==null)
                {
-                   output += '<td><input type="text" class="textfield" id="E'+i+'" value=""</td>';
+                   output += '<td><input type="text" class="textfield" id="STA_postcode'+i+'" value=""></td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="E'+i+'" value="'+j[i].Postcode+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_postcode'+i+'" value="'+j[i].Postcode+'"></td>';
                }
                if(j[i].Plaats==null)
                {
-                   output += '<td><input type="text" class="textfield" id="F'+i+'" value=""</td>';
+                   output += '<td><input type="text" class="textfield" id="STA_plaats'+i+'" value=""></td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="F'+i+'" value="'+j[i].Plaats+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_plaats'+i+'" value="'+j[i].Plaats+'"></td>';
                }
                if(j[i].Land==null)
                {
-                   output += '<td><input type="text" class="textfield" id="G'+i+'" value=""</td>';
+                   output += '<td><input type="text" class="textfield" id="STA_land'+i+'" value=""></td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="G'+i+'" value="'+j[i].Land+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_land'+i+'" value="'+j[i].Land+'"></td>';
                }
                if(j[i].Student==null)
                {
-                   output += '<td><input type="text" class="textfield" id="H'+i+'" value=""</td>';
+                   output += '<td><input type="text" class="textfield" id="STA_student'+i+'" value=""></td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="H'+i+'" value="'+j[i].Student+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_student'+i+'" value="'+j[i].Student+'"></td>';
                }
                if(j[i].Opleiding==null)
                {
-                   output += '<td><input type="text" class="textfield" id="I'+i+'" value=""</td>';
+                   output += '<td><input type="text" class="textfield" id="STA_opleiding'+i+'" value=""></td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="I'+i+'" value="'+j[i].Opleiding+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_opleiding'+i+'" value="'+j[i].Opleiding+'"></td>';
                }
                if(j[i].Afstud_richting==null)
                {
-                   output += '<td><input type="text" class="textfield" id="J'+i+'" value=""</td>';
+                   output += '<td><input type="text" class="textfield" id="STA_afstud_richting'+i+'" value=""></td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="J'+i+'" value="'+j[i].Afstud_richting+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_afstud_richting'+i+'" value="'+j[i].Afstud_richting+'"></td>';
                }
                if(j[i].Startdatum==null)
                {
-                   output += '<td><input type="text" class="textfield" id="K'+i+'" value=""</td>';
+                   output += '<td><input type="text" class="textfield" id="STA_startdatum'+i+'" value=""></td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="K'+i+'" value="'+j[i].Startdatum+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_startdatum'+i+'" value="'+j[i].Startdatum+'"></td>';
                }
                if(j[i].Einddatum==null)
                {
-                   output += '<td><input type="text" class="textfield" id="L'+i+'" value=""</td>';
+                   output += '<td><input type="text" class="textfield" id="STA_einddatum'+i+'" value=""></td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="L'+i+'" value="'+j[i].Einddatum+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_einddatum'+i+'" value="'+j[i].Einddatum+'"></td>';
                }
-               output+='<td><input type="text" class="textfield" placeholder="Druk op adres controleren" id="M'+i+'" value="" disabled="disabled"></td>';
-               output+='<td><input type="text" class="textfield" placeholder="Druk op adres controleren" id="N'+i+'" value="" disabled="disabled"></td>';
-                output += '</tr>';
+               output+='<td><input type="text" class="textfield" placeholder="Druk op adres controleren" id="STA_latitude'+i+'" value="" disabled="disabled"></td>';
+               output+='<td><input type="text" class="textfield" placeholder="Druk op adres controleren" id="STA_longitude'+i+'" value="" disabled="disabled"></td>';
+               output += '</tr>';
             }
 output += "</table>";
 $("#output").html(output);
@@ -508,15 +515,15 @@ function getLatLon(j)
         case "stages":
             for (i = 0; i < j.length; i++)
             {
-                var search = $('#F' + i).val() + " " + $('#G' + i).val() + " " + $('#C' + i).val() + " " + $('#E' + i).val();
+                var search = $('#STA_land' + i).val() + " " + $('#STA_plaats' + i).val() + " " + $('#STA_adres1' + i).val() + " " + $('#STA_postcode' + i).val();
                 GetNominatimGeocoder(search, function (data)
                 {
                     if (data != undefined)
                     {
                         console.log(i + " " + data.provider);
-                        $('#M' + i).val(data.lat);
-                        $('#N' + i).val(data.lng);
-                        $('#A' + i).val('');
+                        $('#STA_latitude' + i).val(data.lat);
+                        $('#STA_longitude' + i).val(data.lng);
+                        $('#STA_opmerking' + i).val('');
                     }
                     else
                     {
@@ -525,14 +532,14 @@ function getLatLon(j)
                             if (data != undefined)
                             {
                                 console.log(i + " " + data.provider);
-                                $('#M' + i).val(data.lat);
-                                $('#N' + i).val(data.lng);
-                                $('#A' + i).val('');
+                                $('#STA_latitude' + i).val(data.lat);
+                                $('#STA_longitude' + i).val(data.lng);
+                                $('#STA_opmerking' + i).val('');
                             }
                             else
                             {
-                                $('#A' + i).val("Adres niet gevonden.")
-                                $('#A' + i).parent().parent().children().children().addClass("rood");
+                                $('#STA_opmerking' + i).val("Adres niet gevonden.")
+                                $('#STA_opmerking' + i).parent().parent().children().children().addClass("rood");
                                 console.log(i + " Niet gevonden(" + search + ')');
                             }
                         });
