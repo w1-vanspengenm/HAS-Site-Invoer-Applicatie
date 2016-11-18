@@ -42,6 +42,8 @@ $eindDatum=$_POST['S_eindDatum'];
                $insert="INSERT INTO \"tbl_Studies\"VALUES('".$startDatum."', '".$eindDatum."', ".$insellingID.", '".$stud_nr."')";
                $result = pg_query($insert) or die('<h2 class="rood">Query mislukt, neem contact op met het Geolab</h2>');
                echo "<h2>Studie ingevoerd.</h2>";
+               $update="UPDATE \"tbl_Bedrijven/Onderwijsinstellingen\" set \"Studie_mogelijkheid\"='t' where \"Instelling_ID\"=".$insellingID;
+               $result = pg_query($update) or die('<h2 class="rood">Query mislukt, neem contact op met het Geolab</h2>');
            }
            else
            {

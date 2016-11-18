@@ -125,9 +125,10 @@
                     </tr>
                     <tr>
                     <td><label for="S_instelling">Kies de instelling (school) naam:</label></td>
-                    <td><select id="S_instelling" name="S_instelling" onchange="fillInDataInstelling()">
-                    </select>Of
-                    <input type="button" value="Voeg nieuwe instelling toe" onclick="$('.form').fadeOut('Slow'); $('#formScholen').fadeIn('Slow')"></td>
+                    <td><select id="S_instelling" name="S_instelling" onchange="fillInDataInstelling();">
+                    </select>
+                    <input type="button" value="Toon alle instellingen" id="refilInstellingen" name="refilInstellingen" onclick="refillInstellingenList();"></td>
+                    <td>Of<input type="button" value="Voeg een nieuwe instelling toe" onclick="$('.form').fadeOut('Slow'); $('#formScholen').fadeIn('Slow')"></td>
                     </tr>
                     <tr>
                     <td><label for="S_opleiding">Kies de opleiding van de student:</label></td>

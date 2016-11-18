@@ -278,6 +278,36 @@ function fill_List(landen, scholen, opleidingen)
         return;
     }
 }
+function refillInstellingenList()
+{
+        $("#S_instelling").empty();
+        var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:Alle%20instellingen&outputFormat=application%2Fjson' };
+        $.ajax(
+        {
+            url: 'PHP/geoproxy.php',
+            dataType: 'json',
+            method: 'post',
+            data: serviceName
+        })
+        .done(function (data) {
+            scholen = data;
+            $.each(data.features, function (i, instelling) {
+                if (i == 0) {
+                    output = '<option value="placeholder" disabled selected hidden>Kies een instelling...</option>';
+                    output += '<option value="' + instelling.properties.Instelling_ID + '">' + instelling.properties.Instelling_naam + '</option>';
+                }
+                else {
+                    output += '<option value="' + instelling.properties.Instelling_ID + '">' + instelling.properties.Instelling_naam + '</option>';
+                }
+            });
+            $("#S_instelling").append(output);
+            $("#refilInstellingen").prop('disabled', true);
+            $("#refilInstellingen").prop("value", "Lijst met instellingen aangevuld");
+        })
+        .fail(function () {
+            console.log("fout opgetreden bij ophalen van instellingen")
+        });
+}
 function fill_List_Check()
 {
     if( $('#M_land').has('option').length == 0 || $('#S_land').has('option').length == 0 || $('#I_land').has('option').length == 0)
@@ -450,7 +480,7 @@ function getLatLon(j)
                     $("#M_lat_onzichtbaar").val(data.lat);
                     $("#M_lon_zichtbaar").val(data.lng);
                     $("#M_lon_onzichtbaar").val(data.lng);
-                    $("#submit_Medewerkers").attr('disabled', false);
+                    $("#submit_Medewerkers").prop('disabled', false);
                 }
                 else
                 {
@@ -463,7 +493,7 @@ function getLatLon(j)
                             $("#M_lat_onzichtbaar").val(data.lat);
                             $("#M_lon_zichtbaar").val(data.lng);
                             $("#M_lon_onzichtbaar").val(data.lng);
-                            $("#submit_Medewerkers").attr('disabled', false);
+                            $("#submit_Medewerkers").prop('disabled', false);
                         }
                         else
                         {
@@ -487,7 +517,7 @@ function getLatLon(j)
                     $("#I_lat_onzichtbaar").val(data.lat);
                     $("#I_lon_zichtbaar").val(data.lng);
                     $("#I_lon_onzichtbaar").val(data.lng);
-                    $("#submit_Instelling").attr('disabled', false);
+                    $("#submit_Instelling").prop('disabled', false);
                 }
                 else
                 {
@@ -500,7 +530,7 @@ function getLatLon(j)
                             $("#I_lat_onzichtbaar").val(data.lat);
                             $("#I_lon_zichtbaar").val(data.lng);
                             $("#I_lon_onzichtbaar").val(data.lng);
-                            $("#submit_Instelling").attr('disabled', false);
+                            $("#submit_Instelling").prop('disabled', false);
                         }
                         else
                         {
@@ -546,10 +576,10 @@ function getLatLon(j)
 
                     }
                 });
-                $("#adresCheckStages").attr('value', Math.round(i / j.length * 100) + '%');
+                $("#adresCheckStages").prop('value', Math.round(i / j.length * 100) + '%');
             }
-            $("#submit_Stages").attr('disabled', false);
-            $('#adresCheckStages').attr('value', 'Adres opniew controleren');
+            $("#submit_Stages").prop('disabled', false);
+            $('#adresCheckStages').prop('value', 'Adres opniew controleren');
             break;
     }
 }
@@ -679,7 +709,7 @@ function fillInDataInstelling()
             $("#S_lat_onzichtbaar").val(school.properties.Latitude);
             $("#S_lon_zichtbaar").val(school.properties.Longitude);
             $("#S_lon_onzichtbaar").val(school.properties.Longitude);
-            $("#submit_Studies").attr('disabled', false);
+            $("#submit_Studies").prop('disabled', false);
             return false; // stop each
         }
     })
