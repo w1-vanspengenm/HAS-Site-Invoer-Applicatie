@@ -6,6 +6,10 @@ body
     margin: 0px;
     color: #0084C9;
 }
+input:invalid {
+  border: 1px solid #f00;
+}
+
 #header
 {
     width: 100vw;

@@ -220,7 +220,7 @@ function fill_List(landen, scholen, opleidingen)
         {
             if (i == 0)
             {
-                output = '<option value="placeholder" disabled selected hidden>Kies een land...</option>';
+                output = '<option disabled selected hidden>Kies een land...</option>';
                 output+='<option value="' + land.properties.Landcode+'">' + land.properties.Landnaam_nl_html + '</option>';
             }
             else
@@ -243,7 +243,7 @@ function fill_List(landen, scholen, opleidingen)
         {
             if (i == 0)
             {
-                output = '<option value="placeholder" disabled selected hidden>Kies een instelling...</option>';
+                output = '<option disabled selected hidden>Kies een instelling...</option>';
                 output+='<option value="' + school.properties.Instelling_ID+'">' + school.properties.Instelling_naam + '</option>';
             }
             else
@@ -263,7 +263,7 @@ function fill_List(landen, scholen, opleidingen)
         {
             if (i == 0)
             {
-                output = '<option value="placeholder" disabled selected hidden>Kies een opleiding...</option>';
+                output = '<option disabled selected hidden>Kies een opleiding...</option>';
                 output+='<option value="' + opleiding.id.substring(16, 19)+'">' + opleiding.properties.Opleidingsnaam_nl + '</option>';
             }
             else
@@ -293,7 +293,7 @@ function refillInstellingenList()
             scholen = data;
             $.each(data.features, function (i, instelling) {
                 if (i == 0) {
-                    output = '<option value="placeholder" disabled selected hidden>Kies een instelling...</option>';
+                    output = '<option disabled selected hidden>Kies een instelling...</option>';
                     output += '<option value="' + instelling.properties.Instelling_ID + '">' + instelling.properties.Instelling_naam + '</option>';
                 }
                 else {
@@ -316,7 +316,7 @@ function fill_List_Check()
         $('.form').hide();
     }
 }
-// Converteert sheet naar binary en kiest juist outputfunctie
+// Converteert sheet naar binary
 function handleDrop(e) {
   $("#output").fadeOut(100);
   e.preventDefault();
@@ -498,8 +498,8 @@ function getLatLon(j)
                         else
                         {
                             $("#output").html('<h2 class="rood">Adres niet gevonden.</h2>').fadeIn("Slow");
-                            $("#M_lat_zichtbaar").addClass("rood");
-                            $("#M_lon_zichtbaar").addClass("rood");
+                            $("#M_lat_zichtbaar").css("border", "1px solid #f00");
+                            $("#M_lon_zichtbaar").css("border", "1px solid #f00");
                         }
                     });
                 }
@@ -535,8 +535,8 @@ function getLatLon(j)
                         else
                         {
                             $("#output").html('<h2 class="rood">Adres niet gevonden.</h2>').fadeIn("Slow");
-                            $("#I_lat_zichtbaar").addClass("rood");
-                            $("#I_lon_zichtbaar").addClass("rood");
+                            $("#I_lat_zichtbaar").css("border", "1px solid #f00");
+                            $("#I_lon_zichtbaar").css("border", "1px solid #f00");
                         }
                     });
                 }
@@ -583,116 +583,6 @@ function getLatLon(j)
             break;
     }
 }
-function formValMedewerkers(form)
-{
- $('*').removeClass("rood");
- $("#output").fadeOut("Slow");
-            with (form.M_voornaam)
-            {
-                if (value == "" || value == null)
-                {
-                    $("#output").html('<h2 class="rood">voornaam invullen is verplicht.</h2>').fadeIn("Slow");
-                    $("#M_voornaam").addClass("rood");
-                    return false;
-                }
-            }
-
-            with (form.M_achternaam)
-            {
-                if (value == "" || value == null)
-                {
-                    $("#output").html('<h2 class="rood">Achternaam invullen is verplicht.</h2>').fadeIn("Slow");
-                    $("#M_achternaam").addClass("rood");
-                    return false;
-                }
-            }
-
-            with (form.M_pers_nr)
-            {
-                if (value == "" || value == null)
-                {
-                    $("#output").html('<h2 class="rood">Personeels nummer invullen is verplicht.</h2>').fadeIn("Slow");
-                    $("#M_pers_nr").addClass("rood");
-                    return false;
-                }
-            }
-
-            with (form.M_omschrijving)
-            {
-                if (value == "" || value == null)
-                {
-                    $("#output").html('<h2 class="rood">Omschrijving invullen is verplicht.</h2>').fadeIn("Slow");
-                    $("#M_omschrijving").addClass("rood");
-                    return false;
-                }
-            }
-
-            with (form.M_land)
-            {
-                if (value == "" || value == null || value=='placeholder')
-                {
-                    $("#output").html('<h2 class="rood">Land kiezen is verplicht.</h2>').fadeIn("Slow");
-                    $("#M_land").addClass("rood");
-                    return false;
-                }
-            }
-
-            with (form.M_plaats)
-            {
-                if (value == "" || value == null)
-                {
-                    $("#output").html('<h2 class="rood">Plaats invullen is verplicht.</h2>').fadeIn("Slow");
-                    $("#M_plaats").addClass("rood");
-                    return false;
-                }
-            }
-
-            with (form.M_adres1)
-            {
-                if (value == "" || value == null)
-                {
-                    $("#output").html('<h2 class="rood">Adres invullen is verplicht.</h2>').fadeIn("Slow");
-                    $("#M_adres1").addClass("rood");
-                    return false;
-                }
-            }
-
-            with (form.M_adres2)
-            {
-                if (value == "" || value == null)
-                {
-                    $("#M_adres2").val("Onbekend");
-                }
-            }
-
-            with (form.M_postcode)
-            {
-                if (value == "" || value == null)
-                {
-                    $("#M_postcode").val("Onbekend");
-                }
-            }
-
-            with (form.M_startDatum)
-            {
-                if (value == "" || value == null)
-                {
-                    $("#output").html('<h2 class="rood">Start datum activiteit invullen is verplicht.</h2>').fadeIn("Slow");
-                    $("#M_startDatum").addClass("rood");
-                    return false;
-                }
-            }
-
-            with (form.M_eindDatum)
-            {
-                if (value == "" || value == null)
-                {
-                    $("#output").html('<h2 class="rood">Eind datum activiteit invullen is verplicht.</h2>').fadeIn("Slow");
-                    $("#M_eindDatum").addClass("rood");
-                    return false;
-                }
-            }
-}
 function fillInDataInstelling()
 {
     var instellingID = $("#S_instelling").val();
@@ -709,7 +599,10 @@ function fillInDataInstelling()
             $("#S_lat_onzichtbaar").val(school.properties.Latitude);
             $("#S_lon_zichtbaar").val(school.properties.Longitude);
             $("#S_lon_onzichtbaar").val(school.properties.Longitude);
-            $("#submit_Studies").prop('disabled', false);
+            if($("#S_opleiding").val()!=null)
+            {
+                $("#submit_Studies").prop('disabled', false);
+            }
             return false; // stop each
         }
     })

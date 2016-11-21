@@ -27,7 +27,7 @@
         </label>
         <!--keuze om welk bestand soort bestand het gaat (aan de hand hiervan wordt de juiste uitvoerfunctie bepaald-->
         <select id="soortBestand" onchange="onSelect()">
-            <option value="placeholder" disabled selected hidden>Kies optie...</option>
+            <option disabled selected hidden>Kies optie...</option>
             <option value="stages">Stage in het buitenland</option>
             <option value="medewerkers">Medewerkers in het buitenland</option>
             <option value="studies">Studies in het buitenland</option>
@@ -49,26 +49,26 @@
         </div>
             </form>
             <div id="formMedewerkers" class="form">
-                <form action="PHP/invoer_Medewerkers.php" method="post" onsubmit="return formValMedewerkers(this);">
+                <form action="PHP/invoer_Medewerkers.php" method="post">
                     <table class="formTable">
                     <tr>
                     <td colspan="2"><h1>Invul form medewerkers</h1></td>
                     </tr>
                     <tr>
                     <td><label for="M_voornaam">Vul voornaam van het personeelslid in:</label></td>
-                    <td><input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="M_voornaam" name="M_voornaam">*</td>
+                    <td><input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="M_voornaam" name="M_voornaam" required>*</td>
                     </tr>
                     <tr>
                     <td><label for="M_achternaam">Vul achternaam van het personeelslid in:</label></td>
-                    <td><input type="text" class="textfield" maxlength="20" placeholder="Achternaam" id="M_achternaam" name="M_achternaam">*</td>
+                    <td><input type="text" class="textfield" maxlength="20" placeholder="Achternaam" id="M_achternaam" name="M_achternaam" required>*</td>
                     </tr>
                     <tr>
                     <td><label for="M_pers_nr">Vul personeelsnummer van het personeelslid in:</label></td>
-                    <td><input type="text" class="textfield" placeholder="Personeelsnummer" id="M_pers_nr" name="M_pers_nr">*</td>
+                    <td><input type="text" class="textfield" placeholder="Personeelsnummer" id="M_pers_nr" required name="M_pers_nr">*</td>
                     </tr>
                     <tr>
                     <td><label for="M_omschrijving">Vul een omschijving van de activiteit in:</label></td>
-                    <td><textarea id="M_omschrijving" placeholder="omschijving" name="M_omschrijving"></textarea>*</td>
+                    <td><textarea id="M_omschrijving" placeholder="omschijving" required name="M_omschrijving"></textarea>*</td>
                     </tr>
                     <tr>
                     <td><label for="M_land">Kies een land:</label></td>
@@ -76,11 +76,11 @@
                     </tr>
                     <tr>
                     <td><label for="M_plaats">Vul een plaats in:</label></td>
-                    <td><input type="text" class="textfield" placeholder="Plaats" id="M_plaats" maxlength="30" name="M_plaats">*</td>
+                    <td><input type="text" class="textfield" placeholder="Plaats" id="M_plaats" required maxlength="30" name="M_plaats">*</td>
                     </tr>
                     <tr>
                     <td><label for="M_adres1">Vul een adres in:</label></td>
-                    <td><input type="text" class="textfield" placeholder="Adres" id="M_adres1" maxlength="100" name="M_adres1">*</td>
+                    <td><input type="text" class="textfield" placeholder="Adres" id="M_adres1" required maxlength="100" name="M_adres1">*</td>
                     </tr>
                     <tr>
                     <td><label for="M_adres2">Vul een tweede adres in:</label></td>
@@ -92,11 +92,11 @@
                     </tr>
                     <tr>
                     <td><label for="M_startDatum">Vul een begindatum van de activiteit in:</label></td>
-                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="M_startDatum" name="M_startDatum">*</td>
+                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="M_startDatum" name="M_startDatum" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>*</td>
                     </tr>
                     <tr>
                     <td><label for="M_eindDatum">Vul een einddatum van de activiteit in:</label></td>
-                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="M_eindDatum" name="M_eindDatum">*</td>
+                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="M_eindDatum" name="M_eindDatum" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>*</td>
                     </tr>
                     <tr>
                     <td><label for="M_lat_zichtbaar">Latitude:</label></td>
@@ -124,6 +124,10 @@
                     <td colspan="2"><h1>Invul form studies in het buitenland</h1></td>
                     </tr>
                     <tr>
+                    <td><label for="S_opleiding">Kies de opleiding van de student:</label></td>
+                    <td><select id="S_opleiding" name="S_opleiding"></select></td>
+                    </tr>
+                    <tr>
                     <td><label for="S_instelling">Kies de instelling (school) naam:</label></td>
                     <td><select id="S_instelling" name="S_instelling" onchange="fillInDataInstelling();">
                     </select>
@@ -131,20 +135,16 @@
                     <td>Of<input type="button" value="Voeg een nieuwe instelling toe" onclick="$('.form').fadeOut('Slow'); $('#formScholen').fadeIn('Slow')"></td>
                     </tr>
                     <tr>
-                    <td><label for="S_opleiding">Kies de opleiding van de student:</label></td>
-                    <td><select id="S_opleiding" name="S_opleiding"></select></td>
-                    </tr>
-                    <tr>
                     <td><label for="S_voornaam">Vul voonaam van de student in:</label></td>
-                    <td><input type="text" class="textfield" maxlength="20" placeholder="Voornaam" name="S_voornaam" id="S_voornaam"></td>
+                    <td><input type="text" class="textfield" maxlength="20" placeholder="Voornaam" name="S_voornaam" id="S_voornaam" required></td>
                     </tr>
                     <tr>
                     <td><label for="S_achternaam">Vul achternaam van de student in:</label></td>
-                    <td><input type="text" class="textfield" maxlength="20" placeholder="Achternaam" name="S_achternaam" id="S_achternaam"></td>
+                    <td><input type="text" class="textfield" maxlength="20" placeholder="Achternaam" name="S_achternaam" id="S_achternaam" required></td>
                     </tr>
                     <tr>
                     <td><label for="S_stud_nr">Vul studentnummer van de student in:</label></td>
-                    <td><input type="text" class="textfield" placeholder="Studentnummer" id="S_stud_nr" name="S_stud_nr"></td>
+                    <td><input type="text" class="textfield" placeholder="Studentnummer" id="S_stud_nr" name="S_stud_nr" required></td>
                     </tr>
                     <tr>
                     <td><label for="S_land">Land:</label></td>
@@ -153,11 +153,11 @@
                     </tr>
                     <tr>
                     <td><label for="S_plaats">Plaats:</label></td>
-                    <td><input type="text" class="textfield" placeholder="Plaats" id="S_plaats" maxlength="30" name="S_plaats"></td>
+                    <td><input type="text" class="textfield" placeholder="Plaats" id="S_plaats" maxlength="30" name="S_plaats" required></td>
                     </tr>
                     <tr>
                     <td><label for="S_adres1">Adres:</label></td>
-                    <td><input type="text" class="textfield" placeholder="Adres" id="S_adres1" maxlength="100" name="S_adres1"></td>
+                    <td><input type="text" class="textfield" placeholder="Adres" id="S_adres1" maxlength="100" name="S_adres1" required></td>
                     </tr>
                     <tr>
                     <td><label for="S_adres2">Tweede adres (optioneel):</label></td>
@@ -165,15 +165,15 @@
                     </tr>
                     <tr>
                     <td><label for="S_postcode">Postcode:</label></td>
-                    <td><input type="text" id="S_postcode" placeholder="Postcode" class="textfield" name="S_postcode"></td>
+                    <td><input type="text" id="S_postcode" placeholder="Postcode" class="textfield" name="S_postcode" required></td>
                     </tr>
                     <tr>
                     <td><label for="S_startDatum">Vul een begindatum van de studie in:</label></td>
-                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_startDatum" name="S_startDatum"></td>
+                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_startDatum" name="S_startDatum" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required></td>
                     </tr>
                     <tr>
                     <td><label for="S_eindDatum">Vul een einddatum van de studie in:</label></td>
-                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_eindDatum" name="S_eindDatum"></td>
+                    <td><input type="text" class="textfield" placeholder="jjjj/mm/dd" id="S_eindDatum" name="S_eindDatum" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required></td>
                     </tr>
                     <tr>
                     <td><label for="S_lat_zichtbaar">Latitude:</label></td>
@@ -199,7 +199,7 @@
                 </tr>
                 <tr>
                 <td><label for="I_naam">Vul naam van de instelling in:</label></td>
-                <td><input type="text" name="I_naam" id="I_naam" class="textfield" placeholder="Naam instelling" maxlength="50"></td>
+                <td><input type="text" name="I_naam" id="I_naam" class="textfield" placeholder="Naam instelling" maxlength="50" required></td>
                 </tr>
                 <tr>
                 <td><label for="I_land">Kies een land:</label></td>
@@ -207,11 +207,11 @@
                 </tr>
                 <tr>
                 <td><label for="I_plaats">Vul plaats van de instelling in:</label></td>
-                <td><input type="text" name="I_plaats" id="I_plaats" class="textfield" placeholder="Plaats" maxlength="30"></td>
+                <td><input type="text" name="I_plaats" id="I_plaats" class="textfield" placeholder="Plaats" maxlength="30" required></td>
                 </tr>
                 <tr>
                 <td><label for="I_adres1">Vul een adres van de instelling in:</label></td>
-                <td><input type="text" class="textfield" name="I_adres1" id="I_adres1" placeholder="adres" maxlength="100"></td>
+                <td><input type="text" class="textfield" name="I_adres1" id="I_adres1" placeholder="adres" maxlength="100" required></td>
                 </tr>
                 <tr>
                 <td><label for="I_adres2">Vul een adres tweede van de instelling in (Optioneel):</label></td>
