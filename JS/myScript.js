@@ -1,8 +1,26 @@
 var j; // Var voor opslaan json object
 var output; // Var voor opslaan htmlcode weer te geven in output
-var landen;
-var scholen;
-var opleidingen;
+var landen; // var voor opslaan van alle landen uit de database
+var scholen; // var voor opslaan van alle partner instellingen uit de database
+var opleidingen; // var voor opslaan van alle opleidingen uit de database
+var landcode; // var voor tijdelijk opslaan 2 letterige landcode
+var landnaam_en; // var voor tijdelijke opslag engelse landnaam
+// vars met alle waardes uit de tabel (per kolom)
+var ReferentieArray = [];
+var BedrijfArray = [];
+var Adres1Array = [];
+var Adres2Array = [];
+var PostcodeArray = [];
+var PlaatsArray = [];
+var LandArray = [];
+var StudentVoornaamArray = [];
+var StudentAchternaamArray = [];
+var StudNrArray = [];
+var OpleidingArray = [];
+var StartdatumArray = [];
+var EinddatumArray = [];
+var LatitudeArray = [];
+var LongitudeArray = [];
 
 function GetGoogleGeocoder(address, callback)
 {
@@ -252,6 +270,7 @@ function fill_List(landen, scholen, opleidingen)
             }
         });
         $("#S_instelling").append(output);
+        $("#M_instelling").append(output);
     }
     else
     {
@@ -280,7 +299,6 @@ function fill_List(landen, scholen, opleidingen)
 }
 function refillInstellingenList()
 {
-        $("#S_instelling").empty();
         var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:Alle%20instellingen&outputFormat=application%2Fjson' };
         $.ajax(
         {
@@ -300,9 +318,22 @@ function refillInstellingenList()
                     output += '<option value="' + instelling.properties.Instelling_ID + '">' + instelling.properties.Instelling_naam + '</option>';
                 }
             });
+            if ($("#soortBestand").val()=="studies")
+            {
+            $("#S_instelling").empty();
             $("#S_instelling").append(output);
-            $("#refilInstellingen").prop('disabled', true);
-            $("#refilInstellingen").prop("value", "Lijst met instellingen aangevuld");
+            $("#S_refilInstellingen").prop('disabled', true);
+            $("#S_refilInstellingen").prop("value", "Lijst met instellingen aangevuld");
+            $("#S_nieuweInstelling").prop('disabled', false);
+            }
+            else if ($("#soortBestand").val()=="medewerkers")
+            {
+            $("#M_instelling").empty();
+            $("#M_instelling").append(output);
+            $("#M_refilInstellingen").prop('disabled', true);
+            $("#M_refilInstellingen").prop("value", "Lijst met instellingen aangevuld");
+            $("#M_nieuweInstelling").prop('disabled', false);
+            }
         })
         .fail(function () {
             console.log("fout opgetreden bij ophalen van instellingen")
@@ -353,14 +384,25 @@ function handleDrop(e) {
 }
 function outputJsonStage(j)
 {
-output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
+    for(i=0; i<j.length; i++)
+    {
+        $.each(landen.features, function (counter, land) {
+            if (j[i].Land == land.properties.Landnaam_nl) {
+                landnaam_en = land.properties.Landnaam_en;
+                return false;
+            }
+        })
+        j[i].Land = landnaam_en;
+        landnaam_en = undefined;
+    }
+output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Studentnummer</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
     for (i = 0; i < j.length; i++)
             {
                 output += '<tr>';
                 output+='<td><input type="text" class="textfield" placeholder="Niet van toepassing" id="STA_opmerking'+i+'" value="" disabled="disabled"></td>';
                 if(j[i].Referentie==null)
                 {
-                    output += '<td><input type="text" class="textfield" id="STA_referentie'+i+'" value=""></td>';
+                    output += '<td><input type="text" class="textfield" id="STA_referentie'+i+'" value="Onbekend"></td>';
                 }
                 else
                 {
@@ -368,7 +410,7 @@ output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><t
                 }
                 if(j[i].Bedrijf==null)
                 {
-                    output += '<td><input type="text" class="textfield" id="STA_bedrijfsnaam'+i+'" value=""></td>';
+                    output += '<td><input type="text" class="textfield" id="STA_bedrijfsnaam'+i+'" value="Onbekend"></td>';
                 }
                 else
                 {
@@ -376,7 +418,7 @@ output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><t
                 }
                 if(j[i].Adres1==null)
                 {
-                    output += '<td><input type="text" class="textfield" id="STA_adres1'+i+'" value=""></td>';
+                    output += '<td><input type="text" class="textfield" id="STA_adres1'+i+'" value="Onbekend"></td>';
                 }
                 else
                 {
@@ -384,7 +426,7 @@ output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><t
                 }
                 if(j[i].Adres2==null)
                 {
-                    output += '<td><input type="text" class="textfield" id="STA_adres2'+i+'" value=""></td>';
+                    output += '<td><input type="text" class="textfield" id="STA_adres2'+i+'" value="Onbekend"></td>';
                 }
                 else
                 {
@@ -392,7 +434,7 @@ output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><t
                 }
                if(j[i].Postcode==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_postcode'+i+'" value=""></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_postcode'+i+'" value="Onbekend"></td>';
                }
                else
                {
@@ -400,7 +442,7 @@ output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><t
                }
                if(j[i].Plaats==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_plaats'+i+'" value=""></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_plaats'+i+'" value="Onbekend"></td>';
                }
                else
                {
@@ -408,7 +450,7 @@ output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><t
                }
                if(j[i].Land==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_land'+i+'" value=""></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_land'+i+'" value="Onbekend"></td>';
                }
                else
                {
@@ -416,15 +458,23 @@ output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><t
                }
                if(j[i].Student==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_student'+i+'" value=""></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_student'+i+'" value="Onbekend"></td>';
                }
                else
                {
                    output += '<td><input type="text" class="textfield" id="STA_student'+i+'" value="'+j[i].Student+'"></td>';
                }
+               if(j[i].StudNr==null)
+               {
+                   output += '<td><input type="text" class="textfield" id="STA_studNr'+i+'" value="Onbekend"></td>';
+               }
+               else
+               {
+                   output += '<td><input type="text" class="textfield" id="STA_studNr'+i+'" value="'+j[i].StudNr+'"></td>';
+               }
                if(j[i].Opleiding==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_opleiding'+i+'" value=""></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_opleiding'+i+'" value="Onbekend"></td>';
                }
                else
                {
@@ -432,7 +482,7 @@ output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><t
                }
                if(j[i].Afstud_richting==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_afstud_richting'+i+'" value=""></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_afstud_richting'+i+'" value="Onbekend"></td>';
                }
                else
                {
@@ -440,7 +490,7 @@ output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><t
                }
                if(j[i].Startdatum==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_startdatum'+i+'" value=""></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_startdatum'+i+'" value="Onbekend"></td>';
                }
                else
                {
@@ -448,7 +498,7 @@ output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><t
                }
                if(j[i].Einddatum==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_einddatum'+i+'" value=""></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_einddatum'+i+'" value="Onbekend"></td>';
                }
                else
                {
@@ -469,18 +519,17 @@ function getLatLon(j)
     switch(valueSelect)
     {
         case "medewerkers":
-            $("#output").fadeOut("Fast");
-            var search = $("#M_land option:selected").text() + " " + $("#M_plaats").val() + " " + $("#M_adres1").val() + " " + $('M_postcode');
+            var search = $("#I_land option:selected").text() + " " + $("#I_plaats").val() + " " + $("#I_adres1").val() + " " + $('I_postcode');
             GetNominatimGeocoder(search, function (data)
             {
                 if (data != undefined)
                 {
                     console.log(data.provider);
-                    $("#M_lat_zichtbaar").val(data.lat);
-                    $("#M_lat_onzichtbaar").val(data.lat);
-                    $("#M_lon_zichtbaar").val(data.lng);
-                    $("#M_lon_onzichtbaar").val(data.lng);
-                    $("#submit_Medewerkers").prop('disabled', false);
+                    $("#I_lat_zichtbaar").val(data.lat);
+                    $("#I_lat_onzichtbaar").val(data.lat);
+                    $("#I_lon_zichtbaar").val(data.lng);
+                    $("#I_lon_onzichtbaar").val(data.lng);
+                    $("#submit_Instelling").prop('disabled', false);
                 }
                 else
                 {
@@ -489,17 +538,17 @@ function getLatLon(j)
                         if (data != undefined)
                         {
                             console.log(data.provider);
-                            $("#M_lat_zichtbaar").val(data.lat);
-                            $("#M_lat_onzichtbaar").val(data.lat);
-                            $("#M_lon_zichtbaar").val(data.lng);
-                            $("#M_lon_onzichtbaar").val(data.lng);
-                            $("#submit_Medewerkers").prop('disabled', false);
+                            $("#I_lat_zichtbaar").val(data.lat);
+                            $("#I_lat_onzichtbaar").val(data.lat);
+                            $("#I_lon_zichtbaar").val(data.lng);
+                            $("#I_lon_onzichtbaar").val(data.lng);
+                            $("#submit_Instelling").prop('disabled', false);
                         }
                         else
                         {
                             $("#output").html('<h2 class="rood">Adres niet gevonden.</h2>').fadeIn("Slow");
-                            $("#M_lat_zichtbaar").css("border", "1px solid #f00");
-                            $("#M_lon_zichtbaar").css("border", "1px solid #f00");
+                            $("#I_lat_zichtbaar").css("border", "1px solid #f00");
+                            $("#I_lon_zichtbaar").css("border", "1px solid #f00");
                         }
                     });
                 }
@@ -543,31 +592,24 @@ function getLatLon(j)
             });
             break;
         case "stages":
-            for (i = 0; i < j.length; i++)
-            {
+            for (i = 0; i < j.length; i++) {
                 var search = $('#STA_land' + i).val() + " " + $('#STA_plaats' + i).val() + " " + $('#STA_adres1' + i).val() + " " + $('#STA_postcode' + i).val();
-                GetNominatimGeocoder(search, function (data)
-                {
-                    if (data != undefined)
-                    {
+                GetNominatimGeocoder(search, function (data) {
+                    if (data != undefined) {
                         console.log(i + " " + data.provider);
                         $('#STA_latitude' + i).val(data.lat);
                         $('#STA_longitude' + i).val(data.lng);
                         $('#STA_opmerking' + i).val('');
                     }
-                    else
-                    {
-                        GetGoogleGeocoder(search, function (data)
-                        {
-                            if (data != undefined)
-                            {
+                    else {
+                        GetGoogleGeocoder(search, function (data) {
+                            if (data != undefined) {
                                 console.log(i + " " + data.provider);
                                 $('#STA_latitude' + i).val(data.lat);
                                 $('#STA_longitude' + i).val(data.lng);
                                 $('#STA_opmerking' + i).val('');
                             }
-                            else
-                            {
+                            else {
                                 $('#STA_opmerking' + i).val("Adres niet gevonden.")
                                 $('#STA_opmerking' + i).parent().parent().children().children().addClass("rood");
                                 console.log(i + " Niet gevonden(" + search + ')');
@@ -580,15 +622,17 @@ function getLatLon(j)
             }
             $("#submit_Stages").prop('disabled', false);
             $('#adresCheckStages').prop('value', 'Adres opniew controleren');
+            fillArray();
             break;
     }
 }
 function fillInDataInstelling()
 {
-    var instellingID = $("#S_instelling").val();
+    var M_instellingID = $("#M_instelling").val();
+    var S_instellingID = $("#S_instelling").val();
     $.each(scholen.features, function (i, school)
     {
-        if (school.properties.Instelling_ID == instellingID)
+        if (school.properties.Instelling_ID == S_instellingID && $("#soortBestand").val()=="studies")
         {
             $("#S_land").val(school.properties.Landcode);
             $("#S_plaats").val(school.properties.Plaats);
@@ -605,5 +649,67 @@ function fillInDataInstelling()
             }
             return false; // stop each
         }
+        else if(school.properties.Instelling_ID == M_instellingID && $("#soortBestand").val()=="medewerkers")
+        {
+            $("#M_land").val(school.properties.Landcode);
+            $("#M_plaats").val(school.properties.Plaats);
+            $("#M_adres1").val(school.properties.Adres_1);
+            $("#M_adres2").val(school.properties.Adres_2);
+            $("#M_postcode").val(school.properties.Postcode);
+            $("#M_lat_zichtbaar").val(school.properties.Latitude);
+            $("#M_lat_onzichtbaar").val(school.properties.Latitude);
+            $("#M_lon_zichtbaar").val(school.properties.Longitude);
+            $("#M_lon_onzichtbaar").val(school.properties.Longitude);
+            $("#submit_Medewerkers").prop('disabled', false);
+        }
     })
+}
+function fillArray()
+{
+    for(i=0; i<j.length; i++)
+    {        
+        ReferentieArray.push($('#STA_referentie' + i).val());
+        BedrijfArray.push($('#STA_bedrijfsnaam' + i).val());
+        Adres1Array.push($('#STA_adres1' + i).val());
+        Adres2Array.push($('#STA_adres2' + i).val());
+        PostcodeArray.push($('#STA_postcode' + i).val());
+        PlaatsArray.push($('#STA_plaats' + i).val());
+        $.each(landen.features, function (counter, land) {
+            if ($("#STA_land"+i).val() == land.properties.Landnaam_en) {
+                landcode = land.properties.Landcode;
+                return false;
+            }
+        })
+        LandArray.push(landcode);
+        var naam = $("#STA_student"+i).val();
+        var voornaam = naam.substring(0, naam.indexOf(' '));
+        var achternaam = naam.substring(naam.indexOf(' ')+1, naam.length);
+        if(achternaam.indexOf(' ')==0)
+        {
+            var achternaam = naam.substring(naam.indexOf(' ')+2, naam.length);
+        }
+        StudentVoornaamArray.push(voornaam);
+        StudentAchternaamArray.push(achternaam);
+        StudNrArray.push($('#STA_studNr' + i).val());
+        OpleidingArray.push($('#STA_opleiding' + i).val());
+        StartdatumArray.push($('#STA_startdatum' + i).val());
+        EinddatumArray.push($('#STA_einddatum' + i).val());
+        LatitudeArray.push(parseFloat($('#STA_latitude' + i).val()));
+        LongitudeArray.push(parseFloat($('#STA_longitude' + i).val()));
+    }
+        console.log(ReferentieArray);
+        console.log(BedrijfArray);
+        console.log(Adres1Array);
+        console.log(Adres2Array);
+        console.log(PostcodeArray);
+        console.log(PlaatsArray);
+        console.log(LandArray);
+        console.log(StudentVoornaamArray);
+        console.log(StudentAchternaamArray);
+        console.log(StudNrArray);
+        console.log(OpleidingArray);
+        console.log(StartdatumArray);
+        console.log(EinddatumArray);
+        console.log(LatitudeArray);
+        console.log(LongitudeArray);
 }
