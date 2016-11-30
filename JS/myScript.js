@@ -5,22 +5,7 @@ var scholen; // var voor opslaan van alle partner instellingen uit de database
 var opleidingen; // var voor opslaan van alle opleidingen uit de database
 var landcode; // var voor tijdelijk opslaan 2 letterige landcode
 var landnaam_en; // var voor tijdelijke opslag engelse landnaam
-// vars met alle waardes uit de tabel (per kolom)
-var ReferentieArray = [];
-var BedrijfArray = [];
-var Adres1Array = [];
-var Adres2Array = [];
-var PostcodeArray = [];
-var PlaatsArray = [];
-var LandArray = [];
-var StudentVoornaamArray = [];
-var StudentAchternaamArray = [];
-var StudNrArray = [];
-var OpleidingArray = [];
-var StartdatumArray = [];
-var EinddatumArray = [];
-var LatitudeArray = [];
-var LongitudeArray = [];
+var postdata;
 
 function GetGoogleGeocoder(address, callback)
 {
@@ -622,7 +607,6 @@ function getLatLon(j)
             }
             $("#submit_Stages").prop('disabled', false);
             $('#adresCheckStages').prop('value', 'Adres opniew controleren');
-            fillArray();
             break;
     }
 }
@@ -666,6 +650,23 @@ function fillInDataInstelling()
 }
 function fillArray()
 {
+$("#formStages").hide();
+// vars met alle waardes uit de tabel (per kolom)
+var ReferentieArray = [];
+var BedrijfArray = [];
+var Adres1Array = [];
+var Adres2Array = [];
+var PostcodeArray = [];
+var PlaatsArray = [];
+var LandArray = [];
+var StudentVoornaamArray = [];
+var StudentAchternaamArray = [];
+var StudNrArray = [];
+var OpleidingArray = [];
+var StartdatumArray = [];
+var EinddatumArray = [];
+var LatitudeArray = [];
+var LongitudeArray = [];
     for(i=0; i<j.length; i++)
     {        
         ReferentieArray.push($('#STA_referentie' + i).val());
@@ -697,19 +698,36 @@ function fillArray()
         LatitudeArray.push(parseFloat($('#STA_latitude' + i).val()));
         LongitudeArray.push(parseFloat($('#STA_longitude' + i).val()));
     }
-        console.log(ReferentieArray);
-        console.log(BedrijfArray);
-        console.log(Adres1Array);
-        console.log(Adres2Array);
-        console.log(PostcodeArray);
-        console.log(PlaatsArray);
-        console.log(LandArray);
-        console.log(StudentVoornaamArray);
-        console.log(StudentAchternaamArray);
-        console.log(StudNrArray);
-        console.log(OpleidingArray);
-        console.log(StartdatumArray);
-        console.log(EinddatumArray);
-        console.log(LatitudeArray);
-        console.log(LongitudeArray);
+        postdata=
+        {
+            Referenties: ReferentieArray,
+            Bedrijven: BedrijfArray,
+            Eerste_adressen:Adres1Array,
+            Twede_adressen: Adres2Array,
+            Postcodes: PostcodeArray,
+            Plaatsen: PlaatsArray,
+            Landen: LandArray,
+            Voornamen: StudentVoornaamArray,
+            Achternamen: StudentAchternaamArray,
+            Student_nummers: StudNrArray,
+            Opleidingen: OpleidingArray,
+            StartDatumms: StartdatumArray,
+            EindDatums: EinddatumArray,
+            Lat: LatitudeArray,
+            Lon: LongitudeArray 
+        }
+        console.log(postdata);
+        $.ajax(
+    {
+        url: 'PHP/invoer_Stages.php',
+        method: 'post',
+        data: postdata
+    })
+    .done(function (data) {
+        console.log(data);
+        $("#output").html(data);
+    })
+    .fail(function () {
+        alert("Niet gelukt");
+    });
 }
