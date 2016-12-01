@@ -380,10 +380,11 @@ function outputJsonStage(j)
         j[i].Land = landnaam_en;
         landnaam_en = undefined;
     }
-output = '<table><tr><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Studentnummer</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
+output = '<table><tr id="hRow"><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Studentnummer</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
     for (i = 0; i < j.length; i++)
             {
                 output += '<tr>';
+                output+='<td class="hiddenCell"><img src="Images/kruisBlauw.png" alt="kruis"></td>'
                 output+='<td><input type="text" class="textfield" placeholder="Niet van toepassing" id="STA_opmerking'+i+'" value="" disabled="disabled"></td>';
                 if(j[i].Referentie==null)
                 {
@@ -668,7 +669,9 @@ var EinddatumArray = [];
 var LatitudeArray = [];
 var LongitudeArray = [];
     for(i=0; i<j.length; i++)
-    {        
+    {
+        if($('#STA_referentie'+i).parent().parent().css('display')!='none')
+        {
         ReferentieArray.push($('#STA_referentie' + i).val());
         BedrijfArray.push($('#STA_bedrijfsnaam' + i).val());
         Adres1Array.push($('#STA_adres1' + i).val());
@@ -698,6 +701,7 @@ var LongitudeArray = [];
         LatitudeArray.push(parseFloat($('#STA_latitude' + i).val()));
         LongitudeArray.push(parseFloat($('#STA_longitude' + i).val()));
     }
+        }
         postdata=
         {
             Referenties: ReferentieArray,
@@ -729,5 +733,19 @@ var LongitudeArray = [];
     })
     .fail(function () {
         alert("Niet gelukt");
+    });
+}
+function rijVerwijderen()
+{
+    $(".hiddenCell").css("display", "block");
+    $("#hRow").html('<th></th><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Studentnummer</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th>');
+    $(".hiddenCell img").on("mouseover", function () {
+        $(this).prop('src', 'Images/kruisRood.png');
+    });
+    $(".hiddenCell img").on("mouseleave", function () {
+        $(this).prop('src', 'Images/kruisBlauw.png');
+    });
+    $('.hiddenCell img').on("click", function () {
+        $(this).parent().parent().fadeOut("slow");
     });
 }

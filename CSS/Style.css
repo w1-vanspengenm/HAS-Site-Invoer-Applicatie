@@ -162,3 +162,9 @@ input[type=file]:hover
     background-color: #f00;
     color: #fff;
 }
+.hiddenCell
+{
+    display: none;
+    border: none;
+    text-align: center;
+}
