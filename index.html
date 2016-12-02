@@ -9,6 +9,7 @@
         <!--Linken has favicon-->
         <link rel="shortcut icon" type="image/x-icon" href="Images/has_favicon.ico">
         <link rel="icon" href="Images/has_favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" type="text/css" href="CSS/dialog.css">
         <!--Linken jquery bestand-->
         <script src="JS/jquery-3.1.1.min.js"></script>
         <!--Linken js-XLSX bestanden-->
@@ -16,6 +17,7 @@
         <script src="JS/xlsx.core.min.js"></script>
         <!--Linken eigen javascript-->
         <script src="JS/myScript.js"></script>
+        <script src="JS/dialog.js"></script>
     </head>
     <body>
         <div id="header">
@@ -246,5 +248,13 @@
         </div>
         <!--Div waarin de output (ook foutmeldingen) wordt weergegeven-->
         <div id="output"></div>
+        <div id="dialogoverlay"></div>
+        <div id="dialogbox">
+          <div>
+            <div id="dialogboxhead"></div>
+            <div id="dialogboxbody"></div>
+            <div id="dialogboxfoot"></div>
+          </div>
+    </div>
     </body>
 </html>

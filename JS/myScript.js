@@ -115,8 +115,7 @@ function checkFileType(files) //Controleert of bestand ondersteund wordt en geef
   if(fileName.indexOf(".xls")==-1 && fileName.indexOf(".xlsx")==-1)
   
   {
-      $("#output").fadeIn("Slow");
-      $("#output").html('<h2 class="rood">Dit bestandstype wordt niet ondersteund.</h2>');
+      a.render('Dit bestandstype wordt niet ondersteund');
   }
 }
 // Converteert sheet naar binary en kiest juist outputfunctie
@@ -202,17 +201,17 @@ $(document).ready(function ()
     })
     .fail(function ()
     {
-        console.log("fout opgetreden bij ophalen van opledingen");
+        a.render("fout opgetreden bij ophalen van opledingen");
     });
     })
     .fail(function ()
     {
-        console.log("fout opgetreden bij ophalen van universiteiten en hogescholen");
+        a.render("fout opgetreden bij ophalen van universiteiten en hogescholen");
     });
     })
     .fail(function ()
     {
-        console.log("fout opgetreden bij ophalen van landen");
+        a.render("fout opgetreden bij ophalen van landen");
     });
 });
 function fill_List(landen, scholen, opleidingen)
@@ -321,14 +320,14 @@ function refillInstellingenList()
             }
         })
         .fail(function () {
-            console.log("fout opgetreden bij ophalen van instellingen")
+            a.render("fout opgetreden bij ophalen van instellingen")
         });
 }
 function fill_List_Check()
 {
     if( $('#M_land').has('option').length == 0 || $('#S_land').has('option').length == 0 || $('#I_land').has('option').length == 0)
     {
-        $("#output").html('<h2 class="rood">Database niet beschikbaar, neem contact op met het Geolab.</h2>').fadeIn("Slow");
+        a.render('Database niet beschikbaar, neem contact op met het Geolab.');
         $('.form').hide();
     }
 }
@@ -346,8 +345,7 @@ function handleDrop(e) {
     // tijdelijke oplossing zodat de functie maar 1 bestand tegelijk verwerkt
     if(files.length!=1)
     {
-        $("#output").fadeIn("Slow");
-        $("#output").html('<h2 class="rood">Gebruik 1 bestand tegelijk.</h2>');
+        a.render('Gebruik 1 bestand tegelijk.');
     }
     else
     {
@@ -532,7 +530,7 @@ function getLatLon(j)
                         }
                         else
                         {
-                            $("#output").html('<h2 class="rood">Adres niet gevonden.</h2>').fadeIn("Slow");
+                            a.render('Adres niet gevonden.')
                             $("#I_lat_zichtbaar").css("border", "1px solid #f00");
                             $("#I_lon_zichtbaar").css("border", "1px solid #f00");
                         }
@@ -569,7 +567,7 @@ function getLatLon(j)
                         }
                         else
                         {
-                            $("#output").html('<h2 class="rood">Adres niet gevonden.</h2>').fadeIn("Slow");
+                            a.render('Adres niet gevonden.');
                             $("#I_lat_zichtbaar").css("border", "1px solid #f00");
                             $("#I_lon_zichtbaar").css("border", "1px solid #f00");
                         }
@@ -746,6 +744,6 @@ function rijVerwijderen()
         $(this).prop('src', 'Images/kruisBlauw.png');
     });
     $('.hiddenCell img').on("click", function () {
-        $(this).parent().parent().fadeOut("slow");
+        $(this).parent().parent().fadeOut('slow');
     });
 }
