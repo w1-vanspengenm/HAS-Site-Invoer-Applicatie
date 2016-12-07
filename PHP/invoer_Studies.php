@@ -2,6 +2,7 @@
 $insellingID=$_POST['S_instelling'];
 $opleiding=$_POST['S_opleiding'];
 $voornaam=$_POST['S_voornaam'];
+$tussenvoegsel=$_POST['S_tussenv'];
 $achternaam=$_POST['S_achternaam'];
 $stud_nr=$_POST['S_stud_nr'];
 $startDatum=$_POST['S_startDatum'];
@@ -30,7 +31,7 @@ $eindDatum=$_POST['S_eindDatum'];
            $numRows=pg_num_rows($result);
            if($numRows==0)
            {
-               $insert="INSERT INTO \"tbl_Studenten\"VALUES('".$voornaam."', '".$achternaam."', '".$opleiding."', '".$stud_nr."')";
+               $insert="INSERT INTO \"tbl_Studenten\"VALUES('".$voornaam."', '".$achternaam."', '".$opleiding."', '".$stud_nr."', '".$tussenvoegsel."')";
                $result = pg_query($insert) or die('<h2 class="rood">Query mislukt, neem contact op met het Geolab</h2>');
                echo '<h2>Student ingevoerd.</h2>';
            }

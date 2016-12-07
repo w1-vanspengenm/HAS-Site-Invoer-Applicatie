@@ -6,7 +6,8 @@ $adres2=$_POST['Twede_adressen'];
 $Postcodes=$_POST['Postcodes'];
 $Plaatsen=$_POST['Plaatsen'];
 $Landen=$_POST['Landen'];
-$Voornamen=$_POST['Voornamen'];
+$Voornamen=$_POST['Roepnamen'];
+$Tussenvoegsels=$_POST['Tussenvoegsels'];
 $Achternamen=$_POST['Achternamen'];
 $Student_nummers=$_POST['Student_nummers'];
 $Opleidingen=$_POST['Opleidingen'];
@@ -56,7 +57,7 @@ for($i=0; $i<count($Student_nummers); $i++)
            $numRows=pg_num_rows($result);
            if($numRows==0)
            {
-               $insert="INSERT INTO \"tbl_Studenten\"VALUES('".$Voornamen[$i]."', '".$Achternamen[$i]."', '".$Opleidingen[$i]."', '".$Student_nummers[$i]."')";
+               $insert="INSERT INTO \"tbl_Studenten\"VALUES('".$Voornamen[$i]."', '".$Achternamen[$i]."', '".$Opleidingen[$i]."', '".$Student_nummers[$i]."', '".$Tussenvoegsels[$i]."')";
                $result = pg_query($insert) or $mislukt++;
            }
            else

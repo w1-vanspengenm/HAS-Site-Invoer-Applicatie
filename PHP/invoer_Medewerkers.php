@@ -1,5 +1,6 @@
 <?php
 $voornaam=$_POST['M_voornaam'];
+$tussenvoegsel=$_POST['M_tussenv'];
 $achternaam=$_POST['M_achternaam'];
 $pers_nr=$_POST['M_pers_nr'];
 $omschrijving=$_POST['M_omschrijving'];
@@ -37,7 +38,7 @@ $postcode=$_POST['M_postcode'];
            $numRows=pg_num_rows($result);
            if($numRows==0)
            {
-           $insert = "INSERT INTO \"tbl_Medewerkers\" VALUES('".$voornaam."', '".$achternaam."', '".$pers_nr."')";
+           $insert = "INSERT INTO \"tbl_Medewerkers\" VALUES('".$voornaam."', '".$achternaam."', '".$pers_nr."', '".$tussenvoegsel."')";
            $result = pg_query($insert) or die('<h2 class="rood">Query mislukt, neem contact op met het Geolab</h2>');
            echo '<h2>Medewerker ingevoerd.</h2>';
            }

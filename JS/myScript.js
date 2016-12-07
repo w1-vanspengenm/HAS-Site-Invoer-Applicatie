@@ -142,25 +142,21 @@ function handleFile(e) {
     reader.readAsBinaryString(f);
   }
 }
-$(document).ready(function ()
-{
+$(document).ready(function () {
     $('.form').hide();
     $("#output").hide();
-    $("#dropzone").on("dragover", function (e)
-    {
+    $("#dropzone").on("dragover", function (e) {
         e.preventDefault();
         $(this).addClass("selected");
         $(this).text("Laat muis los.");
 
     });
-    $("#dropzone").on("dragleave", function (e)
-    {
+    $("#dropzone").on("dragleave", function (e) {
         e.preventDefault();
         $(this).removeClass("selected");
         $(this).text("Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).");
     });
-    $("#dropzone").on("mouseleave", function ()
-    {
+    $("#dropzone").on("mouseleave", function () {
         $(this).removeClass("selected");
         $(this).text("Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).");
     });
@@ -172,9 +168,12 @@ $(document).ready(function ()
         method: 'post',
         data: serviceName
     })
-    .done(function (data)
-    {
+    .done(function (data) {
         landen = data;
+$.each(landen.features, function (i, land) {
+    land.properties.Landnaam_nl = escape(land.properties.Landnaam_nl);
+    console.log(land.properties.Landnaam_nl);
+});
         var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:universiteiten%20en%20hogescholen&outputFormat=application%2Fjson' };
         $.ajax(
     {
@@ -183,10 +182,9 @@ $(document).ready(function ()
         method: 'post',
         data: serviceName
     })
-    .done(function (data)
-    {
+    .done(function (data) {
         scholen = data;
-        var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:tbl_Opleidingen&outputFormat=application%2Fjson' };
+        var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:Opleidingen&outputFormat=application%2Fjson' };
         $.ajax(
     {
         url: 'PHP/geoproxy.php',
@@ -194,23 +192,19 @@ $(document).ready(function ()
         method: 'post',
         data: serviceName
     })
-    .done(function (data)
-    {
+    .done(function (data) {
         opleidingen = data;
         fill_List(landen, scholen, opleidingen);
     })
-    .fail(function ()
-    {
+    .fail(function () {
         a.render("fout opgetreden bij ophalen van opledingen");
     });
     })
-    .fail(function ()
-    {
+    .fail(function () {
         a.render("fout opgetreden bij ophalen van universiteiten en hogescholen");
     });
     })
-    .fail(function ()
-    {
+    .fail(function () {
         a.render("fout opgetreden bij ophalen van landen");
     });
 });
@@ -267,11 +261,11 @@ function fill_List(landen, scholen, opleidingen)
             if (i == 0)
             {
                 output = '<option disabled selected hidden>Kies een opleiding...</option>';
-                output+='<option value="' + opleiding.id.substring(16, 19)+'">' + opleiding.properties.Opleidingsnaam_nl + '</option>';
+                output+='<option value="' + opleiding.properties.Opledingscode+'">' + opleiding.properties.Opleidingsnaam_nl + '</option>';
             }
             else
             {
-                output += '<option value=' + opleiding.id.substring(16, 19)+ '>' + opleiding.properties.Opleidingsnaam_nl + '</option>';
+                output += '<option value=' + opleiding.properties.Opledingscode+ '>' + opleiding.properties.Opleidingsnaam_nl + '</option>';
             }
         });
         $("#S_opleiding").append(output);
@@ -367,20 +361,10 @@ function handleDrop(e) {
 }
 function outputJsonStage(j)
 {
-    for(i=0; i<j.length; i++)
-    {
-        $.each(landen.features, function (counter, land) {
-            if (j[i].Land == land.properties.Landnaam_nl) {
-                landnaam_en = land.properties.Landnaam_en;
-                return false;
-            }
-        })
-        j[i].Land = landnaam_en;
-        landnaam_en = undefined;
-    }
-output = '<table><tr id="hRow"><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Studentnummer</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
+        output = '<table><tr id="hRow"><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Roepnaam</th><th>Tussenvoegsel</th><th>Achternaam</th><th>Studentnummer</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
     for (i = 0; i < j.length; i++)
             {
+                j[i].Land = escape(j[i].Land);
                 output += '<tr>';
                 output+='<td class="hiddenCell"><img src="Images/kruisBlauw.png" alt="kruis"></td>'
                 output+='<td><input type="text" class="textfield" placeholder="Niet van toepassing" id="STA_opmerking'+i+'" value="" disabled="disabled"></td>';
@@ -440,13 +424,29 @@ output = '<table><tr id="hRow"><th>Opmerking</th><th>Referentie</th><th>Bedrijfn
                {
                    output += '<td><input type="text" class="textfield" id="STA_land'+i+'" value="'+j[i].Land+'"></td>';
                }
-               if(j[i].Student==null)
+               if(j[i].Roepnaam==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_student'+i+'" value="Onbekend"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_roepnaam'+i+'" value="Onbekend"></td>';
                }
                else
                {
-                   output += '<td><input type="text" class="textfield" id="STA_student'+i+'" value="'+j[i].Student+'"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_roepnaam'+i+'" value="'+j[i].Roepnaam+'"></td>';
+               }
+               if(j[i].Tussenv==null)
+               {
+                   output += '<td><input type="text" class="textfield" id="STA_tussenv'+i+'" value=""></td>';
+               }
+               else
+               {
+                   output += '<td><input type="text" class="textfield" id="STA_tussenv'+i+'" value="'+j[i].Tussenv+'"></td>';
+               }
+               if(j[i].Achternaam==null)
+               {
+                   output += '<td><input type="text" class="textfield" id="STA_achternaam'+i+'" value="Onbekend"></td>';
+               }
+               else
+               {
+                   output += '<td><input type="text" class="textfield" id="STA_achternaam'+i+'" value="'+j[i].Achternaam+'"></td>';
                }
                if(j[i].StudNr==null)
                {
@@ -658,7 +658,8 @@ var Adres2Array = [];
 var PostcodeArray = [];
 var PlaatsArray = [];
 var LandArray = [];
-var StudentVoornaamArray = [];
+var StudentRoepnaamArray = [];
+var StudentTussenvoegselArray = [];
 var StudentAchternaamArray = [];
 var StudNrArray = [];
 var OpleidingArray = [];
@@ -677,21 +678,16 @@ var LongitudeArray = [];
         PostcodeArray.push($('#STA_postcode' + i).val());
         PlaatsArray.push($('#STA_plaats' + i).val());
         $.each(landen.features, function (counter, land) {
-            if ($("#STA_land"+i).val() == land.properties.Landnaam_en) {
+            if ($("#STA_land" + i).val() == land.properties.Landnaam_nl) {
                 landcode = land.properties.Landcode;
+                $('#STA_land' + i).val(landcode);
                 return false;
             }
         })
         LandArray.push(landcode);
-        var naam = $("#STA_student"+i).val();
-        var voornaam = naam.substring(0, naam.indexOf(' '));
-        var achternaam = naam.substring(naam.indexOf(' ')+1, naam.length);
-        if(achternaam.indexOf(' ')==0)
-        {
-            var achternaam = naam.substring(naam.indexOf(' ')+2, naam.length);
-        }
-        StudentVoornaamArray.push(voornaam);
-        StudentAchternaamArray.push(achternaam);
+        StudentRoepnaamArray.push($('#STA_roepnaam'+i).val());
+        StudentTussenvoegselArray.push($('#STA_tussenv' + i).val());
+        StudentAchternaamArray.push($('#STA_achternaam' + i).val());
         StudNrArray.push($('#STA_studNr' + i).val());
         OpleidingArray.push($('#STA_opleiding' + i).val());
         StartdatumArray.push($('#STA_startdatum' + i).val());
@@ -709,7 +705,8 @@ var LongitudeArray = [];
             Postcodes: PostcodeArray,
             Plaatsen: PlaatsArray,
             Landen: LandArray,
-            Voornamen: StudentVoornaamArray,
+            Roepnamen: StudentRoepnaamArray,
+            Tussenvoegsels: StudentTussenvoegselArray,
             Achternamen: StudentAchternaamArray,
             Student_nummers: StudNrArray,
             Opleidingen: OpleidingArray,
@@ -730,13 +727,13 @@ var LongitudeArray = [];
         $("#output").html(data);
     })
     .fail(function () {
-        alert("Niet gelukt");
+        a.render("Niet gelukt");
     });
 }
 function rijVerwijderen()
 {
     $(".hiddenCell").css("display", "block");
-    $("#hRow").html('<th></th><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Student</th><th>Studentnummer</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th>');
+    $("#hRow").html('<th></th><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Roepnaam</th><th>Tussenvoegsel</th><th>Achternaam</th><th>Studentnummer</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>');
     $(".hiddenCell img").on("mouseover", function () {
         $(this).prop('src', 'Images/kruisRood.png');
     });

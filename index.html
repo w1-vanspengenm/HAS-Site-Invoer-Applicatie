@@ -16,7 +16,7 @@
         <script src="JS/shim.js"></script>
         <script src="JS/xlsx.core.min.js"></script>
         <!--Linken eigen javascript-->
-        <script src="JS/myScript.js"></script>
+        <script src="JS/myScript.js" charset="utf-8"></script>
         <script src="JS/dialog.js"></script>
     </head>
     <body>
@@ -31,7 +31,7 @@
         <select id="soortBestand" onchange="onSelect()">
             <option disabled selected hidden>Kies optie...</option>
             <option value="stages">Stage in het buitenland</option>
-            <!--<option value="medewerkers">Medewerkers in het buitenland</option>-->
+            <option value="medewerkers">Medewerkers in het buitenland</option>
             <option value="studies">Studies in het buitenland</option>
         </select>
         <form>
@@ -68,6 +68,10 @@
                     <tr>
                     <td><label for="M_voornaam">Vul voornaam van het personeelslid in:</label></td>
                     <td><input type="text" class="textfield" maxlength="20" placeholder="Voornaam" id="M_voornaam" name="M_voornaam" required></td>
+                    </tr>
+                    <tr>
+                    <td><label for="M_tussenv">Vul tussenvoegsel van het personeelslid in:</label></td>
+                    <td><input type="text" name="M_tussenv" id="M_tussenv" class="textfield" maxlength="20" placeholder="Tussenvoegsel"></td>
                     </tr>
                     <tr>
                     <td><label for="M_achternaam">Vul achternaam van het personeelslid in:</label></td>
@@ -145,6 +149,10 @@
                     <tr>
                     <td><label for="S_voornaam">Vul voonaam van de student in:</label></td>
                     <td><input type="text" class="textfield" maxlength="20" placeholder="Voornaam" name="S_voornaam" id="S_voornaam" required></td>
+                    </tr>
+                    <tr>
+                    <td><label for="S_tussenv">Vul tussenvoegsel van de student in:</label></td>
+                    <td><input type="text" name="S_tussenv" id="S_tussenv" class="textfield" maxlength="20" placeholder="Tussenvoegsel"></td>
                     </tr>
                     <tr>
                     <td><label for="S_achternaam">Vul achternaam van de student in:</label></td>
