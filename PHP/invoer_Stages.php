@@ -25,7 +25,7 @@ $Lon=$_POST['Lon'];
 $mislukt=0;
 $duplicaten=0;
 
-$con = pg_connect("host=localhost dbname=HAS user=postgres password=postgres")
+$con = pg_connect("host=localhost dbname=Internationale-kaart user=postgres password=postgres")
 or die('<h2 class="rood">Kan niet verbinden met database, neem contact op met het Geolab</h2>');
 for($i=0; $i<count($Bedrijven); $i++)
 {

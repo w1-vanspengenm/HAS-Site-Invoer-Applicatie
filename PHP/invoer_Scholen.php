@@ -24,7 +24,7 @@ $lon=$_POST['I_lon_onzichtbaar'];
             <h1>Invoer applicatie HAS actuele internationale mobiliteit</h1>
         </div>
         <?php
-           $con = pg_connect("host=localhost dbname=HAS user=postgres password=postgres")
+           $con = pg_connect("host=localhost dbname=Internationale-kaart user=postgres password=postgres")
            or die('<h2 class="rood">Kan niet verbinden met database, neem contact op met het Geolab</h2>');
            $select="select * from \"tbl_Bedrijven/Onderwijsinstellingen\" where \"Latitude\"=".$lat." and \"Longitude\"=".$lon;
            $result=pg_query($select);
