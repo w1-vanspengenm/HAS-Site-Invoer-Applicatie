@@ -6,7 +6,6 @@ var opleidingen; // var voor opslaan van alle opleidingen uit de database
 var landcode; // var voor tijdelijk opslaan 2 letterige landcode
 var landnaam_en; // var voor tijdelijke opslag engelse landnaam
 var postdata;
-
 function GetGoogleGeocoder(address, callback)
 {
     try
@@ -170,10 +169,10 @@ $(document).ready(function () {
     })
     .done(function (data) {
         landen = data;
-$.each(landen.features, function (i, land) {
-    land.properties.Landnaam_nl = escape(land.properties.Landnaam_nl);
-    console.log(land.properties.Landnaam_nl);
-});
+//$.each(landen.features, function (i, land) {
+//    land.properties.Landnaam_nl = escape(land.properties.Landnaam_nl);
+//    console.log(land.properties.Landnaam_nl);
+//});
         var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:universiteiten%20en%20hogescholen&outputFormat=application%2Fjson' };
         $.ajax(
     {
@@ -364,13 +363,12 @@ function outputJsonStage(j)
         output = '<table><tr id="hRow"><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Roepnaam</th><th>Tussenvoegsel</th><th>Achternaam</th><th>Studentnummer</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
     for (i = 0; i < j.length; i++)
             {
-                j[i].Land = escape(j[i].Land);
                 output += '<tr>';
                 output+='<td class="hiddenCell"><img src="Images/kruisBlauw.png" alt="kruis"></td>'
                 output+='<td><input type="text" class="textfield" placeholder="Niet van toepassing" id="STA_opmerking'+i+'" value="" disabled="disabled"></td>';
                 if(j[i].Referentie==null)
                 {
-                    output += '<td><input type="text" class="textfield" id="STA_referentie'+i+'" value="Onbekend"></td>';
+                    output += '<td><input type="text" class="textfield" id="STA_referentie'+i+'" value=""></td>';
                 }
                 else
                 {
@@ -378,7 +376,7 @@ function outputJsonStage(j)
                 }
                 if(j[i].Bedrijf==null)
                 {
-                    output += '<td><input type="text" class="textfield" id="STA_bedrijfsnaam'+i+'" value="Onbekend"></td>';
+                    output += '<td><input type="text" class="textfield" id="STA_bedrijfsnaam'+i+'" value=""></td>';
                 }
                 else
                 {
@@ -386,7 +384,7 @@ function outputJsonStage(j)
                 }
                 if(j[i].Adres1==null)
                 {
-                    output += '<td><input type="text" class="textfield" id="STA_adres1'+i+'" value="Onbekend"></td>';
+                    output += '<td><input type="text" class="textfield" id="STA_adres1'+i+'" value=""></td>';
                 }
                 else
                 {
@@ -394,7 +392,7 @@ function outputJsonStage(j)
                 }
                 if(j[i].Adres2==null)
                 {
-                    output += '<td><input type="text" class="textfield" id="STA_adres2'+i+'" value="Onbekend"></td>';
+                    output += '<td><input type="text" class="textfield" id="STA_adres2'+i+'" value=""></td>';
                 }
                 else
                 {
@@ -402,7 +400,7 @@ function outputJsonStage(j)
                 }
                if(j[i].Postcode==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_postcode'+i+'" value="Onbekend"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_postcode'+i+'" value=""></td>';
                }
                else
                {
@@ -410,7 +408,7 @@ function outputJsonStage(j)
                }
                if(j[i].Plaats==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_plaats'+i+'" value="Onbekend"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_plaats'+i+'" value=""></td>';
                }
                else
                {
@@ -418,7 +416,7 @@ function outputJsonStage(j)
                }
                if(j[i].Land==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_land'+i+'" value="Onbekend"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_land'+i+'" value=""></td>';
                }
                else
                {
@@ -426,7 +424,7 @@ function outputJsonStage(j)
                }
                if(j[i].Roepnaam==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_roepnaam'+i+'" value="Onbekend"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_roepnaam'+i+'" value=""></td>';
                }
                else
                {
@@ -442,7 +440,7 @@ function outputJsonStage(j)
                }
                if(j[i].Achternaam==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_achternaam'+i+'" value="Onbekend"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_achternaam'+i+'" value=""></td>';
                }
                else
                {
@@ -450,7 +448,7 @@ function outputJsonStage(j)
                }
                if(j[i].StudNr==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_studNr'+i+'" value="Onbekend"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_studNr'+i+'" value=""></td>';
                }
                else
                {
@@ -458,7 +456,7 @@ function outputJsonStage(j)
                }
                if(j[i].Opleiding==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_opleiding'+i+'" value="Onbekend"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_opleiding'+i+'" value=""></td>';
                }
                else
                {
@@ -466,7 +464,7 @@ function outputJsonStage(j)
                }
                if(j[i].Afstud_richting==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_afstud_richting'+i+'" value="Onbekend"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_afstud_richting'+i+'" value=""></td>';
                }
                else
                {
@@ -474,7 +472,7 @@ function outputJsonStage(j)
                }
                if(j[i].Startdatum==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_startdatum'+i+'" value="Onbekend"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_startdatum'+i+'" value=""></td>';
                }
                else
                {
@@ -482,7 +480,7 @@ function outputJsonStage(j)
                }
                if(j[i].Einddatum==null)
                {
-                   output += '<td><input type="text" class="textfield" id="STA_einddatum'+i+'" value="Onbekend"></td>';
+                   output += '<td><input type="text" class="textfield" id="STA_einddatum'+i+'" value=""></td>';
                }
                else
                {
@@ -649,7 +647,6 @@ function fillInDataInstelling()
 }
 function fillArray()
 {
-$("#formStages").hide();
 // vars met alle waardes uit de tabel (per kolom)
 var ReferentieArray = [];
 var BedrijfArray = [];
@@ -678,10 +675,14 @@ var LongitudeArray = [];
         PostcodeArray.push($('#STA_postcode' + i).val());
         PlaatsArray.push($('#STA_plaats' + i).val());
         $.each(landen.features, function (counter, land) {
-            if ($("#STA_land" + i).val() == land.properties.Landnaam_nl) {
+            if (verwijderSpecialeTekens($("#STA_land" + i).val()) == verwijderSpecialeTekens(land.properties.Landnaam_nl)) {
                 landcode = land.properties.Landcode;
                 $('#STA_land' + i).val(landcode);
                 return false;
+            }
+            else
+            {
+              landcode = 'N ';
             }
         })
         LandArray.push(landcode);
@@ -743,4 +744,9 @@ function rijVerwijderen()
     $('.hiddenCell img').on("click", function () {
         $(this).parent().parent().fadeOut('slow');
     });
+}
+function verwijderSpecialeTekens(str)
+{
+    var r = str.replace(/[^a-zA-Z ]/g, "");
+    return r;
 }
