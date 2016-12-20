@@ -538,7 +538,7 @@ function getLatLon(j)
             break;
         case "studies":
             $("#output").fadeOut("Fast");
-            var search = $("#I_land option:selected").text() + " " + $("#I_plaats").val() + " " + $("#I_adres1").val() + " " + $('I_postcode');
+            var search = $("#I_land option:selected").text() + " " + $("#I_plaats").val() + " " + $("#I_adres1").val() + " " + $('#I_postcode').val();
             GetNominatimGeocoder(search, function (data)
             {
                 if (data != undefined)

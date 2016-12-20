@@ -24,8 +24,10 @@ $Lat=$_POST['Lat'];
 $Lon=$_POST['Lon'];
 $mislukt=0;
 $duplicaten=0;
-
-$con = pg_connect("host=localhost dbname=Internationale-kaart user=postgres password=postgres")
+session_start();
+if(isset($_SESSION['username']) && isset($_SESSION['ww']))
+{
+$con = pg_connect("host=localhost dbname=Internationale-kaart user=".$_SESSION['username']." password=".$_SESSION['ww'])
 or die('<h2 class="rood">Kan niet verbinden met database, neem contact op met het Geolab</h2>');
 for($i=0; $i<count($Bedrijven); $i++)
 {
@@ -101,4 +103,9 @@ else
     echo 'Alle data ingevuld.';
 }
 pg_close($con);
+}
+else
+{
+    die("Log in aub'<input type=\"button\" value=\"Ga terug naar login\" onclick=\"window.location.href = '../index.php'; \">");
+}
 ?>

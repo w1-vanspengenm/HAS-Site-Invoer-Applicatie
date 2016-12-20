@@ -24,7 +24,10 @@ $eindDatum=$_POST['S_eindDatum'];
             <h1>Invoer applicatie HAS actuele internationale mobiliteit</h1>
         </div>
         <?php
-           $con = pg_connect("host=localhost dbname=Internationale-kaart user=postgres password=postgres")
+            session_start();
+            if(isset($_SESSION['username']) && isset($_SESSION['ww']))
+            {
+           $con = pg_connect("host=localhost dbname=Internationale-kaart user=".$_SESSION['username']." password=".$_SESSION['ww'])
            or die('<h2 class="rood">Kan niet verbinden met database, neem contact op met het Geolab</h2>');
            $select="select * from \"tbl_Studenten\" where \"Student_nr\"='".$stud_nr."'";
            $result=pg_query($select);
@@ -51,7 +54,12 @@ $eindDatum=$_POST['S_eindDatum'];
                echo '<h2 class="rood">Studie bestaat al.</h2>';
            }
            pg_close($con);
+           }
+           else
+           {
+               die("Log in aub'<input type=\"button\" value=\"Ga terug naar login\" onclick=\"window.location.href = '../index.php'; \">");
+           }
         ?>
-        <input type="button" value="Ga terug naar home" onclick="window.location.href = '../index.html'; ">
+        <input type="button" value="Ga terug naar home" onclick="window.location.href = '../main.html'; ">
     </body>
 </html>

@@ -31,6 +31,9 @@ $postcode=$_POST['M_postcode'];
             <h1>Invoer applicatie HAS actuele internationale mobiliteit</h1>
         </div>
         <?php
+            session_start();
+            if(isset($_SESSION['username']) && isset($_SESSION['ww']))
+            {
            $con = pg_connect("host=localhost dbname=Internationale-kaart user=postgres password=postgres")
            or die('<h2 class="rood">Kan niet verbinden met database, neem contact op met het Geolab</h2>');
            $select="select * from \"tbl_Medewerkers\" where \"Medewerkers_nr\"='".$pers_nr."'";
@@ -57,7 +60,12 @@ $postcode=$_POST['M_postcode'];
                echo'<h2 class="rood">Activiteit bestaat al.</h2>';
            }
            pg_close($con);
+           }
+           else
+           {
+               die("Log in aub'<input type=\"button\" value=\"Ga terug naar login\" onclick=\"window.location.href = '../index.php'; \">");
+           }
         ?>
-        <input type="button" value="Ga terug naar home" onclick="window.location.href = '../index.html'; ">
+        <input type="button" value="Ga terug naar home" onclick="window.location.href = '../main.html'; ">
     </body>
 </html>
