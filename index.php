@@ -14,6 +14,13 @@
             <img src="Images/has_logo.png" alt="HAS logo">
             <h1>Invoer applicatie HAS actuele internationale mobiliteit</h1>
         </div>
+        <?php
+    session_start();
+    if(isset($_SESSION['username']) && isset($_SESSION['ww']))
+    {
+        die("U bent al aangemeld'<input type=\"button\" value=\"Ga terug naar invoer\" onclick=\"window.location.href = 'main.html'; \">");
+    }
+        ?>
         <div id="formLogin" class="form">
             <form method="post">
                 <table class="formTable">
@@ -35,7 +42,7 @@
                 {
                     $username=$_POST['username'];
                     $ww=$_POST['ww'];
-                    session_start();
+                 
                     $_SESSION['username']=$username;
                     $_SESSION['ww']=$ww;
                     $con = pg_connect("host=localhost dbname=Internationale-kaart user=".$username." password=".$ww)
