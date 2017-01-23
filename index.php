@@ -18,7 +18,7 @@
     session_start();
     if(isset($_SESSION['username']) && isset($_SESSION['ww']))
     {
-        die("U bent al aangemeld'<input type=\"button\" value=\"Ga terug naar invoer\" onclick=\"window.location.href = 'main.html'; \">");
+        die("U bent al aangemeld<input type=\"button\" value=\"Ga terug naar invoer\" onclick=\"window.location.href = 'main.html'; \">");
     }
         ?>
         <div id="formLogin" class="form">
@@ -42,11 +42,10 @@
                 {
                     $username=$_POST['username'];
                     $ww=$_POST['ww'];
-                 
-                    $_SESSION['username']=$username;
-                    $_SESSION['ww']=$ww;
                     $con = pg_connect("host=localhost dbname=Internationale-kaart user=".$username." password=".$ww)
                     or die ('verkeerd wachtwoord of gebruikersnaam');
+                    $_SESSION['username']=$username;
+                    $_SESSION['ww']=$ww;
                     pg_close($con);
                     header('Location: main.html');
                 }

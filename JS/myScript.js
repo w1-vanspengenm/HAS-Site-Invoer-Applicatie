@@ -5,7 +5,7 @@ var scholen; // var voor opslaan van alle partner instellingen uit de database
 var opleidingen; // var voor opslaan van alle opleidingen uit de database
 var landcode; // var voor tijdelijk opslaan 2 letterige landcode
 var landnaam_en; // var voor tijdelijke opslag engelse landnaam
-var postdata;
+var postdata; // var voor de mee te sturen data bij het invoeren van stages
 function GetGoogleGeocoder(address, callback)
 {
     try
@@ -120,6 +120,7 @@ function checkFileType(files) //Controleert of bestand ondersteund wordt en geef
 // Converteert sheet naar binary en kiest juist outputfunctie
 function handleFile(e) {
   $("#output").fadeOut(100);
+  console.log(e);
   var files = e.target.files;
   var i,f;
   checkFileType(files);
@@ -169,10 +170,6 @@ $(document).ready(function () {
     })
     .done(function (data) {
         landen = data;
-//$.each(landen.features, function (i, land) {
-//    land.properties.Landnaam_nl = escape(land.properties.Landnaam_nl);
-//    console.log(land.properties.Landnaam_nl);
-//});
         var serviceName = { url: 'http://localhost:8080/geoserver/Internationale-kaart/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=Internationale-kaart:universiteiten%20en%20hogescholen&outputFormat=application%2Fjson' };
         $.ajax(
     {
@@ -360,6 +357,29 @@ function handleDrop(e) {
 }
 function outputJsonStage(j)
 {
+    var kop1, kop2, kop3;
+    var koppen = Object.keys(j[0]);
+    for (i = 0; i<koppen.length; i++ )
+    {
+        if(koppen[i]=="Referentie")
+        {
+            kop1 = true;
+        }
+        else if(koppen[i]=='Roepnaam')
+        {
+            kop2 = true;
+        }
+        else if(koppen[i]=='StudNr')
+        {
+            kop3 = true;
+        }
+    }
+    if (kop1!=true||kop2!=true||kop3!=true)
+    {
+        a.render('Dit is een ongeschikt bestand om te importeren');
+        return false;
+    }
+
         output = '<table><tr id="hRow"><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Roepnaam</th><th>Tussenvoegsel</th><th>Achternaam</th><th>Studentnummer</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>';
     for (i = 0; i < j.length; i++)
             {
@@ -603,7 +623,7 @@ function getLatLon(j)
                 $("#adresCheckStages").prop('value', Math.round(i / j.length * 100) + '%');
             }
             $("#submit_Stages").prop('disabled', false);
-            $('#adresCheckStages').prop('value', 'Adres opniew controleren');
+            $('#adresCheckStages').prop('value', 'Adres opnieuw controleren');
             break;
     }
 }
@@ -731,7 +751,7 @@ var LongitudeArray = [];
         a.render("Niet gelukt");
     });
 }
-function rijVerwijderen()
+function rijVerwijderen() // verbergt rijen die niet ingevoerd hoeven te worden in de database
 {
     $(".hiddenCell").css("display", "block");
     $("#hRow").html('<th></th><th>Opmerking</th><th>Referentie</th><th>Bedrijfnaam</th><th>Adres1</th><th>Adres2</th><th>Postcode</th><th>Plaats</th><th>Land</th><th>Roepnaam</th><th>Tussenvoegsel</th><th>Achternaam</th><th>Studentnummer</th><th>Opleiding</th><th>Afstudeerrichting</th><th>Startdatum</th><th>Einddatum</th><th>Latitude</th><th>Longitude</th></tr>');
@@ -747,6 +767,6 @@ function rijVerwijderen()
 }
 function verwijderSpecialeTekens(str)
 {
-    var r = str.replace(/[^a-zA-Z ]/g, "");
+    var r = str.replace(/[^a-zA-Z ]/g, ""); //regex haalt speciale tekens weg
     return r;
 }

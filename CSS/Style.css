@@ -34,7 +34,7 @@ h1, h2, h3, h4, h5
 }
 .selected /*actief als de gebruiker een bestand over dropzone sleept*/
 {
-    background-color: #0084C9;
+    background-color: #8CD600;
     font-weight: bold;
     font-family: Verdana;
     color: #8CD600;
