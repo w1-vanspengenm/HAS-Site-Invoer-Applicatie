@@ -34,7 +34,7 @@ $eindDatum=$_POST['S_eindDatum'];
            $numRows=pg_num_rows($result);
            if($numRows==0)
            {
-               $insert="INSERT INTO \"tbl_Studenten\"VALUES('".$voornaam."', '".$achternaam."', '".$opleiding."', '".$stud_nr."', '".$tussenvoegsel."')";
+               $insert="INSERT INTO \"tbl_Studenten\"VALUES('".pg_escape_string($voornaam)."', '".pg_escape_string($achternaam)."', '".$opleiding."', '".pg_escape_string($stud_nr)."', '".pg_escape_string($tussenvoegsel)."')";
                $result = pg_query($insert) or die('<h2 class="rood">Query mislukt, neem contact op met het Geolab</h2>');
                echo '<h2>Student ingevoerd.</h2>';
            }
@@ -43,7 +43,7 @@ $eindDatum=$_POST['S_eindDatum'];
            $numRows=pg_num_rows($result);
            if($numRows==0)
            {
-               $insert="INSERT INTO \"tbl_Studies\"VALUES('".$startDatum."', '".$eindDatum."', ".$insellingID.", '".$stud_nr."')";
+               $insert="INSERT INTO \"tbl_Studies\"VALUES('".$startDatum."', '".$eindDatum."', ".$insellingID.", '".pg_escape_string($stud_nr)."')";
                $result = pg_query($insert) or die('<h2 class="rood">Query mislukt, neem contact op met het Geolab</h2>');
                echo "<h2>Studie ingevoerd.</h2>";
                $update="UPDATE \"tbl_Bedrijven/Onderwijsinstellingen\" set \"Studie_mogelijkheid\"='t' where \"Instelling_ID\"=".$insellingID;
@@ -60,6 +60,6 @@ $eindDatum=$_POST['S_eindDatum'];
                die("Log in aub'<input type=\"button\" value=\"Ga terug naar login\" onclick=\"window.location.href = '../index.php'; \">");
            }
         ?>
-        <input type="button" value="Ga terug naar home" onclick="window.location.href = '../main.html'; ">
+        <input type="button" value="Ga terug naar invoer" onclick="window.location.href = '../main.html'; ">
     </body>
 </html>

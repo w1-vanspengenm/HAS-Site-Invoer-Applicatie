@@ -43,7 +43,7 @@ for($i=0; $i<count($Bedrijven); $i++)
         if($numRows==0)
         {
                $insert="INSERT INTO \"tbl_Bedrijven/Onderwijsinstellingen\" (\"Instelling_naam\", \"Adres_1\", \"Adres_2\", \"Plaats\", \"Landcode\", \"Latitude\", \"Longitude\", \"Studie_mogelijkheid\", \"Postcode\")";
-               $insert.="VALUES ('".$Bedrijven[$i]."', '".$adres1[$i]."', '".$adres2[$i]."', '".$Plaatsen[$i]."', '".$Landen[$i]."', ".$Lat[$i].", ".$Lon[$i].", "."'f'".", '".$Postcodes[$i]."')";
+               $insert.="VALUES ('".pg_escape_string($Bedrijven[$i])."', '".pg_escape_string($adres1[$i])."', '".pg_escape_string($adres2[$i])."', '".pg_escape_string($Plaatsen[$i])."', '".pg_escape_string($Landen[$i])."', ".$Lat[$i].", ".$Lon[$i].", "."'f'".", '".pg_escape_string($Postcodes[$i])."')";
                $result = pg_query($insert) or $mislukt++;
         }
         else
@@ -59,7 +59,7 @@ for($i=0; $i<count($Student_nummers); $i++)
            $numRows=pg_num_rows($result);
            if($numRows==0)
            {
-               $insert="INSERT INTO \"tbl_Studenten\"VALUES('".$Voornamen[$i]."', '".$Achternamen[$i]."', '".$Opleidingen[$i]."', '".$Student_nummers[$i]."', '".$Tussenvoegsels[$i]."')";
+               $insert="INSERT INTO \"tbl_Studenten\"VALUES('".pg_escape_string($Voornamen[$i])."', '".pg_escape_string($Achternamen[$i])."', '".pg_escape_string($Opleidingen[$i])."', '".pg_escape_string($Student_nummers[$i])."', '".pg_escape_string($Tussenvoegsels[$i])."')";
                $result = pg_query($insert) or $mislukt++;
            }
            else
@@ -85,7 +85,7 @@ for($i=0; $i<count($Referenties); $i++)
         }
         else
         {
-               $insert="INSERT INTO \"tbl_Stages\"VALUES('".$StartDatumms[$i]."', '".$EindDatums[$i]."', ".$BedrijfsNummer.", '".$Student_nummers[$i]."' , '".$Referenties[$i]."')";
+               $insert="INSERT INTO \"tbl_Stages\"VALUES('".$StartDatumms[$i]."', '".$EindDatums[$i]."', ".$BedrijfsNummer.", '".pg_escape_string($Student_nummers[$i])."' , '".pg_escape_string($Referenties[$i])."')";
                $result = pg_query($insert) or $mislukt++;
         }
     }

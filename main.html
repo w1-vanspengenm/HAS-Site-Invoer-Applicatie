@@ -34,9 +34,10 @@
             <!--<option value="medewerkers">Medewerkers in het buitenland</option>-->
             <option value="studies">Minors abroad</option>
         </select>
+        <br>
+        <br>
         <form>
         <div id="formStages" class="form">
-        <br>
         <label for="fileSelect">
             Selecteer een Excel sheet:
         </label>
@@ -45,7 +46,6 @@
         <h3>of</h3>
         <br>
         <div id="dropzone" ondrop="handleDrop(event)">Sleep het (Excel) bestand hierin (werkt niet bij alle browsers).</div>
-        <br>
         <input type="button" class="hiddenButtons" value="Adres controleren" id="adresCheckStages" onclick="getLatLon(j);">
         <input type="button" class="hiddenButtons" value="Rij verwijderen" id="rijVerwijder" onclick="rijVerwijderen();">
         <input type="button" id="submit_Stages" class="hiddenButtons" value="Gegevens opslaan in database" disabled="disabled" onclick="fillArray();">

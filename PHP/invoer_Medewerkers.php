@@ -34,14 +34,14 @@ $postcode=$_POST['M_postcode'];
             session_start();
             if(isset($_SESSION['username']) && isset($_SESSION['ww']))
             {
-           $con = pg_connect("host=localhost dbname=Internationale-kaart user=postgres password=postgres")
+           $con = pg_connect("host=localhost dbname=Internationale-kaart user=".$_SESSION['username']." password=".$_SESSION['ww'])
            or die('<h2 class="rood">Kan niet verbinden met database, neem contact op met het Geolab</h2>');
            $select="select * from \"tbl_Medewerkers\" where \"Medewerkers_nr\"='".$pers_nr."'";
            $result=pg_query($select);
            $numRows=pg_num_rows($result);
            if($numRows==0)
            {
-           $insert = "INSERT INTO \"tbl_Medewerkers\" VALUES('".$voornaam."', '".$achternaam."', '".$pers_nr."', '".$tussenvoegsel."')";
+           $insert = "INSERT INTO \"tbl_Medewerkers\" VALUES('".pg_escape_string($voornaam)."', '".pg_escape_string($achternaam)."', '".pg_escape_string($pers_nr)."', '".pg_escape_string($tussenvoegsel)."')";
            $result = pg_query($insert) or die('<h2 class="rood">Query mislukt, neem contact op met het Geolab</h2>');
            echo '<h2>Medewerker ingevoerd.</h2>';
            }
@@ -51,7 +51,7 @@ $postcode=$_POST['M_postcode'];
            if($numRows==0)
            {
                $insert="INSERT INTO \"tbl_Medewerker_activiteit\" (\"Medewerkers_nr\", \"Omschrijving\", \"Plaats\", \"Landcode\", \"Latitude\", \"Longitude\", \"Start_datum\", \"Eind_datum\", \"Adres1\", \"Adres2\", \"Postcode\")";
-               $insert.="VALUES ('".$pers_nr."', '".$omschrijving."', '".$plaats."', '".$land."', ".$lat.", ".$lon.", '".$startDatum."', '".$eindDatum."', '".$adres1."', '".$adres2."', '".$postcode."')";
+               $insert.="VALUES ('".pg_escape_string($pers_nr)."', '".pg_escape_string($omschrijving)."', '".pg_escape_string($plaats)."', '".pg_escape_string($land)."', ".$lat.", ".$lon.", '".$startDatum."', '".$eindDatum."', '".pg_escape_string($adres1)."', '".pg_escape_string($adres2)."', '".pg_escape_string($postcode)."')";
                $result=pg_query($insert) or die ('<h2 class="rood">Query mislukt, neem contact op met het Geolab</h2>');
                echo '<h2>Activiteit ingevoerd.</h2>'; 
            }

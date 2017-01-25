@@ -35,7 +35,7 @@ $lon=$_POST['I_lon_onzichtbaar'];
            if($numRows==0)
            {
                $insert="INSERT INTO \"tbl_Bedrijven/Onderwijsinstellingen\" (\"Instelling_naam\", \"Adres_1\", \"Adres_2\", \"Plaats\", \"Landcode\", \"Latitude\", \"Longitude\", \"Studie_mogelijkheid\", \"Postcode\")";
-               $insert.="VALUES ('".$instellingNaam."', '".$adres1."', '".$adres2."', '".$plaats."', '".$land."', ".$lat.", ".$lon.", "."'t'".", '".$postcode."')";
+               $insert.="VALUES ('".pg_escape_string($instellingNaam)."', '".pg_escape_string($adres1)."', '".pg_escape_string($adres2)."', '".pg_escape_string($plaats)."', '".pg_escape_string($land)."', ".$lat.", ".$lon.", "."'t'".", '".pg_escape_string($postcode)."')";
                $result=pg_query($insert) or die ('<h2 class="rood">Query mislukt, neem contact op met het Geolab</h2>');
                echo '<h2>Instelling ingevoerd.</h2>';
            }
@@ -50,6 +50,6 @@ $lon=$_POST['I_lon_onzichtbaar'];
                die("Log in aub'<input type=\"button\" value=\"Ga terug naar login\" onclick=\"window.location.href = '../index.php'; \">");
            }
         ?>
-        <input type="button" value="Ga terug naar home" onclick="window.location.href = '../main.html'; ">
+        <input type="button" value="Ga terug naar invoer" onclick="window.location.href = '../main.html'; ">
     </body>
 </html>

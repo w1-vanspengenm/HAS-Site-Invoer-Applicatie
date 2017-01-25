@@ -377,6 +377,8 @@ function outputJsonStage(j)
     if (kop1!=true||kop2!=true||kop3!=true)
     {
         a.render('Dit is een ongeschikt bestand om te importeren');
+        $("#fileSelect").val("");
+        $(".hiddenButtons").fadeOut(100);
         return false;
     }
 
