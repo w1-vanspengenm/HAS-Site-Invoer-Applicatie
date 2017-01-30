@@ -120,7 +120,6 @@ function checkFileType(files) //Controleert of bestand ondersteund wordt en geef
 // Converteert sheet naar binary en kiest juist outputfunctie
 function handleFile(e) {
   $("#output").fadeOut(100);
-  console.log(e);
   var files = e.target.files;
   var i,f;
   checkFileType(files);
@@ -193,15 +192,15 @@ $(document).ready(function () {
         fill_List(landen, scholen, opleidingen);
     })
     .fail(function () {
-        a.render("fout opgetreden bij ophalen van opledingen");
+        a.render("Fout opgetreden bij ophalen van opledingen");
     });
     })
     .fail(function () {
-        a.render("fout opgetreden bij ophalen van universiteiten en hogescholen");
+        a.render("Fout opgetreden bij ophalen van universiteiten en hogescholen");
     });
     })
     .fail(function () {
-        a.render("fout opgetreden bij ophalen van landen");
+        a.render("Fout opgetreden bij ophalen van landen");
     });
 });
 function fill_List(landen, scholen, opleidingen)
@@ -310,7 +309,7 @@ function refillInstellingenList()
             }
         })
         .fail(function () {
-            a.render("fout opgetreden bij ophalen van instellingen")
+            a.render("Fout opgetreden bij ophalen van instellingen")
         });
 }
 function fill_List_Check()
@@ -335,7 +334,7 @@ function handleDrop(e) {
     // tijdelijke oplossing zodat de functie maar 1 bestand tegelijk verwerkt
     if(files.length!=1)
     {
-        a.render('Gebruik 1 bestand tegelijk.');
+        a.render('Gebruik 1 bestand tegelijk');
     }
     else
     {
@@ -550,7 +549,7 @@ function getLatLon(j)
                         }
                         else
                         {
-                            a.render('Adres niet gevonden.')
+                            a.render('Adres niet gevonden')
                             $("#I_lat_zichtbaar").css("border", "1px solid #f00");
                             $("#I_lon_zichtbaar").css("border", "1px solid #f00");
                         }
@@ -587,7 +586,7 @@ function getLatLon(j)
                         }
                         else
                         {
-                            a.render('Adres niet gevonden.');
+                            a.render('Adres niet gevonden');
                             $("#I_lat_zichtbaar").css("border", "1px solid #f00");
                             $("#I_lon_zichtbaar").css("border", "1px solid #f00");
                         }
@@ -614,7 +613,7 @@ function getLatLon(j)
                                 $('#STA_opmerking' + i).val('');
                             }
                             else {
-                                $('#STA_opmerking' + i).val("Adres niet gevonden.")
+                                $('#STA_opmerking' + i).val("Adres niet gevonden")
                                 $('#STA_opmerking' + i).parent().parent().children().children().addClass("rood");
                                 console.log(i + " Niet gevonden(" + search + ')');
                             }
@@ -750,7 +749,7 @@ var LongitudeArray = [];
         $("#output").html(data);
     })
     .fail(function () {
-        a.render("Niet gelukt");
+        a.render("Fout opgetreden bij invoer stages, probeer het later opnieuw");
     });
 }
 function rijVerwijderen() // verbergt rijen die niet ingevoerd hoeven te worden in de database
